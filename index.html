@@ -19,95 +19,134 @@
     }
     .container {
       padding: 24px 18px;
+      max-width: 600px;
+      margin: 0 auto;
     }
     .logo {
-      font-size: 28px;
+      font-size: 29px;
       font-weight: 800;
-      letter-spacing: 2px;
+      letter-spacing: 3px;
     }
     .subtitle {
-      color: #8b8b95;
-      margin-top: 6px;
-      font-size: 14px;
-      letter-spacing: 1px;
+      color: #777780;
+      margin-top: 5px;
+      font-size: 13px;
+      letter-spacing: 2px;
     }
     .user {
-      margin-top: 20px;
-      color: #8b8b95;
+      margin-top: 22px;
+      color: #777780;
       font-size: 13px;
     }
     .user span {
       color: #ffffff;
-      font-weight: bold;
+      font-weight: 700;
     }
     .balance {
-      margin-top: 22px;
-      padding: 20px;
-      background: #151519;
-      border-radius: 20px;
-      border: 1px solid #222228;
+      margin-top: 20px;
+      padding: 22px;
+      background: linear-gradient(145deg, #18181d, #111114);
+      border-radius: 22px;
+      border: 1px solid #292930;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
     }
     .balance-title {
-      color: #8b8b95;
-      font-size: 13px;
-      letter-spacing: 1px;
+      color: #85858f;
+      font-size: 12px;
+      letter-spacing: 1.5px;
     }
     .balance-value {
-      font-size: 30px;
-      font-weight: bold;
-      margin-top: 8px;
+      font-size: 34px;
+      font-weight: 800;
+      margin-top: 9px;
+      min-height: 40px;
+    }
+    .loading {
+      color: #777780;
+      opacity: 0.4;
+      animation: pulse 1.2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 1;
+      }
     }
     .balance-currency {
-      color: #8b8b95;
+      color: #777780;
       font-size: 13px;
-      margin-top: 4px;
+      margin-top: 3px;
     }
     .menu {
-      margin-top: 24px;
+      margin-top: 22px;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
     .card {
       background: #151519;
-      border-radius: 18px;
+      border-radius: 19px;
       padding: 18px;
+      border: 1px solid #24242b;
       cursor: pointer;
-      border: 1px solid #222228;
-      transition: 0.15s;
+      transition: transform 0.15s, border-color 0.15s;
     }
     .card:active {
       transform: scale(0.97);
+      border-color: #44444d;
     }
     .icon {
-      font-size: 28px;
+      font-size: 27px;
     }
     .card-title {
       margin-top: 12px;
-      font-weight: bold;
-      font-size: 15px;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.3px;
     }
     .card-text {
       margin-top: 5px;
-      color: #8b8b95;
-      font-size: 12px;
+      color: #777780;
+      font-size: 11px;
       line-height: 1.4;
     }
     .status {
-      margin-top: 20px;
+      margin-top: 18px;
       padding: 14px 16px;
       background: #111114;
-      border-radius: 14px;
-      color: #a0a0a8;
+      border-radius: 15px;
+      border: 1px solid #1e1e23;
+      color: #777780;
       font-size: 12px;
       text-align: center;
       word-break: break-word;
     }
+    .status.connected {
+      color: #9a9aa3;
+    }
     .footer {
-      margin-top: 30px;
+      margin-top: 28px;
+      padding-bottom: 10px;
       text-align: center;
-      color: #55555f;
-      font-size: 12px;
+      color: #44444c;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+    @media (max-width: 360px) {
+      .container {
+        padding: 20px 14px;
+      }
+      .card {
+        padding: 15px;
+      }
+      .card-title {
+        font-size: 13px;
+      }
+      .balance-value {
+        font-size: 30px;
+      }
     }
   </style>
 </head>
@@ -120,39 +159,55 @@
 </div>
 <div class="balance">
   <div class="balance-title">VANTA ACCOUNT</div>
-  <div class="balance-value" id="balance">—</div>
-  <div class="balance-currency">VNT</div>
+  <div class="balance-value loading" id="balance">
+    •••
+  </div>
+  <div class="balance-currency">
+    VNT
+  </div>
 </div>
 <div class="menu">
   <div class="card" onclick="openSection('p2p')">
     <div class="icon">🤝</div>
     <div class="card-title">P2P MARKET</div>
-    <div class="card-text">Обмен между пользователями</div>
+    <div class="card-text">
+      Обмен между пользователями
+    </div>
   </div>
   <div class="card" onclick="openSection('convert')">
     <div class="icon">🔄</div>
     <div class="card-title">CONVERT</div>
-    <div class="card-text">Конвертация валют</div>
+    <div class="card-text">
+      Конвертация валют
+    </div>
   </div>
   <div class="card" onclick="openSection('markets')">
     <div class="icon">📈</div>
     <div class="card-title">MARKETS</div>
-    <div class="card-text">Курсы валют и крипты</div>
+    <div class="card-text">
+      Курсы валют и крипты
+    </div>
   </div>
   <div class="card" onclick="openSection('deals')">
     <div class="icon">📑</div>
     <div class="card-title">MY DEALS</div>
-    <div class="card-text">Активные сделки</div>
+    <div class="card-text">
+      Активные сделки
+    </div>
   </div>
   <div class="card" onclick="openSection('profile')">
     <div class="icon">👤</div>
     <div class="card-title">PROFILE</div>
-    <div class="card-text">VANTA ID и репутация</div>
+    <div class="card-text">
+      VANTA ID и репутация
+    </div>
   </div>
   <div class="card" onclick="openSection('status')">
     <div class="icon">💎</div>
     <div class="card-title">STATUS</div>
-    <div class="card-text">Basic · Pro · Elite</div>
+    <div class="card-text">
+      Basic · Pro · Elite
+    </div>
   </div>
 </div>
 <div class="status" id="status">
@@ -169,10 +224,15 @@
     const API_URL =
       "https://nwbzyziszijhqtkdhhog.supabase.co/functions/v1/clever-task";
     async function connectVanta() {
-      const user = tg.initDataUnsafe && tg.initDataUnsafe.user;
+      const user =
+        tg.initDataUnsafe &&
+        tg.initDataUnsafe.user;
       if (!user || !user.id) {
-        document.getElementById("username").textContent = "Telegram User";
-        document.getElementById("balance").textContent = "—";
+        document.getElementById("username").textContent =
+          "Telegram User";
+        document.getElementById("balance").textContent =
+          "—";
+        document.getElementById("balance").classList.remove("loading");
         document.getElementById("status").textContent =
           "Откройте VANTA через Telegram";
         return;
@@ -180,7 +240,8 @@
       const username = user.username
         ? "@" + user.username
         : (user.first_name || "User");
-      document.getElementById("username").textContent = username;
+      document.getElementById("username").textContent =
+        username;
       try {
         const response = await fetch(API_URL, {
           method: "POST",
@@ -190,49 +251,99 @@
             first_name: user.first_name || null
           })
         });
-        const responseText = await response.text();
+        const responseText =
+          await response.text();
         let data;
         try {
           data = JSON.parse(responseText);
         } catch {
           throw new Error(
-            "Неверный ответ сервера: " + responseText
+            "Неверный ответ сервера: " +
+            responseText
           );
         }
-        if (!response.ok || !data.success) {
-          const serverError =
+        if (!response.ok) {
+          throw new Error(
             data.error ||
             data.message ||
-            JSON.stringify(data);
-          throw new Error(serverError);
+            JSON.stringify(data)
+          );
         }
-        const vantaUser = data.user;
-        document.getElementById("balance").textContent =
-          Number(vantaUser.balance || 0).toLocaleString("ru-RU");
+        if (!data.success) {
+          throw new Error(
+            data.error ||
+            data.message ||
+            JSON.stringify(data)
+          );
+        }
+        if (!data.user) {
+          throw new Error(
+            "Сервер не вернул пользователя"
+          );
+        }
+        const vantaUser =
+          data.user;
+        const balanceElement =
+          document.getElementById("balance");
+        balanceElement.classList.remove("loading");
+        balanceElement.textContent =
+          Number(
+            vantaUser.balance || 0
+          ).toLocaleString("ru-RU");
         document.getElementById("status").textContent =
           "● VANTA ACCOUNT подключён";
+        document.getElementById("status")
+          .classList.add("connected");
       } catch (error) {
-        let errorText = "Неизвестная ошибка";
+        let errorText =
+          "Неизвестная ошибка";
         if (error instanceof Error) {
-          errorText = error.message;
-        } else if (typeof error === "object") {
+          errorText =
+            error.message;
+        } else if (
+          typeof error === "object"
+        ) {
           try {
-            errorText = JSON.stringify(error);
+            errorText =
+              JSON.stringify(error);
           } catch {
-            errorText = String(error);
+            errorText =
+              String(error);
           }
         } else {
-          errorText = String(error);
+          errorText =
+            String(error);
         }
-        console.error("VANTA API ERROR:", errorText);
-        document.getElementById("balance").textContent = "—";
+        console.error(
+          "VANTA API ERROR:",
+          errorText
+        );
+        const balanceElement =
+          document.getElementById("balance");
+        balanceElement.classList.remove("loading");
+        balanceElement.textContent =
+          "—";
         document.getElementById("status").textContent =
           "Ошибка API: " + errorText;
-        alert("VANTA API ERROR: " + errorText);
+        alert(
+          "VANTA API ERROR: " +
+          errorText
+        );
       }
     }
     function openSection(section) {
-      alert("Раздел " + section + " скоро будет доступен.");
+      const names = {
+        p2p: "P2P MARKET",
+        convert: "CONVERT",
+        markets: "MARKETS",
+        deals: "MY DEALS",
+        profile: "PROFILE",
+        status: "STATUS"
+      };
+      alert(
+        names[section] +
+        " скоро будет доступен."
+      );
     }
     connectVanta();
   </script>
