@@ -13,14 +13,17 @@
     }
     body {
       background: #0b0b0d;
-      color: #ffffff;
+      color: #fff;
       font-family: Arial, sans-serif;
       min-height: 100vh;
     }
+    button {
+      font-family: inherit;
+    }
     .container {
-      padding: 24px 18px;
       max-width: 600px;
       margin: 0 auto;
+      padding: 24px 18px 35px;
     }
     .logo {
       font-size: 29px;
@@ -39,7 +42,7 @@
       font-size: 13px;
     }
     .user span {
-      color: #ffffff;
+      color: #fff;
       font-weight: 700;
     }
     .balance {
@@ -48,7 +51,6 @@
       background: linear-gradient(145deg, #18181d, #111114);
       border-radius: 22px;
       border: 1px solid #292930;
-      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
     }
     .balance-title {
       color: #85858f;
@@ -59,25 +61,24 @@
       font-size: 34px;
       font-weight: 800;
       margin-top: 9px;
-      min-height: 40px;
-    }
-    .loading {
-      color: #777780;
-      opacity: 0.4;
-      animation: pulse 1.2s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% {
-        opacity: 0.3;
-      }
-      50% {
-        opacity: 1;
-      }
     }
     .balance-currency {
       color: #777780;
       font-size: 13px;
       margin-top: 3px;
+    }
+    .loading {
+      color: #777780;
+      opacity: .4;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        opacity: .3;
+      }
+      50% {
+        opacity: 1;
+      }
     }
     .menu {
       margin-top: 22px;
@@ -91,11 +92,10 @@
       padding: 18px;
       border: 1px solid #24242b;
       cursor: pointer;
-      transition: transform 0.15s, border-color 0.15s;
+      transition: .15s;
     }
     .card:active {
-      transform: scale(0.97);
-      border-color: #44444d;
+      transform: scale(.97);
     }
     .icon {
       font-size: 27px;
@@ -104,7 +104,6 @@
       margin-top: 12px;
       font-weight: 700;
       font-size: 14px;
-      letter-spacing: 0.3px;
     }
     .card-text {
       margin-top: 5px;
@@ -123,98 +122,292 @@
       text-align: center;
       word-break: break-word;
     }
-    .status.connected {
-      color: #9a9aa3;
-    }
     .footer {
       margin-top: 28px;
-      padding-bottom: 10px;
       text-align: center;
       color: #44444c;
       font-size: 11px;
-      letter-spacing: 0.5px;
     }
-    @media (max-width: 360px) {
-      .container {
-        padding: 20px 14px;
-      }
-      .card {
-        padding: 15px;
-      }
-      .card-title {
-        font-size: 13px;
-      }
-      .balance-value {
-        font-size: 30px;
-      }
+    /* P2P */
+    .screen {
+      display: none;
+    }
+    .screen.active {
+      display: block;
+    }
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: none;
+      border: none;
+      color: #8c8c95;
+      font-size: 14px;
+      padding: 0;
+      margin-bottom: 24px;
+      cursor: pointer;
+    }
+    .screen-title {
+      font-size: 27px;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .screen-subtitle {
+      margin-top: 6px;
+      color: #777780;
+      font-size: 13px;
+    }
+    .p2p-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 22px;
+    }
+    .action-btn {
+      border: 1px solid #292930;
+      background: #151519;
+      color: #fff;
+      border-radius: 15px;
+      padding: 15px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .action-btn:active {
+      transform: scale(.97);
+    }
+    .create-btn {
+      width: 100%;
+      margin-top: 10px;
+      border: none;
+      background: #fff;
+      color: #0b0b0d;
+      border-radius: 15px;
+      padding: 16px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .market-title {
+      margin-top: 28px;
+      margin-bottom: 12px;
+      color: #85858f;
+      font-size: 12px;
+      letter-spacing: 1.5px;
+    }
+    .offer {
+      background: #151519;
+      border: 1px solid #24242b;
+      border-radius: 18px;
+      padding: 17px;
+      margin-bottom: 10px;
+    }
+    .offer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .offer-name {
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .offer-type {
+      color: #8b8b95;
+      font-size: 11px;
+    }
+    .offer-amount {
+      margin-top: 14px;
+      font-size: 21px;
+      font-weight: 800;
+    }
+    .offer-price {
+      margin-top: 4px;
+      color: #777780;
+      font-size: 12px;
+    }
+    .offer-btn {
+      width: 100%;
+      margin-top: 14px;
+      background: #202026;
+      color: #fff;
+      border: 1px solid #2c2c34;
+      border-radius: 12px;
+      padding: 12px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .empty {
+      padding: 30px 15px;
+      background: #111114;
+      border: 1px solid #1e1e23;
+      border-radius: 17px;
+      text-align: center;
+      color: #66666f;
+      font-size: 13px;
+    }
+    .notice {
+      margin-top: 16px;
+      padding: 13px;
+      border-radius: 13px;
+      background: #111114;
+      color: #66666f;
+      font-size: 11px;
+      line-height: 1.5;
+      text-align: center;
     }
   </style>
 </head>
 <body>
+  <!-- ГЛАВНАЯ -->
   <div class="container">
-<div class="logo">VANTA</div>
-<div class="subtitle">EXCHANGE</div>
-<div class="user">
-  VANTA ID: <span id="username">Загрузка...</span>
+<div id="homeScreen" class="screen active">
+  <div class="logo">VANTA</div>
+  <div class="subtitle">EXCHANGE</div>
+  <div class="user">
+    VANTA ID:
+    <span id="username">Загрузка...</span>
+  </div>
+  <div class="balance">
+    <div class="balance-title">
+      VANTA ACCOUNT
+    </div>
+    <div class="balance-value loading" id="balance">
+      •••
+    </div>
+    <div class="balance-currency">
+      VNT
+    </div>
+  </div>
+  <div class="menu">
+    <div class="card" onclick="openSection('p2p')">
+      <div class="icon">🤝</div>
+      <div class="card-title">P2P MARKET</div>
+      <div class="card-text">
+        Обмен между пользователями
+      </div>
+    </div>
+    <div class="card" onclick="openSection('convert')">
+      <div class="icon">🔄</div>
+      <div class="card-title">CONVERT</div>
+      <div class="card-text">
+        Конвертация валют
+      </div>
+    </div>
+    <div class="card" onclick="openSection('markets')">
+      <div class="icon">📈</div>
+      <div class="card-title">MARKETS</div>
+      <div class="card-text">
+        Курсы валют и крипты
+      </div>
+    </div>
+    <div class="card" onclick="openSection('deals')">
+      <div class="icon">📑</div>
+      <div class="card-title">MY DEALS</div>
+      <div class="card-text">
+        Активные сделки
+      </div>
+    </div>
+    <div class="card" onclick="openSection('profile')">
+      <div class="icon">👤</div>
+      <div class="card-title">PROFILE</div>
+      <div class="card-text">
+        VANTA ID и репутация
+      </div>
+    </div>
+    <div class="card" onclick="openSection('status')">
+      <div class="icon">💎</div>
+      <div class="card-title">STATUS</div>
+      <div class="card-text">
+        Basic · Pro · Elite
+      </div>
+    </div>
+  </div>
+  <div class="status" id="status">
+    Подключение к VANTA...
+  </div>
+  <div class="footer">
+    VANTA EXCHANGE © 2026
+  </div>
 </div>
-<div class="balance">
-  <div class="balance-title">VANTA ACCOUNT</div>
-  <div class="balance-value loading" id="balance">
-    •••
+<!-- P2P -->
+<div id="p2pScreen" class="screen">
+  <button class="back" onclick="showHome()">
+    ← Назад
+  </button>
+  <div class="screen-title">
+    P2P MARKET
   </div>
-  <div class="balance-currency">
-    VNT
+  <div class="screen-subtitle">
+    Обмен VNT между пользователями
   </div>
-</div>
-<div class="menu">
-  <div class="card" onclick="openSection('p2p')">
-    <div class="icon">🤝</div>
-    <div class="card-title">P2P MARKET</div>
-    <div class="card-text">
-      Обмен между пользователями
+  <div class="p2p-actions">
+    <button
+      class="action-btn"
+      onclick="filterOffers('buy')">
+      🟢 Купить VNT
+    </button>
+    <button
+      class="action-btn"
+      onclick="filterOffers('sell')">
+      🔴 Продать VNT
+    </button>
+  </div>
+  <button
+    class="create-btn"
+    onclick="createOffer()">
+    ＋ Создать объявление
+  </button>
+  <div class="market-title">
+    АКТИВНЫЕ ОБЪЯВЛЕНИЯ
+  </div>
+  <div id="offers">
+    <div class="offer">
+      <div class="offer-top">
+        <div class="offer-name">
+          VANTA User
+        </div>
+        <div class="offer-type">
+          ПРОДАЁТ
+        </div>
+      </div>
+      <div class="offer-amount">
+        1 000 VNT
+      </div>
+      <div class="offer-price">
+        Цена: 1 VNT
+      </div>
+      <button
+        class="offer-btn"
+        onclick="openOffer()">
+        Открыть сделку
+      </button>
+    </div>
+    <div class="offer">
+      <div class="offer-top">
+        <div class="offer-name">
+          VANTA User
+        </div>
+        <div class="offer-type">
+          ПРОДАЁТ
+        </div>
+      </div>
+      <div class="offer-amount">
+        500 VNT
+      </div>
+      <div class="offer-price">
+        Цена: 1 VNT
+      </div>
+      <button
+        class="offer-btn"
+        onclick="openOffer()">
+        Открыть сделку
+      </button>
     </div>
   </div>
-  <div class="card" onclick="openSection('convert')">
-    <div class="icon">🔄</div>
-    <div class="card-title">CONVERT</div>
-    <div class="card-text">
-      Конвертация валют
-    </div>
+  <div class="notice">
+    P2P работает с виртуальными VNT.
+    Реальные деньги пока не используются.
   </div>
-  <div class="card" onclick="openSection('markets')">
-    <div class="icon">📈</div>
-    <div class="card-title">MARKETS</div>
-    <div class="card-text">
-      Курсы валют и крипты
-    </div>
-  </div>
-  <div class="card" onclick="openSection('deals')">
-    <div class="icon">📑</div>
-    <div class="card-title">MY DEALS</div>
-    <div class="card-text">
-      Активные сделки
-    </div>
-  </div>
-  <div class="card" onclick="openSection('profile')">
-    <div class="icon">👤</div>
-    <div class="card-title">PROFILE</div>
-    <div class="card-text">
-      VANTA ID и репутация
-    </div>
-  </div>
-  <div class="card" onclick="openSection('status')">
-    <div class="icon">💎</div>
-    <div class="card-title">STATUS</div>
-    <div class="card-text">
-      Basic · Pro · Elite
-    </div>
-  </div>
-</div>
-<div class="status" id="status">
-  Подключение к VANTA...
-</div>
-<div class="footer">
-  VANTA EXCHANGE © 2026
 </div>
   </div>
   <script>
@@ -223,6 +416,7 @@
     tg.expand();
     const API_URL =
       "https://nwbzyziszijhqtkdhhog.supabase.co/functions/v1/clever-task";
+    /* ПОДКЛЮЧЕНИЕ ПОЛЬЗОВАТЕЛЯ */
     async function connectVanta() {
       const user =
         tg.initDataUnsafe &&
@@ -232,30 +426,36 @@
           "Telegram User";
         document.getElementById("balance").textContent =
           "—";
-        document.getElementById("balance").classList.remove("loading");
+        document.getElementById("balance")
+          .classList.remove("loading");
         document.getElementById("status").textContent =
           "Откройте VANTA через Telegram";
         return;
       }
-      const username = user.username
-        ? "@" + user.username
-        : (user.first_name || "User");
+      const username =
+        user.username
+          ? "@" + user.username
+          : (user.first_name || "User");
       document.getElementById("username").textContent =
         username;
       try {
-        const response = await fetch(API_URL, {
-          method: "POST",
-          body: JSON.stringify({
-            telegram_id: user.id,
-            username: user.username || null,
-            first_name: user.first_name || null
-          })
-        });
+        const response =
+          await fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify({
+              telegram_id: user.id,
+              username:
+                user.username || null,
+              first_name:
+                user.first_name || null
+            })
+          });
         const responseText =
           await response.text();
         let data;
         try {
-          data = JSON.parse(responseText);
+          data =
+            JSON.parse(responseText);
         } catch {
           throw new Error(
             "Неверный ответ сервера: " +
@@ -285,24 +485,23 @@
           data.user;
         const balanceElement =
           document.getElementById("balance");
-        balanceElement.classList.remove("loading");
+        balanceElement
+          .classList
+          .remove("loading");
         balanceElement.textContent =
           Number(
             vantaUser.balance || 0
           ).toLocaleString("ru-RU");
-        document.getElementById("status").textContent =
-          "● VANTA ACCOUNT подключён";
         document.getElementById("status")
-          .classList.add("connected");
+          .textContent =
+          "● VANTA ACCOUNT подключён";
       } catch (error) {
         let errorText =
           "Неизвестная ошибка";
         if (error instanceof Error) {
           errorText =
             error.message;
-        } else if (
-          typeof error === "object"
-        ) {
+        } else {
           try {
             errorText =
               JSON.stringify(error);
@@ -310,9 +509,6 @@
             errorText =
               String(error);
           }
-        } else {
-          errorText =
-            String(error);
         }
         console.error(
           "VANTA API ERROR:",
@@ -320,29 +516,57 @@
         );
         const balanceElement =
           document.getElementById("balance");
-        balanceElement.classList.remove("loading");
+        balanceElement
+          .classList
+          .remove("loading");
         balanceElement.textContent =
           "—";
-        document.getElementById("status").textContent =
-          "Ошибка API: " + errorText;
+        document.getElementById("status")
+          .textContent =
+          "Ошибка API: " +
+          errorText;
+      }
+    }
+    /* НАВИГАЦИЯ */
+    function openSection(section) {
+      if (section === "p2p") {
+        document.getElementById("homeScreen")
+          .classList.remove("active");
+        document.getElementById("p2pScreen")
+          .classList.add("active");
+        return;
+      }
+      alert(
+        section.toUpperCase() +
+        " скоро будет доступен."
+      );
+    }
+    function showHome() {
+      document.getElementById("p2pScreen")
+        .classList.remove("active");
+      document.getElementById("homeScreen")
+        .classList.add("active");
+    }
+    /* P2P */
+    function filterOffers(type) {
+      if (type === "buy") {
         alert(
-          "VANTA API ERROR: " +
-          errorText
+          "Раздел покупки VNT готовим к подключению."
+        );
+      } else {
+        alert(
+          "Раздел продажи VNT готовим к подключению."
         );
       }
     }
-    function openSection(section) {
-      const names = {
-        p2p: "P2P MARKET",
-        convert: "CONVERT",
-        markets: "MARKETS",
-        deals: "MY DEALS",
-        profile: "PROFILE",
-        status: "STATUS"
-      };
+    function createOffer() {
       alert(
-        names[section] +
-        " скоро будет доступен."
+        "Создание объявления подключим следующим этапом."
+      );
+    }
+    function openOffer() {
+      alert(
+        "Открытие сделки подключим следующим этапом."
       );
     }
     connectVanta();
