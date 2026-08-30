@@ -13,12 +13,12 @@
     }
     body {
       background: #0b0b0d;
-      color: #fff;
+      color: #ffffff;
       font-family: Arial, sans-serif;
       min-height: 100vh;
     }
     button {
-      font-family: inherit;
+      font-family: Arial, sans-serif;
     }
     .container {
       max-width: 600px;
@@ -42,7 +42,7 @@
       font-size: 13px;
     }
     .user span {
-      color: #fff;
+      color: #ffffff;
       font-weight: 700;
     }
     .balance {
@@ -51,6 +51,7 @@
       background: linear-gradient(145deg, #18181d, #111114);
       border-radius: 22px;
       border: 1px solid #292930;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.25);
     }
     .balance-title {
       color: #85858f;
@@ -61,24 +62,25 @@
       font-size: 34px;
       font-weight: 800;
       margin-top: 9px;
+      min-height: 40px;
+    }
+    .loading {
+      color: #777780;
+      opacity: 0.4;
+      animation: pulse 1s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.3;
+      }
+      50% {
+        opacity: 1;
+      }
     }
     .balance-currency {
       color: #777780;
       font-size: 13px;
       margin-top: 3px;
-    }
-    .loading {
-      color: #777780;
-      opacity: .4;
-      animation: pulse 1s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% {
-        opacity: .3;
-      }
-      50% {
-        opacity: 1;
-      }
     }
     .menu {
       margin-top: 22px;
@@ -92,10 +94,10 @@
       padding: 18px;
       border: 1px solid #24242b;
       cursor: pointer;
-      transition: .15s;
+      transition: 0.15s;
     }
     .card:active {
-      transform: scale(.97);
+      transform: scale(0.97);
     }
     .icon {
       font-size: 27px;
@@ -129,17 +131,14 @@
       font-size: 11px;
     }
     /* P2P */
-    .screen {
+    #p2pScreen {
       display: none;
-    }
-    .screen.active {
-      display: block;
     }
     .back {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      background: none;
+      background: transparent;
       border: none;
       color: #8c8c95;
       font-size: 14px;
@@ -148,7 +147,7 @@
       cursor: pointer;
     }
     .screen-title {
-      font-size: 27px;
+      font-size: 28px;
       font-weight: 800;
       letter-spacing: 1px;
     }
@@ -166,27 +165,30 @@
     .action-btn {
       border: 1px solid #292930;
       background: #151519;
-      color: #fff;
+      color: #ffffff;
       border-radius: 15px;
-      padding: 15px;
-      font-size: 14px;
+      padding: 15px 10px;
+      font-size: 13px;
       font-weight: 700;
       cursor: pointer;
     }
     .action-btn:active {
-      transform: scale(.97);
+      transform: scale(0.97);
     }
     .create-btn {
       width: 100%;
       margin-top: 10px;
       border: none;
-      background: #fff;
+      background: #ffffff;
       color: #0b0b0d;
       border-radius: 15px;
       padding: 16px;
       font-size: 14px;
       font-weight: 800;
       cursor: pointer;
+    }
+    .create-btn:active {
+      transform: scale(0.98);
     }
     .market-title {
       margin-top: 28px;
@@ -213,7 +215,8 @@
     }
     .offer-type {
       color: #8b8b95;
-      font-size: 11px;
+      font-size: 10px;
+      letter-spacing: 1px;
     }
     .offer-amount {
       margin-top: 14px;
@@ -229,21 +232,15 @@
       width: 100%;
       margin-top: 14px;
       background: #202026;
-      color: #fff;
+      color: #ffffff;
       border: 1px solid #2c2c34;
       border-radius: 12px;
       padding: 12px;
       font-weight: 700;
       cursor: pointer;
     }
-    .empty {
-      padding: 30px 15px;
-      background: #111114;
-      border: 1px solid #1e1e23;
-      border-radius: 17px;
-      text-align: center;
-      color: #66666f;
-      font-size: 13px;
+    .offer-btn:active {
+      transform: scale(0.98);
     }
     .notice {
       margin-top: 16px;
@@ -258,11 +255,13 @@
   </style>
 </head>
 <body>
-  <!-- ГЛАВНАЯ -->
   <div class="container">
-<div id="homeScreen" class="screen active">
+<!-- HOME -->
+<div id="homeScreen">
   <div class="logo">VANTA</div>
-  <div class="subtitle">EXCHANGE</div>
+  <div class="subtitle">
+    EXCHANGE
+  </div>
   <div class="user">
     VANTA ID:
     <span id="username">Загрузка...</span>
@@ -271,7 +270,9 @@
     <div class="balance-title">
       VANTA ACCOUNT
     </div>
-    <div class="balance-value loading" id="balance">
+    <div
+      class="balance-value loading"
+      id="balance">
       •••
     </div>
     <div class="balance-currency">
@@ -279,59 +280,87 @@
     </div>
   </div>
   <div class="menu">
-    <div class="card" onclick="openSection('p2p')">
+    <div
+      class="card"
+      onclick="openSection('p2p')">
       <div class="icon">🤝</div>
-      <div class="card-title">P2P MARKET</div>
+      <div class="card-title">
+        P2P MARKET
+      </div>
       <div class="card-text">
         Обмен между пользователями
       </div>
     </div>
-    <div class="card" onclick="openSection('convert')">
+    <div
+      class="card"
+      onclick="openSection('convert')">
       <div class="icon">🔄</div>
-      <div class="card-title">CONVERT</div>
+      <div class="card-title">
+        CONVERT
+      </div>
       <div class="card-text">
         Конвертация валют
       </div>
     </div>
-    <div class="card" onclick="openSection('markets')">
+    <div
+      class="card"
+      onclick="openSection('markets')">
       <div class="icon">📈</div>
-      <div class="card-title">MARKETS</div>
+      <div class="card-title">
+        MARKETS
+      </div>
       <div class="card-text">
         Курсы валют и крипты
       </div>
     </div>
-    <div class="card" onclick="openSection('deals')">
+    <div
+      class="card"
+      onclick="openSection('deals')">
       <div class="icon">📑</div>
-      <div class="card-title">MY DEALS</div>
+      <div class="card-title">
+        MY DEALS
+      </div>
       <div class="card-text">
         Активные сделки
       </div>
     </div>
-    <div class="card" onclick="openSection('profile')">
+    <div
+      class="card"
+      onclick="openSection('profile')">
       <div class="icon">👤</div>
-      <div class="card-title">PROFILE</div>
+      <div class="card-title">
+        PROFILE
+      </div>
       <div class="card-text">
         VANTA ID и репутация
       </div>
     </div>
-    <div class="card" onclick="openSection('status')">
+    <div
+      class="card"
+      onclick="openSection('status')">
       <div class="icon">💎</div>
-      <div class="card-title">STATUS</div>
+      <div class="card-title">
+        STATUS
+      </div>
       <div class="card-text">
         Basic · Pro · Elite
       </div>
     </div>
   </div>
-  <div class="status" id="status">
+  <div
+    class="status"
+    id="status">
     Подключение к VANTA...
   </div>
   <div class="footer">
     VANTA EXCHANGE © 2026
   </div>
 </div>
-<!-- P2P -->
-<div id="p2pScreen" class="screen">
-  <button class="back" onclick="showHome()">
+<!-- P2P SCREEN -->
+<div id="p2pScreen">
+  <button
+    class="back"
+    onclick="showHome()">
     ← Назад
   </button>
   <div class="screen-title">
@@ -416,19 +445,23 @@
     tg.expand();
     const API_URL =
       "https://nwbzyziszijhqtkdhhog.supabase.co/functions/v1/clever-task";
-    /* ПОДКЛЮЧЕНИЕ ПОЛЬЗОВАТЕЛЯ */
+    /* CONNECT VANTA */
     async function connectVanta() {
       const user =
         tg.initDataUnsafe &&
         tg.initDataUnsafe.user;
       if (!user || !user.id) {
-        document.getElementById("username").textContent =
+        document.getElementById("username")
+          .textContent =
           "Telegram User";
-        document.getElementById("balance").textContent =
+        document.getElementById("balance")
+          .textContent =
           "—";
         document.getElementById("balance")
-          .classList.remove("loading");
-        document.getElementById("status").textContent =
+          .classList
+          .remove("loading");
+        document.getElementById("status")
+          .textContent =
           "Откройте VANTA через Telegram";
         return;
       }
@@ -436,7 +469,8 @@
         user.username
           ? "@" + user.username
           : (user.first_name || "User");
-      document.getElementById("username").textContent =
+      document.getElementById("username")
+        .textContent =
         username;
       try {
         const response =
@@ -514,12 +548,11 @@
           "VANTA API ERROR:",
           errorText
         );
-        const balanceElement =
-          document.getElementById("balance");
-        balanceElement
+        document.getElementById("balance")
           .classList
           .remove("loading");
-        balanceElement.textContent =
+        document.getElementById("balance")
+          .textContent =
           "—";
         document.getElementById("status")
           .textContent =
@@ -527,13 +560,14 @@
           errorText;
       }
     }
-    /* НАВИГАЦИЯ */
+    /* NAVIGATION */
     function openSection(section) {
       if (section === "p2p") {
         document.getElementById("homeScreen")
-          .classList.remove("active");
+          .style.display = "none";
         document.getElementById("p2pScreen")
-          .classList.add("active");
+          .style.display = "block";
+        window.scrollTo(0, 0);
         return;
       }
       alert(
@@ -543,32 +577,34 @@
     }
     function showHome() {
       document.getElementById("p2pScreen")
-        .classList.remove("active");
+        .style.display = "none";
       document.getElementById("homeScreen")
-        .classList.add("active");
+        .style.display = "block";
+      window.scrollTo(0, 0);
     }
-    /* P2P */
+    /* P2P BUTTONS */
     function filterOffers(type) {
       if (type === "buy") {
         alert(
-          "Раздел покупки VNT готовим к подключению."
+          "Покупка VNT будет подключена следующим этапом."
         );
       } else {
         alert(
-          "Раздел продажи VNT готовим к подключению."
+          "Продажа VNT будет подключена следующим этапом."
         );
       }
     }
     function createOffer() {
       alert(
-        "Создание объявления подключим следующим этапом."
+        "Создание объявления будет подключено следующим этапом."
       );
     }
     function openOffer() {
       alert(
-        "Открытие сделки подключим следующим этапом."
+        "Открытие сделки будет подключено следующим этапом."
       );
     }
+    /* START */
     connectVanta();
   </script>
 </body>
