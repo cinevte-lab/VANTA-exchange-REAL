@@ -2,36 +2,38 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+
 <title>VANTA EXCHANGE</title>
+
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
   padding:0;
   -webkit-tap-highlight-color:transparent;
 }
+
 :root{
   --bg:#050507;
-  --panel:rgba(16,16,22,.62);
-  --panel2:rgba(255,255,255,.045);
+  --panel:rgba(17,17,23,.72);
   --border:rgba(255,255,255,.09);
-  --text:#fff;
-  --muted:#777783;
-  --purple:#9b72ff;
+  --purple:#8b5cf6;
   --purple2:#6d28d9;
-  --blue:#536dff;
+  --text:#fff;
+  --muted:#777782;
 }
+
 html,
 body{
-  width:100%;
   min-height:100%;
   background:#050507;
 }
+
 body{
-  position:relative;
-  overflow-x:hidden;
   color:var(--text);
   font-family:
     -apple-system,
@@ -40,221 +42,154 @@ body{
     "Segoe UI",
     Arial,
     sans-serif;
-}
-/* =========================================
-   ANIMATED BACKGROUND
-========================================= */
-.background{
-  position:fixed;
-  inset:0;
-  z-index:-10;
-  overflow:hidden;
+
+  overflow-x:hidden;
+
   background:
+    radial-gradient(
+      circle at 15% 10%,
+      rgba(139,92,246,.28),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 90% 25%,
+      rgba(109,40,217,.24),
+      transparent 30%
+    ),
     radial-gradient(
       circle at 50% 100%,
-      #100b1e 0%,
-      #07070a 48%,
-      #030304 100%
-    );
+      rgba(124,58,237,.18),
+      transparent 35%
+    ),
+    #050507;
+
+  position:relative;
 }
-.background::before{
+
+/* ANIMATED LIGHT */
+
+body:before,
+body:after{
   content:"";
-  position:absolute;
-  inset:-30%;
-  background:
-    radial-gradient(
-      circle at 20% 25%,
-      rgba(139,92,246,.28),
-      transparent 22%
-    ),
-    radial-gradient(
-      circle at 80% 20%,
-      rgba(83,109,255,.20),
-      transparent 23%
-    ),
-    radial-gradient(
-      circle at 55% 75%,
-      rgba(109,40,217,.22),
-      transparent 24%
-    );
-  filter:blur(45px);
-  animation:
-    backgroundMove 16s ease-in-out infinite alternate;
-}
-.background::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  opacity:.35;
-  background-image:
-    linear-gradient(
-      rgba(255,255,255,.025) 1px,
-      transparent 1px
-    ),
-    linear-gradient(
-      90deg,
-      rgba(255,255,255,.025) 1px,
-      transparent 1px
-    );
-  background-size:45px 45px;
-  mask-image:linear-gradient(
-    to bottom,
-    black,
-    transparent 75%
-  );
-}
-@keyframes backgroundMove{
-  0%{
-    transform:
-      translate3d(-4%,-2%,0)
-      scale(1);
-  }
-  50%{
-    transform:
-      translate3d(5%,4%,0)
-      scale(1.08);
-  }
-  100%{
-    transform:
-      translate3d(-2%,7%,0)
-      scale(1.04);
-  }
-}
-/* =========================================
-   GLOW ORBS
-========================================= */
-.orb{
   position:fixed;
-  z-index:-5;
+  width:330px;
+  height:330px;
   border-radius:50%;
   pointer-events:none;
-  filter:blur(70px);
-  opacity:.35;
+  filter:blur(80px);
+  z-index:-1;
 }
-.orb.one{
-  width:180px;
-  height:180px;
-  top:8%;
-  right:-80px;
-  background:#7c3aed;
-  animation:orbOne 12s ease-in-out infinite;
+
+body:before{
+  background:rgba(139,92,246,.20);
+  top:-120px;
+  left:-100px;
+  animation:orbOne 12s ease-in-out infinite alternate;
 }
-.orb.two{
-  width:150px;
-  height:150px;
-  left:-80px;
-  top:48%;
-  background:#4f46e5;
-  animation:orbTwo 15s ease-in-out infinite;
+
+body:after{
+  background:rgba(91,33,182,.18);
+  right:-120px;
+  bottom:-100px;
+  animation:orbTwo 15s ease-in-out infinite alternate;
 }
-.orb.three{
-  width:180px;
-  height:180px;
-  right:-70px;
-  bottom:5%;
-  background:#9333ea;
-  animation:orbThree 13s ease-in-out infinite;
-}
+
 @keyframes orbOne{
-  0%,100%{
-    transform:translate(0,0);
+  0%{
+    transform:translate(0,0) scale(1);
   }
   50%{
-    transform:translate(-50px,80px);
+    transform:translate(120px,100px) scale(1.3);
+  }
+  100%{
+    transform:translate(20px,220px) scale(.9);
   }
 }
+
 @keyframes orbTwo{
-  0%,100%{
-    transform:translate(0,0);
+  0%{
+    transform:translate(0,0) scale(1);
   }
   50%{
-    transform:translate(70px,-60px);
+    transform:translate(-120px,-100px) scale(1.25);
+  }
+  100%{
+    transform:translate(-20px,-200px) scale(.9);
   }
 }
-@keyframes orbThree{
-  0%,100%{
-    transform:translate(0,0);
-  }
-  50%{
-    transform:translate(-60px,-80px);
-  }
+
+button,
+input,
+select{
+  font:inherit;
 }
-/* =========================================
-   APP
-========================================= */
+
+button{
+  border:0;
+}
+
 .app{
   width:100%;
   max-width:620px;
-  min-height:100vh;
   margin:auto;
-  padding:
-    calc(22px + env(safe-area-inset-top))
-    17px
-    calc(45px + env(safe-area-inset-bottom));
+  padding:22px 17px 50px;
 }
-/* =========================================
-   SCREEN
-========================================= */
+
 .screen{
   display:none;
+  animation:screenIn .25s ease;
 }
+
 .screen.active{
   display:block;
-  animation:screenIn .35s cubic-bezier(.2,.8,.2,1);
 }
+
 @keyframes screenIn{
   from{
     opacity:0;
-    transform:translateY(14px) scale(.985);
+    transform:translateY(12px);
   }
   to{
     opacity:1;
-    transform:translateY(0) scale(1);
+    transform:translateY(0);
   }
 }
-/* =========================================
-   HEADER
-========================================= */
+
+/* HEADER */
+
 .header{
   display:flex;
-  align-items:flex-start;
   justify-content:space-between;
+  align-items:flex-start;
 }
-.brand-wrap{
-  position:relative;
-}
+
 .brand{
   font-size:31px;
-  line-height:1;
   font-weight:950;
   letter-spacing:5px;
-  text-shadow:
-    0 0 28px rgba(155,114,255,.3);
 }
+
 .brand-sub{
-  margin-top:6px;
-  color:#666672;
+  margin-top:4px;
+  color:#6c6c77;
   font-size:8px;
-  font-weight:800;
-  letter-spacing:4px;
+  letter-spacing:5px;
 }
+
 .online{
   display:flex;
   align-items:center;
   gap:7px;
   padding:8px 11px;
   border-radius:999px;
-  background:rgba(255,255,255,.045);
-  border:1px solid rgba(255,255,255,.09);
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.05),
-    0 8px 30px rgba(0,0,0,.2);
+  background:rgba(255,255,255,.035);
+  border:1px solid var(--border);
   color:#85858f;
-  font-size:8px;
+  font-size:9px;
   font-weight:800;
-  letter-spacing:1px;
-  backdrop-filter:blur(16px);
+  backdrop-filter:blur(15px);
 }
+
 .dot{
   width:6px;
   height:6px;
@@ -263,1679 +198,1634 @@ body{
   box-shadow:
     0 0 8px #8b5cf6,
     0 0 18px rgba(139,92,246,.8);
-  animation:pulse 2s ease-in-out infinite;
 }
-@keyframes pulse{
-  0%,100%{
-    opacity:.55;
-    transform:scale(.85);
-  }
-  50%{
-    opacity:1;
-    transform:scale(1.15);
-  }
-}
-/* =========================================
-   USER
-========================================= */
+
+/* USER */
+
 .user{
-  margin-top:28px;
-  color:#666671;
-  font-size:10px;
-  letter-spacing:.4px;
+  margin-top:25px;
+  color:#666670;
+  font-size:11px;
 }
+
 .user strong{
-  color:#e4e4eb;
-  font-weight:800;
+  color:#e5e5eb;
 }
-/* =========================================
-   BALANCE
-========================================= */
+
+/* BALANCE */
+
 .balance{
   position:relative;
   overflow:hidden;
+
   margin-top:13px;
-  min-height:166px;
-  padding:24px;
-  border-radius:28px;
+  min-height:150px;
+  padding:25px;
+
+  border-radius:27px;
+
   background:
     linear-gradient(
-      135deg,
-      rgba(255,255,255,.085),
+      145deg,
+      rgba(255,255,255,.09),
       rgba(255,255,255,.025)
     );
-  border:1px solid rgba(255,255,255,.105);
+
+  border:1px solid rgba(255,255,255,.10);
+
   box-shadow:
-    0 30px 80px rgba(0,0,0,.38),
-    inset 0 1px 0 rgba(255,255,255,.07);
-  backdrop-filter:blur(25px);
+    0 30px 80px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.06);
+
+  backdrop-filter:blur(20px);
 }
-.balance::before{
+
+.balance:before{
   content:"";
   position:absolute;
-  width:280px;
-  height:280px;
-  right:-150px;
-  top:-170px;
+  width:230px;
+  height:230px;
+  right:-110px;
+  top:-120px;
   border-radius:50%;
-  background:
-    radial-gradient(
-      circle,
-      rgba(139,92,246,.38),
-      transparent 68%
-    );
-  animation:balanceGlow 6s ease-in-out infinite;
+  background:rgba(139,92,246,.24);
+  filter:blur(35px);
+  animation:balanceGlow 6s ease-in-out infinite alternate;
 }
-.balance::after{
-  content:"";
-  position:absolute;
-  left:-20%;
-  bottom:-75px;
-  width:140%;
-  height:110px;
-  background:
-    radial-gradient(
-      ellipse,
-      rgba(109,40,217,.16),
-      transparent 70%
-    );
-  filter:blur(20px);
-}
+
 @keyframes balanceGlow{
-  0%,100%{
-    transform:scale(1);
-    opacity:.7;
+  from{
+    transform:scale(.8);
+    opacity:.5;
   }
-  50%{
-    transform:scale(1.18);
+  to{
+    transform:scale(1.25);
     opacity:1;
   }
 }
+
 .balance-label{
   position:relative;
   z-index:2;
-  color:#777783;
-  font-size:8px;
-  font-weight:850;
-  letter-spacing:2.5px;
+  color:#777782;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:2px;
 }
+
 .balance-value{
   position:relative;
   z-index:2;
-  margin-top:10px;
+  margin-top:9px;
   min-height:43px;
-  font-size:38px;
-  line-height:1.1;
+  font-size:37px;
   font-weight:900;
-  letter-spacing:-1.5px;
-  text-shadow:
-    0 0 30px rgba(255,255,255,.12);
+  letter-spacing:-1px;
 }
+
 .balance-currency{
   position:relative;
   z-index:2;
-  margin-top:5px;
-  color:#666672;
+  margin-top:3px;
+  color:#686873;
   font-size:10px;
-  font-weight:700;
-  letter-spacing:1px;
 }
-/* =========================================
-   MENU
-========================================= */
+
+/* MENU */
+
 .menu{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:11px;
-  margin-top:18px;
+  margin-top:17px;
 }
+
 .card{
   position:relative;
   overflow:hidden;
-  min-height:142px;
+
+  min-height:140px;
   padding:18px;
-  border-radius:23px;
+
+  border-radius:22px;
+
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.065),
+      rgba(255,255,255,.075),
       rgba(255,255,255,.018)
     );
-  border:1px solid rgba(255,255,255,.075);
+
+  border:1px solid var(--border);
+
   box-shadow:
-    0 15px 45px rgba(0,0,0,.22),
+    0 15px 40px rgba(0,0,0,.20),
     inset 0 1px 0 rgba(255,255,255,.035);
-  backdrop-filter:blur(20px);
+
+  backdrop-filter:blur(18px);
+
   cursor:pointer;
-  transition:
-    transform .18s ease,
-    border-color .18s ease,
-    background .18s ease,
-    box-shadow .18s ease;
+  transition:.18s ease;
 }
-.card::before{
+
+.card:before{
   content:"";
   position:absolute;
   width:100px;
   height:100px;
-  right:-50px;
-  top:-50px;
+  right:-55px;
+  bottom:-60px;
   border-radius:50%;
-  background:rgba(139,92,246,.10);
-  filter:blur(25px);
-  transition:.3s;
+  background:rgba(139,92,246,.13);
+  filter:blur(20px);
 }
-.card:hover{
-  border-color:rgba(155,114,255,.22);
-  box-shadow:
-    0 18px 55px rgba(0,0,0,.3),
-    0 0 35px rgba(139,92,246,.07);
-}
-.card:hover::before{
-  transform:scale(1.5);
-}
+
 .card:active{
-  transform:scale(.96);
-  background:rgba(139,92,246,.08);
+  transform:scale(.965);
+  border-color:rgba(139,92,246,.35);
 }
+
 .icon{
-  position:relative;
   width:44px;
   height:44px;
+
   display:flex;
   align-items:center;
   justify-content:center;
+
   border-radius:14px;
+
   background:
     linear-gradient(
       145deg,
-      rgba(155,114,255,.17),
-      rgba(109,40,217,.06)
+      rgba(139,92,246,.17),
+      rgba(109,40,217,.05)
     );
-  border:1px solid rgba(155,114,255,.16);
-  color:#cbb8ff;
-  font-size:20px;
+
+  border:1px solid rgba(139,92,246,.18);
+
+  color:#c8b5ff;
+  font-size:21px;
+
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.06),
-    0 8px 25px rgba(109,40,217,.10);
+    0 8px 25px rgba(109,40,217,.12);
 }
+
 .card-title{
-  margin-top:15px;
+  margin-top:14px;
   font-size:13px;
   font-weight:900;
-  letter-spacing:.2px;
 }
+
 .card-text{
   margin-top:5px;
-  color:#6d6d78;
-  font-size:9px;
-  line-height:1.55;
+  color:#6f6f79;
+  font-size:10px;
+  line-height:1.45;
 }
-/* =========================================
-   STATUS
-========================================= */
+
+/* STATUS */
+
 .status{
-  position:relative;
   margin-top:15px;
   padding:13px;
-  overflow:hidden;
+
   border-radius:16px;
-  background:rgba(255,255,255,.025);
-  border:1px solid rgba(255,255,255,.06);
-  color:#777783;
+
   text-align:center;
-  font-size:9px;
-  font-weight:700;
+
+  color:#777782;
+  font-size:10px;
+
+  background:rgba(255,255,255,.025);
+  border:1px solid rgba(255,255,255,.055);
+
   backdrop-filter:blur(15px);
 }
-.status::before{
-  content:"";
-  position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
-  width:2px;
-  background:linear-gradient(
-    180deg,
-    transparent,
-    #8b5cf6,
-    transparent
-  );
-  animation:statusLine 2.5s linear infinite;
-}
-@keyframes statusLine{
-  from{
-    transform:translateY(-100%);
-  }
-  to{
-    transform:translateY(100%);
-  }
-}
+
 .footer{
   margin-top:28px;
-  color:#33333b;
   text-align:center;
-  font-size:8px;
-  font-weight:700;
-  letter-spacing:2px;
+  color:#38383f;
+  font-size:9px;
+  letter-spacing:1px;
 }
-/* =========================================
-   NAV
-========================================= */
+
+/* BACK */
+
 .back{
   display:inline-flex;
   align-items:center;
   gap:7px;
+
   padding:5px 0;
+
   background:transparent;
-  color:#85858f;
-  font-size:11px;
-  font-weight:700;
+  color:#898992;
+
+  font-size:12px;
   cursor:pointer;
 }
-.back:active{
-  transform:translateX(-3px);
-}
+
 .title{
-  margin-top:23px;
+  margin-top:22px;
   font-size:30px;
-  line-height:1.05;
+  line-height:1.1;
   font-weight:900;
-  letter-spacing:-.7px;
 }
+
 .subtitle{
-  margin-top:7px;
-  color:#6e6e78;
-  font-size:10px;
+  margin-top:6px;
+  color:#70707a;
+  font-size:11px;
 }
-/* =========================================
-   MODE
-========================================= */
+
+/* MODE */
+
 .mode-switch{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:6px;
+  gap:7px;
+
   margin-top:22px;
   padding:5px;
+
   border-radius:18px;
-  background:rgba(10,10,14,.72);
-  border:1px solid rgba(255,255,255,.07);
+
+  background:rgba(14,14,18,.75);
+  border:1px solid var(--border);
+
   backdrop-filter:blur(20px);
 }
+
 .mode{
   padding:13px;
+
   border-radius:13px;
+
   background:transparent;
-  color:#777783;
-  font-size:11px;
+  color:#777780;
+
+  font-size:12px;
   font-weight:850;
+
   cursor:pointer;
-  transition:.2s;
 }
+
 .mode.active{
   background:
     linear-gradient(
       135deg,
-      #9b72ff,
-      #6d28d9
+      var(--purple),
+      var(--purple2)
     );
+
   color:#fff;
+
   box-shadow:
-    0 7px 25px rgba(109,40,217,.3),
-    inset 0 1px 0 rgba(255,255,255,.18);
+    0 8px 25px rgba(109,40,217,.25);
 }
-/* =========================================
-   CREATE BUTTON
-========================================= */
+
+/* CREATE */
+
 .create{
   width:100%;
-  margin-top:11px;
+
+  margin-top:10px;
   padding:16px;
+
   border-radius:17px;
-  background:
-    linear-gradient(
-      135deg,
-      #ffffff,
-      #e8e8ec
-    );
-  color:#08080b;
-  font-size:12px;
+
+  background:#fff;
+  color:#09090b;
+
+  font-size:13px;
   font-weight:900;
+
   cursor:pointer;
+
   box-shadow:
-    0 12px 35px rgba(0,0,0,.25);
-  transition:.18s;
+    0 10px 30px rgba(255,255,255,.06);
 }
+
 .create:active{
   transform:scale(.98);
 }
-/* =========================================
-   SEARCH
-========================================= */
+
+/* SEARCH */
+
 .section-label{
-  margin-top:25px;
+  margin-top:24px;
   margin-bottom:9px;
-  color:#73737e;
-  font-size:8px;
-  font-weight:850;
-  letter-spacing:2px;
+
+  color:#777780;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1.7px;
 }
+
 .search{
   width:100%;
-  padding:15px 16px;
+
+  padding:15px;
+
   border-radius:16px;
+
   outline:none;
-  background:rgba(16,16,20,.72);
+
+  background:rgba(16,16,20,.78);
   color:#fff;
-  border:1px solid rgba(255,255,255,.075);
-  font-size:12px;
-  backdrop-filter:blur(18px);
-  transition:.2s;
+
+  border:1px solid var(--border);
+
+  font-size:13px;
+
+  backdrop-filter:blur(15px);
 }
+
 .search:focus{
-  border-color:rgba(139,92,246,.4);
-  box-shadow:
-    0 0 25px rgba(139,92,246,.08);
+  border-color:rgba(139,92,246,.45);
 }
+
 .search::placeholder{
-  color:#50505a;
+  color:#55555f;
 }
-/* =========================================
-   ASSETS
-========================================= */
+
+/* ASSETS */
+
 .asset-list{
   margin-top:10px;
 }
+
 .asset{
   display:flex;
   align-items:center;
   justify-content:space-between;
+
+  width:100%;
+
   padding:14px;
   margin-bottom:8px;
+
   border-radius:18px;
+
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.05),
+      rgba(255,255,255,.055),
       rgba(255,255,255,.018)
     );
+
   border:1px solid rgba(255,255,255,.065);
-  backdrop-filter:blur(18px);
+
   cursor:pointer;
-  transition:.18s;
+
+  transition:.16s ease;
+
+  text-align:left;
 }
+
 .asset:hover{
-  border-color:rgba(139,92,246,.25);
-  transform:translateY(-1px);
+  border-color:rgba(139,92,246,.30);
 }
+
 .asset:active{
-  transform:scale(.98);
+  transform:scale(.975);
+  background:rgba(139,92,246,.09);
 }
+
 .asset-left{
   display:flex;
   align-items:center;
   gap:12px;
 }
+
 .asset-icon{
-  width:41px;
-  height:41px;
+  width:42px;
+  height:42px;
+
   display:flex;
   align-items:center;
   justify-content:center;
-  border-radius:13px;
+
+  border-radius:14px;
+
   background:
     linear-gradient(
       145deg,
       #24242c,
       #111116
     );
-  border:1px solid rgba(255,255,255,.07);
-  color:#c8b3ff;
+
+  color:#c4a7ff;
+
   font-size:15px;
   font-weight:900;
-  box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.05);
 }
+
 .asset-symbol{
-  font-size:12px;
+  font-size:13px;
   font-weight:900;
 }
+
 .asset-name{
   margin-top:3px;
   color:#696972;
-  font-size:9px;
-}
-.asset-type{
-  color:#50505a;
-  font-size:7px;
-  font-weight:800;
-  letter-spacing:1.5px;
-}
-.empty{
-  padding:29px 15px;
-  border-radius:18px;
-  background:rgba(16,16,20,.62);
-  border:1px solid rgba(255,255,255,.06);
-  color:#666670;
-  text-align:center;
   font-size:10px;
-  line-height:1.6;
-  backdrop-filter:blur(18px);
 }
-/* =========================================
-   CREATE FORM
-========================================= */
+
+.asset-type{
+  color:#55555f;
+  font-size:8px;
+  letter-spacing:1px;
+}
+
+/* FORM */
+
 .mode-info{
   margin-top:18px;
-  padding:14px;
+  padding:13px;
+
   border-radius:16px;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(139,92,246,.12),
-      rgba(109,40,217,.035)
-    );
+
+  background:rgba(139,92,246,.075);
   border:1px solid rgba(139,92,246,.16);
-  color:#b69aff;
+
+  color:#b99fff;
+
   text-align:center;
-  font-size:9px;
+
+  font-size:10px;
   font-weight:800;
-  box-shadow:
-    0 10px 35px rgba(109,40,217,.08);
 }
+
 .form{
-  margin-top:20px;
+  margin-top:19px;
 }
+
 .field{
   margin-top:15px;
 }
+
 .field:first-child{
   margin-top:0;
 }
+
 .label{
   margin-bottom:7px;
-  color:#777783;
-  font-size:8px;
-  font-weight:850;
-  letter-spacing:1.8px;
+
+  color:#777780;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1.5px;
 }
+
 .input,
 .select{
   width:100%;
+
   padding:15px;
+
   border-radius:16px;
+
   outline:none;
-  background:rgba(16,16,20,.72);
+
+  background:rgba(16,16,20,.82);
   color:#fff;
-  border:1px solid rgba(255,255,255,.075);
-  font-size:12px;
-  backdrop-filter:blur(18px);
-  transition:.2s;
+
+  border:1px solid var(--border);
+
+  font-size:13px;
+
+  backdrop-filter:blur(15px);
 }
+
 .input:focus,
 .select:focus{
-  border-color:rgba(139,92,246,.38);
-  box-shadow:
-    0 0 25px rgba(139,92,246,.07);
+  border-color:rgba(139,92,246,.45);
 }
-.select option{
-  background:#101014;
-  color:#fff;
+
+.select{
+  appearance:auto;
 }
+
 .input::placeholder{
-  color:#50505a;
+  color:#55555f;
 }
+
+/* PREVIEW */
+
 .preview{
-  margin-top:18px;
+  margin-top:17px;
   padding:17px;
+
   border-radius:18px;
+
   background:
     linear-gradient(
       145deg,
       rgba(139,92,246,.11),
       rgba(255,255,255,.025)
     );
-  border:1px solid rgba(139,92,246,.14);
+
+  border:1px solid rgba(139,92,246,.15);
+
   color:#85858f;
-  font-size:9px;
-  line-height:1.9;
+
+  font-size:10px;
+  line-height:1.8;
 }
+
 .preview strong{
   color:#fff;
   font-size:13px;
 }
+
+/* BUTTON */
+
 .publish{
   width:100%;
+
   margin-top:15px;
   padding:16px;
+
   border-radius:17px;
+
   background:
     linear-gradient(
       135deg,
       #9b72ff,
       #6d28d9
     );
+
   color:#fff;
-  font-size:12px;
+
+  font-size:13px;
   font-weight:900;
+
   cursor:pointer;
+
   box-shadow:
-    0 14px 40px rgba(109,40,217,.24),
-    inset 0 1px 0 rgba(255,255,255,.18);
-  transition:.18s;
+    0 12px 35px rgba(109,40,217,.25);
 }
-.publish:active{
-  transform:scale(.98);
-}
+
 .publish:disabled{
-  opacity:.5;
-  cursor:default;
+  opacity:.55;
 }
+
 .cancel{
   width:100%;
+
   margin-top:9px;
   padding:15px;
+
   border-radius:17px;
-  background:rgba(17,17,21,.72);
-  border:1px solid rgba(255,255,255,.065);
-  color:#777783;
-  font-size:11px;
-  font-weight:750;
+
+  background:#111115;
+
+  border:1px solid var(--border);
+
+  color:#777780;
+
+  font-size:12px;
+
   cursor:pointer;
 }
-/* =========================================
-   TOAST
-========================================= */
+
+/* TOAST */
+
 .toast{
   position:fixed;
+
   left:50%;
-  bottom:
-    calc(24px + env(safe-area-inset-bottom));
+  bottom:24px;
+
   transform:
     translateX(-50%)
-    translateY(25px);
+    translateY(20px);
+
   width:calc(100% - 34px);
   max-width:500px;
+
   padding:14px 16px;
+
   border-radius:16px;
-  background:rgba(18,18,23,.94);
-  border:1px solid rgba(255,255,255,.1);
+
+  background:rgba(20,20,25,.96);
+
+  border:1px solid rgba(255,255,255,.10);
+
   color:#fff;
+
   text-align:center;
-  font-size:10px;
-  font-weight:700;
+
+  font-size:11px;
+
   opacity:0;
   pointer-events:none;
+
   transition:.25s;
+
   z-index:999;
+
   backdrop-filter:blur(20px);
-  box-shadow:
-    0 20px 60px rgba(0,0,0,.45);
 }
+
 .toast.show{
   opacity:1;
+
   transform:
     translateX(-50%)
     translateY(0);
 }
-/* =========================================
-   MOBILE
-========================================= */
-@media(max-width:390px){
-  .app{
-    padding-left:14px;
-    padding-right:14px;
-  }
-  .brand{
-    font-size:28px;
-  }
-  .balance-value{
-    font-size:34px;
-  }
-  .card{
-    min-height:136px;
-    padding:16px;
-  }
-}
-/* =========================================
-   REDUCED MOTION
-========================================= */
-@media(prefers-reduced-motion:reduce){
-  *,
-  *::before,
-  *::after{
-    animation-duration:.01ms!important;
-    animation-iteration-count:1!important;
-    transition-duration:.01ms!important;
-  }
-}
+
 </style>
 </head>
+
 <body>
-<div class="background"></div>
-<div class="orb one"></div>
-<div class="orb two"></div>
-<div class="orb three"></div>
+
 <div class="app">
-<!-- ================= HOME ================= -->
+
+<!-- HOME -->
+
 <section id="homeScreen" class="screen active">
+
   <div class="header">
-<div class="brand-wrap">
-  <div class="brand">VANTA</div>
-  <div class="brand-sub">EXCHANGE</div>
-</div>
-<div class="online">
-  <span class="dot"></span>
-  ONLINE
-</div>
+
+    <div>
+      <div class="brand">VANTA</div>
+      <div class="brand-sub">EXCHANGE</div>
+    </div>
+
+    <div class="online">
+      <span class="dot"></span>
+      ONLINE
+    </div>
+
   </div>
+
   <div class="user">
     VANTA ID:
-    <strong id="username">
-      Загрузка...
-    </strong>
+    <strong id="username">Загрузка...</strong>
   </div>
+
   <div class="balance">
-<div class="balance-label">
-  TOTAL BALANCE
-</div>
-<div
-  id="balance"
-  class="balance-value"
->
-  •••
-</div>
-<div class="balance-currency">
-  USD
-</div>
+
+    <div class="balance-label">
+      TOTAL BALANCE
+    </div>
+
+    <div id="balance" class="balance-value">
+      •••
+    </div>
+
+    <div class="balance-currency">
+      USD
+    </div>
+
   </div>
+
   <div class="menu">
-<div
-  class="card"
-  id="p2pCard"
->
-  <div class="icon">
-    ⇄
+
+    <div class="card" id="p2pCard">
+      <div class="icon">⇄</div>
+      <div class="card-title">P2P MARKET</div>
+      <div class="card-text">
+        Покупка и продажа активов между пользователями
+      </div>
+    </div>
+
+    <div class="card" data-coming="CONVERT">
+      <div class="icon">↻</div>
+      <div class="card-title">CONVERT</div>
+      <div class="card-text">
+        Быстрая конвертация активов
+      </div>
+    </div>
+
+    <div class="card" data-coming="MARKETS">
+      <div class="icon">⌁</div>
+      <div class="card-title">MARKETS</div>
+      <div class="card-text">
+        Рынок и курсы активов
+      </div>
+    </div>
+
+    <div class="card" data-coming="MY DEALS">
+      <div class="icon">◫</div>
+      <div class="card-title">MY DEALS</div>
+      <div class="card-text">
+        Ваши активные сделки
+      </div>
+    </div>
+
+    <div class="card" data-coming="PROFILE">
+      <div class="icon">◉</div>
+      <div class="card-title">PROFILE</div>
+      <div class="card-text">
+        VANTA ID и настройки
+      </div>
+    </div>
+
+    <div class="card" data-coming="STATUS">
+      <div class="icon">✦</div>
+      <div class="card-title">STATUS</div>
+      <div class="card-text">
+        Basic · Pro · Elite
+      </div>
+    </div>
+
   </div>
-  <div class="card-title">
-    P2P MARKET
-  </div>
-  <div class="card-text">
-    Покупка и продажа активов между пользователями
-  </div>
-</div>
-<div
-  class="card"
-  data-coming="CONVERT"
->
-  <div class="icon">
-    ↻
-  </div>
-  <div class="card-title">
-    CONVERT
-  </div>
-  <div class="card-text">
-    Быстрая конвертация активов
-  </div>
-</div>
-<div
-  class="card"
-  data-coming="MARKETS"
->
-  <div class="icon">
-    ⌁
-  </div>
-  <div class="card-title">
-    MARKETS
-  </div>
-  <div class="card-text">
-    Рынок и курсы активов
-  </div>
-</div>
-<div
-  class="card"
-  data-coming="MY DEALS"
->
-  <div class="icon">
-    ◫
-  </div>
-  <div class="card-title">
-    MY DEALS
-  </div>
-  <div class="card-text">
-    Ваши активные сделки
-  </div>
-</div>
-<div
-  class="card"
-  data-coming="PROFILE"
->
-  <div class="icon">
-    ◉
-  </div>
-  <div class="card-title">
-    PROFILE
-  </div>
-  <div class="card-text">
-    VANTA ID и настройки
-  </div>
-</div>
-<div
-  class="card"
-  data-coming="STATUS"
->
-  <div class="icon">
-    ✦
-  </div>
-  <div class="card-title">
-    STATUS
-  </div>
-  <div class="card-text">
-    Basic · Pro · Elite
-  </div>
-</div>
-  </div>
-  <div
-    id="status"
-    class="status"
-  >
+
+  <div id="status" class="status">
     Подключение к VANTA...
   </div>
+
   <div class="footer">
     VANTA EXCHANGE · 2026
   </div>
+
 </section>
-<!-- ================= P2P ================= -->
-<section
-  id="p2pScreen"
-  class="screen"
->
 
-<button
-class=“back”
-id=“backFromP2P”
 
-← Назад
+<!-- P2P -->
+
+<section id="p2pScreen" class="screen">
+
+  <button class="back" id="backFromP2P">
+    ← Назад
   </button>
+
   <div class="title">
     P2P MARKET
   </div>
+
   <div class="subtitle">
     Обмен активами между пользователями
   </div>
+
   <div class="mode-switch">
-<button
-  id="buyBtn"
-  class="mode active"
->
-  Купить
-</button>
-<button
-  id="sellBtn"
-  class="mode"
->
-  Продать
-</button>
+
+    <button id="buyBtn" class="mode active">
+      Купить
+    </button>
+
+    <button id="sellBtn" class="mode">
+      Продать
+    </button>
+
   </div>
 
-<button
-id=“createOfferBtn”
-class=“create”
-
-＋ Создать объявление
+  <button id="createOfferBtn" class="create">
+    ＋ Создать объявление
   </button>
+
   <div class="section-label">
     АКТИВЫ
   </div>
 
-<input
-id=“assetSearch”
-class=“search”
-type=“text”
-placeholder=“Поиск BTC, ETH, USDT…”
-autocomplete=“off”
-
-  <div
-    id="assetList"
-    class="asset-list"
+  <input
+    id="assetSearch"
+    class="search"
+    type="text"
+    placeholder="Поиск BTC, ETH, USDT..."
+    autocomplete="off"
   >
-<div class="empty">
-  Загрузка активов...
-</div>
+
+  <div id="assetList" class="asset-list">
+
+    <div class="empty">
+      Загрузка активов...
+    </div>
+
   </div>
+
 </section>
-<!-- ================= CREATE ================= -->
-<section
-  id="createScreen"
-  class="screen"
->
 
-<button
-class=“back”
-id=“backFromCreate”
 
-← P2P MARKET
+<!-- CREATE -->
+
+<section id="createScreen" class="screen">
+
+  <button class="back" id="backFromCreate">
+    ← P2P MARKET
   </button>
+
   <div class="title">
     Создать объявление
   </div>
+
   <div class="subtitle">
     Ваше предложение на P2P рынке
   </div>
-  <div
-    id="modeInfo"
-    class="mode-info"
-  >
+
+  <div id="modeInfo" class="mode-info">
     🟣 Вы создаёте объявление на покупку
   </div>
+
   <div class="form">
-<div class="field">
-  <div class="label">
-    АКТИВ
+
+    <div class="field">
+
+      <div class="label">
+        АКТИВ
+      </div>
+
+      <select id="offerAsset" class="select">
+
+        <option value="">
+          Выберите актив
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+
+      <div class="label">
+        ВАЛЮТА РАСЧЁТА
+      </div>
+
+      <select id="offerFiat" class="select">
+
+        <option value="USD">🇺🇸 USD — Доллар США</option>
+        <option value="EUR">🇪🇺 EUR — Евро</option>
+        <option value="KZT">🇰🇿 KZT — Тенге</option>
+        <option value="RUB">🇷🇺 RUB — Рубль</option>
+        <option value="GBP">🇬🇧 GBP — Фунт</option>
+        <option value="TRY">🇹🇷 TRY — Лира</option>
+        <option value="AED">🇦🇪 AED — Дирхам</option>
+        <option value="CNY">🇨🇳 CNY — Юань</option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+
+      <div class="label">
+        КОЛИЧЕСТВО
+      </div>
+
+      <input
+        id="offerAmount"
+        class="input"
+        type="number"
+        min="0"
+        step="any"
+        placeholder="Например 500"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <div class="label">
+        ЦЕНА ЗА 1 АКТИВ
+      </div>
+
+      <input
+        id="offerPrice"
+        class="input"
+        type="number"
+        min="0"
+        step="any"
+        placeholder="Например 500"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <div class="label">
+        МИНИМАЛЬНАЯ СУММА
+      </div>
+
+      <input
+        id="offerMin"
+        class="input"
+        type="number"
+        min="0"
+        step="any"
+        placeholder="Например 5000"
+      >
+
+    </div>
+
+
+    <div class="field">
+
+      <div class="label">
+        МАКСИМАЛЬНАЯ СУММА
+      </div>
+
+      <input
+        id="offerMax"
+        class="input"
+        type="number"
+        min="0"
+        step="any"
+        placeholder="Например 50000"
+      >
+
+    </div>
+
+
+    <div id="preview" class="preview">
+      Заполните форму — здесь появится предварительный просмотр.
+    </div>
+
+
+    <button id="publishBtn" class="publish">
+      Опубликовать объявление
+    </button>
+
+
+    <button id="cancelBtn" class="cancel">
+      Отмена
+    </button>
+
   </div>
-  <select
-    id="offerAsset"
-    class="select"
-  >
-    <option value="">
-      Выберите актив
-    </option>
-  </select>
-</div>
-<div class="field">
-  <div class="label">
-    ВАЛЮТА РАСЧЁТА
-  </div>
-  <select
-    id="offerFiat"
-    class="select"
-  >
-    <option value="USD">
-      🇺🇸 USD — Доллар США
-    </option>
-    <option value="EUR">
-      🇪🇺 EUR — Евро
-    </option>
-    <option value="KZT">
-      🇰🇿 KZT — Тенге
-    </option>
-    <option value="RUB">
-      🇷🇺 RUB — Рубль
-    </option>
-    <option value="GBP">
-      🇬🇧 GBP — Фунт
-    </option>
-    <option value="TRY">
-      🇹🇷 TRY — Лира
-    </option>
-    <option value="AED">
-      🇦🇪 AED — Дирхам
-    </option>
-    <option value="CNY">
-      🇨🇳 CNY — Юань
-    </option>
-  </select>
-</div>
-<div class="field">
-  <div class="label">
-    КОЛИЧЕСТВО
-  </div>
-  <input
-    id="offerAmount"
-    class="input"
-    type="number"
-    min="0"
-    step="any"
-    placeholder="Например 500"
-  >
-</div>
-<div class="field">
-  <div class="label">
-    ЦЕНА ЗА 1 АКТИВ
-  </div>
-  <input
-    id="offerPrice"
-    class="input"
-    type="number"
-    min="0"
-    step="any"
-    placeholder="Например 500"
-  >
-</div>
-<div class="field">
-  <div class="label">
-    МИНИМАЛЬНАЯ СУММА
-  </div>
-  <input
-    id="offerMin"
-    class="input"
-    type="number"
-    min="0"
-    step="any"
-    placeholder="Например 5000"
-  >
-</div>
-<div class="field">
-  <div class="label">
-    МАКСИМАЛЬНАЯ СУММА
-  </div>
-  <input
-    id="offerMax"
-    class="input"
-    type="number"
-    min="0"
-    step="any"
-    placeholder="Например 50000"
-  >
-</div>
-<div
-  id="preview"
-  class="preview"
->
-  Заполните форму — здесь появится предварительный просмотр.
-</div>
-<button
-  id="publishBtn"
-  class="publish"
->
-  Опубликовать объявление
-</button>
-<button
-  id="cancelBtn"
-  class="cancel"
->
-  Отмена
-</button>
-  </div>
+
 </section>
+
 </div>
-<div
-  id="toast"
-  class="toast"
-></div>
+
+<div id="toast" class="toast"></div>
+
+
 <script>
-/* =========================================
-   TELEGRAM
-========================================= */
+
+/* TELEGRAM */
+
 const tg =
   window.Telegram &&
   window.Telegram.WebApp
     ? window.Telegram.WebApp
     : null;
+
 if(tg){
   tg.ready();
   tg.expand();
-  try{
-    tg.setHeaderColor("#050507");
-    tg.setBackgroundColor("#050507");
-  }catch(e){}
 }
-/* =========================================
-   SUPABASE
-========================================= */
+
+
+/* API */
+
 const API_URL =
   "https://nwbzyziszijhqtkdhhog.supabase.co/functions/v1/clever-task";
+
 const SUPABASE_URL =
   "https://nwbzyziszijhqtkdhhog.supabase.co";
-/* =========================================
-   STATE
-========================================= */
+
+
+/* STATE */
+
 let assets = [];
 let p2pMode = "buy";
-/* =========================================
-   HELPERS
-========================================= */
+
+
+/* HELPER */
+
 function $(id){
   return document.getElementById(id);
 }
-function getTelegramUser(){
-  return (
-    tg &&
-    tg.initDataUnsafe &&
-    tg.initDataUnsafe.user
-  ) || null;
+
+
+function toast(message){
+
+  const element = $("toast");
+
+  element.textContent = message;
+
+  element.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer =
+    setTimeout(() => {
+      element.classList.remove("show");
+    },3000);
+
 }
+
+
 function escapeHtml(value){
-  return String(value ?? "")
+
+  return String(value)
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
+
 }
-function toast(message){
-  const element =
-    $("toast");
-  element.textContent =
-    message;
-  element.classList.add("show");
-  clearTimeout(
-    element._timer
-  );
-  element._timer =
-    setTimeout(
-      () => {
-        element.classList.remove("show");
-      },
-      3000
-    );
-}
-/* =========================================
-   API
-========================================= */
-async function apiPost(body){
-  const controller =
-    new AbortController();
-  const timer =
-    setTimeout(
-      () => controller.abort(),
-      10000
-    );
-  try{
-    const response =
-      await fetch(
-        API_URL,
-        {
-          method:"POST",
-          headers:{
-            "Content-Type":
-              "application/json"
-          },
-          body:
-            JSON.stringify(body),
-          signal:
-            controller.signal
-        }
-      );
-    const text =
-      await response.text();
-    let data = {};
-    try{
-      data =
-        text
-          ? JSON.parse(text)
-          : {};
-    }catch(e){
-      data = {
-        raw:text
-      };
-    }
-    return {
-      ok:
-        response.ok,
-      status:
-        response.status,
-      data:
-        data,
-      raw:
-        text
-    };
-  }finally{
-    clearTimeout(timer);
-  }
-}
-/* =========================================
-   NAVIGATION
-========================================= */
+
+
+/* NAVIGATION */
+
 function hideAll(){
+
   document
     .querySelectorAll(".screen")
-    .forEach(
-      screen =>
-        screen.classList.remove(
-          "active"
-        )
-    );
+    .forEach(screen => {
+      screen.classList.remove("active");
+    });
+
 }
+
+
 function showHome(){
+
   hideAll();
-  $("homeScreen")
-    .classList
-    .add("active");
+
+  $("homeScreen").classList.add("active");
+
   window.scrollTo(0,0);
+
 }
+
+
 function showP2P(){
+
   hideAll();
-  $("p2pScreen")
-    .classList
-    .add("active");
+
+  $("p2pScreen").classList.add("active");
+
+  window.scrollTo(0,0);
+
   renderAssets();
-  window.scrollTo(0,0);
+
 }
+
+
 function showCreate(){
+
   hideAll();
-  $("createScreen")
-    .classList
-    .add("active");
+
+  $("createScreen").classList.add("active");
+
   updateModeInfo();
+
   updatePreview();
+
   window.scrollTo(0,0);
+
 }
+
+
+/* COMING */
+
 function comingSoon(name){
+
   const message =
-    name +
-    " скоро будет доступен.";
+    name + " скоро будет доступен.";
+
   if(
     tg &&
-    typeof tg.showAlert ===
-    "function"
+    typeof tg.showAlert === "function"
   ){
+
     tg.showAlert(message);
+
   }else{
+
     toast(message);
+
   }
+
 }
-/* =========================================
-   CONNECT VANTA
-========================================= */
+
+
+/* CONNECT */
+
 async function connectVanta(){
+
   const user =
-    getTelegramUser();
-  if(
-    !user ||
-    !user.id
-  ){
-    $("username")
-      .textContent =
+    tg &&
+    tg.initDataUnsafe &&
+    tg.initDataUnsafe.user;
+
+  if(!user || !user.id){
+
+    $("username").textContent =
       "Telegram User";
-    $("balance")
-      .textContent =
+
+    $("balance").textContent =
       "—";
-    $("status")
-      .textContent =
+
+    $("status").textContent =
       "Откройте VANTA через Telegram";
+
     return;
+
   }
-  $("username")
-    .textContent =
+
+  $("username").textContent =
     user.username
       ? "@" + user.username
       : (
           user.first_name ||
           "User"
         );
+
   try{
-    const result =
-      await apiPost({
-        action:
-          "get_user",
-        telegram_id:
-          user.id,
-        username:
-          user.username ||
-          null,
-        first_name:
-          user.first_name ||
-          null
-      });
-    console.log(
-      "VANTA API:",
-      result
-    );
-    if(!result.ok){
-      throw new Error(
-        result.data?.error ||
-        result.data?.message ||
-        "HTTP " +
-        result.status
+
+    const controller =
+      new AbortController();
+
+    const timeout =
+      setTimeout(
+        () => controller.abort(),
+        7000
       );
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+
+            telegram_id:
+              user.id,
+
+            username:
+              user.username || null,
+
+            first_name:
+              user.first_name || null
+
+          }),
+
+          signal:
+            controller.signal
+        }
+      );
+
+    clearTimeout(timeout);
+
+    const text =
+      await response.text();
+
+    let data = {};
+
+    try{
+      data = text
+        ? JSON.parse(text)
+        : {};
+    }catch(e){}
+
+    if(!response.ok){
+
+      throw new Error(
+        data.error ||
+        data.message ||
+        "HTTP " +
+        response.status
+      );
+
     }
-    const data =
-      result.data || {};
+
     const userData =
       data.user ||
       data.data?.user ||
       data.data ||
       data;
+
     const balance =
       userData.balance ??
       userData.balance_usd ??
       userData.usd_balance ??
       0;
-    const numericBalance =
-      Number(balance);
-    $("balance")
-      .textContent =
-      Number.isFinite(
-        numericBalance
-      )
-        ? numericBalance.toLocaleString(
-            "ru-RU",
-            {
-              maximumFractionDigits:8
-            }
-          )
-        : "0";
-    $("status")
-      .textContent =
+
+    $("balance").textContent =
+      Number(balance)
+        .toLocaleString("ru-RU");
+
+    $("status").textContent =
       "● VANTA ACCOUNT подключён";
+
   }catch(error){
+
     console.error(
       "VANTA API ERROR:",
       error
     );
-    $("balance")
-      .textContent =
+
+    $("balance").textContent =
       "—";
-    $("status")
-      .textContent =
+
+    $("status").textContent =
       "VANTA подключён · баланс временно недоступен";
+
   }
+
 }
-/* =========================================
-   LOAD ASSETS
-========================================= */
+
+
+/* LOAD ASSETS */
+
 async function loadAssets(){
-  const list =
-    $("assetList");
-  list.innerHTML = `
-    <div class="empty">
-      Загрузка активов...
-    </div>
-  `;
-  assets = [];
-  /* -----------------------------------------
-     FIRST: EDGE FUNCTION
-  ----------------------------------------- */
+
   try{
-    const result =
-      await apiPost({
-        action:
-          "get_assets"
-      });
-    console.log(
-      "ASSETS FUNCTION:",
-      result
-    );
-    if(result.ok){
-      const data =
-        result.data || {};
-      const possible =
-        data.assets ||
-        data.data?.assets ||
-        data.data ||
-        data;
-      if(
-        Array.isArray(
-          possible
-        )
-      ){
-        assets =
-          possible
-            .filter(
-              asset =>
-                asset &&
-                asset.symbol
-            )
-            .map(
-              asset => ({
-                symbol:
-                  String(
-                    asset.symbol
-                  ),
-                name:
-                  String(
-                    asset.name ||
-                    asset.symbol
-                  ),
-                type:
-                  String(
-                    asset.type ||
-                    "crypto"
-                  ).toLowerCase(),
-                decimals:
-                  Number(
-                    asset.decimals ??
-                    8
-                  )
-              })
-            );
-      }
-    }
-  }catch(error){
-    console.warn(
-      "Edge assets error:",
-      error
-    );
-  }
-  /* -----------------------------------------
-     SECOND: REST FALLBACK
-  ----------------------------------------- */
-  if(!assets.length){
-    try{
-      const url =
+
+    const response =
+      await fetch(
         SUPABASE_URL +
         "/rest/v1/assets" +
-        "?select=*" +
+        "?select=symbol,name,type,decimals" +
         "&is_active=eq.true" +
-        "&order=type.asc,symbol.asc";
-      const response =
-        await fetch(
-          url,
-          {
-            method:"GET",
-            headers:{
-              "Accept":
-                "application/json"
-            }
-          }
-        );
-      const text =
-        await response.text();
-      console.log(
-        "ASSETS REST:",
-        response.status,
-        text
+        "&order=type.asc,symbol.asc"
       );
-      if(response.ok){
-        let data = [];
-        try{
-          data =
-            text
-              ? JSON.parse(text)
-              : [];
-        }catch(e){
-          data = [];
-        }
-        if(
-          Array.isArray(data)
-        ){
-          assets =
-            data
-              .filter(
-                asset =>
-                  asset &&
-                  asset.symbol
-              )
-              .map(
-                asset => ({
-                  symbol:
-                    String(
-                      asset.symbol
-                    ),
-                  name:
-                    String(
-                      asset.name ||
-                      asset.symbol
-                    ),
-                  type:
-                    String(
-                      asset.type ||
-                      "crypto"
-                    ).toLowerCase(),
-                  decimals:
-                    Number(
-                      asset.decimals ??
-                      8
-                    )
-                })
-              );
-        }
-      }
-    }catch(error){
-      console.error(
-        "REST ASSETS ERROR:",
-        error
+
+    if(!response.ok){
+
+      throw new Error(
+        "Assets HTTP " +
+        response.status
       );
+
     }
-  }
-  /* -----------------------------------------
-     RESULT
-  ----------------------------------------- */
-  if(!assets.length){
-    list.innerHTML = `
-      <div class="empty">
-        Активы пока не загружены.
-        <br><br>
-        Проверьте таблицу
-        <b>assets</b>
-        в Supabase.
-      </div>
-    `;
+
+    assets =
+      await response.json();
+
     fillOfferAssets();
+
+    renderAssets();
+
+  }catch(error){
+
+    console.error(
+      "ASSETS ERROR:",
+      error
+    );
+
+    $("assetList").innerHTML =
+      `
+      <div class="empty">
+        Не удалось загрузить активы
+      </div>
+      `;
+
+  }
+
+}
+
+
+/* RENDER ASSETS */
+
+function renderAssets(){
+
+  const list =
+    $("assetList");
+
+  if(!list){
     return;
   }
-  console.log(
-    "VANTA ASSETS:",
-    assets
-  );
-  renderAssets();
-  fillOfferAssets();
-}
-/* =========================================
-   ASSET ICON
-========================================= */
-function assetIcon(asset){
-  const symbol =
-    String(
-      asset.symbol || ""
-    ).toUpperCase();
-  if(symbol === "BTC")
-    return "₿";
-  if(symbol === "ETH")
-    return "Ξ";
-  if(
-    symbol === "USDT" ||
-    symbol === "USDC"
-  )
-    return "$";
-  if(
-    String(
-      asset.type || ""
-    ).toLowerCase() ===
-    "fiat"
-  )
-    return "¤";
-  return symbol
-    ? symbol.charAt(0)
-    : "◆";
-}
-/* =========================================
-   RENDER ASSETS
-========================================= */
-function renderAssets(){
+
   const search =
     $("assetSearch")
       .value
       .trim()
       .toLowerCase();
+
   const filtered =
-    assets.filter(
-      asset => {
-        const symbol =
-          String(
-            asset.symbol ||
-            ""
-          ).toLowerCase();
-        const name =
-          String(
-            asset.name ||
-            ""
-          ).toLowerCase();
-        return (
-          symbol.includes(search) ||
-          name.includes(search)
-        );
-      }
-    );
+    assets.filter(asset => {
+
+      const symbol =
+        String(asset.symbol || "")
+          .toLowerCase();
+
+      const name =
+        String(asset.name || "")
+          .toLowerCase();
+
+      return (
+        symbol.includes(search) ||
+        name.includes(search)
+      );
+
+    });
+
+
   if(!filtered.length){
-    $("assetList")
-      .innerHTML = `
-        <div class="empty">
-          Актив не найден
-        </div>
+
+    list.innerHTML =
+      `
+      <div class="empty">
+        Актив не найден
+      </div>
       `;
+
     return;
+
   }
-  $("assetList")
-    .innerHTML =
+
+
+  list.innerHTML =
     filtered
-      .map(
-        asset => `
-          <div
+      .map(asset => {
+
+        const symbol =
+          escapeHtml(asset.symbol);
+
+        const name =
+          escapeHtml(asset.name);
+
+        const type =
+          escapeHtml(
+            String(asset.type || "")
+              .toUpperCase()
+          );
+
+        const icon =
+          asset.type === "crypto"
+            ? "₿"
+            : "¤";
+
+        return `
+          <button
+            type="button"
             class="asset"
-            data-symbol="${escapeHtml(
-              asset.symbol
-            )}"
+            data-symbol="${symbol}"
           >
+
             <div class="asset-left">
+
               <div class="asset-icon">
-                ${escapeHtml(
-                  assetIcon(asset)
-                )}
+                ${icon}
               </div>
+
               <div>
+
                 <div class="asset-symbol">
-                  ${escapeHtml(
-                    asset.symbol
-                  )}
+                  ${symbol}
                 </div>
+
                 <div class="asset-name">
-                  ${escapeHtml(
-                    asset.name
-                  )}
+                  ${name}
                 </div>
+
               </div>
+
             </div>
+
             <div class="asset-type">
-              ${escapeHtml(
-                String(
-                  asset.type || ""
-                ).toUpperCase()
-              )}
+              ${type}
             </div>
-          </div>
-        `
-      )
+
+          </button>
+        `;
+
+      })
       .join("");
-  document
-    .querySelectorAll(".asset")
-    .forEach(
-      element => {
-        element.addEventListener(
-          "click",
-          () => {
-            $("offerAsset")
-              .value =
-              element.dataset.symbol;
-            showCreate();
-          }
-        );
-      }
-    );
+
+
+  /*
+    ВАЖНО:
+
+    Используем делегирование события
+    на сам список.
+
+    Поэтому выбор работает даже после
+    повторного renderAssets().
+  */
+
 }
-/* =========================================
-   OFFER ASSETS
-========================================= */
+
+
+/* ASSET CLICK */
+
+$("assetList")
+  .addEventListener(
+    "click",
+    function(event){
+
+      const asset =
+        event.target.closest(
+          ".asset"
+        );
+
+      if(!asset){
+        return;
+      }
+
+      const symbol =
+        asset.dataset.symbol;
+
+      if(!symbol){
+        return;
+      }
+
+      /*
+        Жёстко устанавливаем значение
+        выбранного актива.
+      */
+
+      $("offerAsset").value =
+        symbol;
+
+      /*
+        Проверка.
+      */
+
+      if(
+        $("offerAsset").value !== symbol
+      ){
+
+        fillOfferAssets();
+
+        $("offerAsset").value =
+          symbol;
+
+      }
+
+      showCreate();
+
+    }
+  );
+
+
+/* OFFER SELECT */
+
 function fillOfferAssets(){
+
   const select =
     $("offerAsset");
-  select.innerHTML = `
+
+  if(!select){
+    return;
+  }
+
+  const current =
+    select.value;
+
+  select.innerHTML =
+    `
     <option value="">
       Выберите актив
     </option>
-  `;
+    `;
+
   assets
-    .filter(
-      asset => {
-        const type =
-          String(
-            asset.type || ""
-          ).toLowerCase();
-        return (
-          type === "crypto" ||
-          type === "token" ||
-          type === "coin" ||
-          !type
+    .filter(asset => {
+
+      /*
+        Для P2P оставляем криптоактивы.
+      */
+
+      return (
+        String(asset.type)
+          .toLowerCase() ===
+        "crypto"
+      );
+
+    })
+    .forEach(asset => {
+
+      const option =
+        document.createElement(
+          "option"
         );
-      }
-    )
-    .forEach(
-      asset => {
-        const option =
-          document.createElement(
-            "option"
-          );
-        option.value =
-          asset.symbol;
-        option.textContent =
-          asset.symbol +
-          " — " +
-          asset.name;
-        select.appendChild(
-          option
+
+      option.value =
+        asset.symbol;
+
+      option.textContent =
+        asset.symbol +
+        " — " +
+        asset.name;
+
+      select.appendChild(option);
+
+    });
+
+
+  if(current){
+
+    const exists =
+      [...select.options]
+        .some(
+          option =>
+            option.value === current
         );
-      }
-    );
+
+    if(exists){
+
+      select.value =
+        current;
+
+    }
+
+  }
+
 }
-/* =========================================
-   P2P MODE
-========================================= */
+
+
+/* MODE */
+
 function setP2PMode(mode){
+
   p2pMode =
     mode === "sell"
       ? "sell"
       : "buy";
+
   $("buyBtn")
     .classList
     .toggle(
       "active",
       p2pMode === "buy"
     );
+
   $("sellBtn")
     .classList
     .toggle(
       "active",
       p2pMode === "sell"
     );
+
   updateModeInfo();
+
   updatePreview();
+
 }
+
+
 function updateModeInfo(){
-  $("modeInfo")
-    .textContent =
+
+  $("modeInfo").textContent =
     p2pMode === "buy"
       ? "🟣 Вы создаёте объявление на покупку"
       : "🟣 Вы создаёте объявление на продажу";
+
 }
-/* =========================================
-   PREVIEW
-========================================= */
+
+
+/* PREVIEW */
+
 function updatePreview(){
+
   const asset =
     $("offerAsset").value;
+
   const fiat =
     $("offerFiat").value;
+
   const amount =
     Number(
       $("offerAmount").value
     );
+
   const price =
     Number(
       $("offerPrice").value
     );
+
   const min =
     Number(
       $("offerMin").value
     );
+
   const max =
     Number(
       $("offerMax").value
     );
+
+
   if(
     !asset ||
     !amount ||
     !price
   ){
-    $("preview")
-      .textContent =
+
+    $("preview").textContent =
       "Заполните актив, количество и цену.";
+
     return;
+
   }
+
+
   const total =
     amount * price;
-  $("preview")
-    .innerHTML = `
+
+
+  $("preview").innerHTML =
+    `
       <strong>
         ${
           p2pMode === "buy"
@@ -1944,21 +1834,28 @@ function updatePreview(){
         }
         ${escapeHtml(asset)}
       </strong>
+
       <br>
+
       Количество:
       ${amount.toLocaleString("ru-RU")}
       ${escapeHtml(asset)}
+
       <br>
+
       Цена:
       ${price.toLocaleString("ru-RU")}
       ${escapeHtml(fiat)}
       за 1 ${escapeHtml(asset)}
+
       <br>
+
       Общая сумма:
       ${total.toLocaleString("ru-RU")}
       ${escapeHtml(fiat)}
+
       ${
-        min > 0
+        min
           ? `
             <br>
             Минимум:
@@ -1967,8 +1864,9 @@ function updatePreview(){
           `
           : ""
       }
+
       ${
-        max > 0
+        max
           ? `
             <br>
             Максимум:
@@ -1978,212 +1876,299 @@ function updatePreview(){
           : ""
       }
     `;
+
 }
-/* =========================================
-   PUBLISH
-========================================= */
+
+
+/* PUBLISH */
+
 async function publishOffer(){
+
   const user =
-    getTelegramUser();
-  if(
-    !user ||
-    !user.id
-  ){
+    tg &&
+    tg.initDataUnsafe &&
+    tg.initDataUnsafe.user;
+
+  if(!user || !user.id){
+
     toast(
       "Откройте VANTA через Telegram."
     );
+
     return;
+
   }
+
+
   const asset =
     $("offerAsset").value;
+
   const fiat =
     $("offerFiat").value;
+
   const amount =
     Number(
       $("offerAmount").value
     );
+
   const price =
     Number(
       $("offerPrice").value
     );
+
   const min =
     Number(
       $("offerMin").value
     );
+
   const max =
     Number(
       $("offerMax").value
     );
+
+
   if(!asset){
+
     toast(
       "Выберите актив."
     );
+
     return;
+
   }
-  if(
-    !amount ||
-    amount <= 0
-  ){
+
+
+  if(!amount || amount <= 0){
+
     toast(
       "Введите количество."
     );
+
     return;
+
   }
-  if(
-    !price ||
-    price <= 0
-  ){
+
+
+  if(!price || price <= 0){
+
     toast(
       "Введите цену."
     );
+
     return;
+
   }
+
+
   if(
-    min > 0 &&
-    max > 0 &&
+    min &&
+    max &&
     min > max
   ){
+
     toast(
       "Минимум больше максимума."
     );
+
     return;
+
   }
+
+
   const button =
     $("publishBtn");
-  const originalText =
+
+  const original =
     button.textContent;
-  button.disabled =
-    true;
+
+  button.disabled = true;
+
   button.textContent =
     "Публикация...";
+
+
   try{
-    const result =
-      await apiPost({
-        action:
-          "create_offer",
-        telegram_id:
-          user.id,
-        username:
-          user.username ||
-          null,
-        first_name:
-          user.first_name ||
-          null,
-        side:
-          p2pMode,
-        asset:
-          asset,
-        fiat:
-          fiat,
-        amount:
-          amount,
-        price:
-          price,
-        min_amount:
-          min > 0
-            ? min
-            : null,
-        max_amount:
-          max > 0
-            ? max
-            : null
-      });
-    console.log(
-      "CREATE OFFER:",
-      result
-    );
-    if(!result.ok){
-      throw new Error(
-        result.data?.error ||
-        result.data?.message ||
-        "HTTP " +
-        result.status
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+
+            action:
+              "create_offer",
+
+            telegram_id:
+              user.id,
+
+            username:
+              user.username || null,
+
+            first_name:
+              user.first_name || null,
+
+            side:
+              p2pMode,
+
+            asset:
+              asset,
+
+            fiat:
+              fiat,
+
+            amount:
+              amount,
+
+            price:
+              price,
+
+            min_amount:
+              min || null,
+
+            max_amount:
+              max || null
+
+          })
+
+        }
       );
+
+
+    const text =
+      await response.text();
+
+    let data = {};
+
+    try{
+
+      data =
+        text
+          ? JSON.parse(text)
+          : {};
+
+    }catch(e){}
+
+
+    if(!response.ok){
+
+      throw new Error(
+        data.error ||
+        data.message ||
+        "HTTP " +
+        response.status
+      );
+
     }
+
+
     toast(
-      "Объявление успешно создано."
+      "Объявление успешно отправлено."
     );
-    $("offerAsset")
-      .value = "";
-    $("offerAmount")
-      .value = "";
-    $("offerPrice")
-      .value = "";
-    $("offerMin")
-      .value = "";
-    $("offerMax")
-      .value = "";
-    updatePreview();
+
+
     setTimeout(
       showP2P,
       700
     );
+
+
   }catch(error){
+
     console.error(
       "CREATE OFFER ERROR:",
       error
     );
+
     toast(
-      error.message ||
-      "Не удалось создать объявление."
+      "API пока не принимает создание объявлений."
     );
+
   }finally{
-    button.disabled =
-      false;
+
+    button.disabled = false;
+
     button.textContent =
-      originalText;
+      original;
+
   }
+
 }
-/* =========================================
-   EVENTS
-========================================= */
+
+
+/* EVENTS */
+
 $("p2pCard")
   .addEventListener(
     "click",
     showP2P
   );
+
+
 $("backFromP2P")
   .addEventListener(
     "click",
     showHome
   );
+
+
 $("backFromCreate")
   .addEventListener(
     "click",
     showP2P
   );
+
+
 $("createOfferBtn")
   .addEventListener(
     "click",
     showCreate
   );
+
+
 $("buyBtn")
   .addEventListener(
     "click",
     () =>
       setP2PMode("buy")
   );
+
+
 $("sellBtn")
   .addEventListener(
     "click",
     () =>
       setP2PMode("sell")
   );
+
+
 $("cancelBtn")
   .addEventListener(
     "click",
     showP2P
   );
+
+
 $("publishBtn")
   .addEventListener(
     "click",
     publishOffer
   );
+
+
 $("assetSearch")
   .addEventListener(
     "input",
     renderAssets
   );
+
+
 [
   "offerAsset",
   "offerFiat",
@@ -2191,42 +2176,47 @@ $("assetSearch")
   "offerPrice",
   "offerMin",
   "offerMax"
-]
-.forEach(
-  id => {
-    $(id)
-      .addEventListener(
-        "input",
-        updatePreview
-      );
-    $(id)
-      .addEventListener(
-        "change",
-        updatePreview
-      );
-  }
-);
-document
-  .querySelectorAll(
-    "[data-coming]"
-  )
-  .forEach(
-    card => {
-      card.addEventListener(
-        "click",
-        () => {
-          comingSoon(
-            card.dataset.coming
-          );
-        }
-      );
-    }
+].forEach(id => {
+
+  $(id).addEventListener(
+    "input",
+    updatePreview
   );
-/* =========================================
-   START
-========================================= */
+
+  $(id).addEventListener(
+    "change",
+    updatePreview
+  );
+
+});
+
+
+document
+  .querySelectorAll("[data-coming]")
+  .forEach(card => {
+
+    card.addEventListener(
+      "click",
+      () => {
+
+        comingSoon(
+          card.dataset.coming
+        );
+
+      }
+
+    );
+
+  });
+
+
+/* START */
+
 connectVanta();
+
 loadAssets();
+
 </script>
+
 </body>
 </html>
