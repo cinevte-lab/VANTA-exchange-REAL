@@ -3,13 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-
 <title>VANTA EXCHANGE</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <style>
-
 *{
   box-sizing:border-box;
   margin:0;
@@ -19,135 +17,85 @@
 
 :root{
   --bg:#050507;
-  --panel:rgba(17,17,23,.72);
+  --panel:rgba(18,18,24,.72);
   --border:rgba(255,255,255,.09);
-  --purple:#8b5cf6;
-  --purple2:#6d28d9;
   --text:#fff;
-  --muted:#777782;
+  --muted:#858591;
+  --purple:#8b5cf6;
+  --purple2:#5b21b6;
 }
 
-html,
-body{
+html,body{
   min-height:100%;
   background:#050507;
 }
 
 body{
   color:var(--text);
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Display",
-    "Segoe UI",
-    Arial,
-    sans-serif;
-
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
   overflow-x:hidden;
-
-  background:
-    radial-gradient(
-      circle at 15% 10%,
-      rgba(139,92,246,.28),
-      transparent 28%
-    ),
-    radial-gradient(
-      circle at 90% 25%,
-      rgba(109,40,217,.24),
-      transparent 30%
-    ),
-    radial-gradient(
-      circle at 50% 100%,
-      rgba(124,58,237,.18),
-      transparent 35%
-    ),
-    #050507;
-
-  position:relative;
 }
 
-/* ANIMATED LIGHT */
+/* ===== ANIMATED BACKGROUND ===== */
 
-body:before,
-body:after{
+body::before,
+body::after{
   content:"";
   position:fixed;
-  width:330px;
-  height:330px;
+  width:380px;
+  height:380px;
   border-radius:50%;
+  filter:blur(100px);
   pointer-events:none;
-  filter:blur(80px);
-  z-index:-1;
+  z-index:-2;
 }
 
-body:before{
-  background:rgba(139,92,246,.20);
-  top:-120px;
-  left:-100px;
-  animation:orbOne 12s ease-in-out infinite alternate;
+body::before{
+  background:rgba(124,58,237,.22);
+  top:-160px;
+  right:-100px;
+  animation:orb1 9s ease-in-out infinite alternate;
 }
 
-body:after{
-  background:rgba(91,33,182,.18);
-  right:-120px;
-  bottom:-100px;
-  animation:orbTwo 15s ease-in-out infinite alternate;
+body::after{
+  background:rgba(76,29,149,.18);
+  bottom:-180px;
+  left:-120px;
+  animation:orb2 11s ease-in-out infinite alternate;
 }
 
-@keyframes orbOne{
-  0%{
-    transform:translate(0,0) scale(1);
-  }
-  50%{
-    transform:translate(120px,100px) scale(1.3);
-  }
-  100%{
-    transform:translate(20px,220px) scale(.9);
-  }
+@keyframes orb1{
+  0%{transform:translate(0,0) scale(1)}
+  100%{transform:translate(-80px,100px) scale(1.25)}
 }
 
-@keyframes orbTwo{
-  0%{
-    transform:translate(0,0) scale(1);
-  }
-  50%{
-    transform:translate(-120px,-100px) scale(1.25);
-  }
-  100%{
-    transform:translate(-20px,-200px) scale(.9);
-  }
+@keyframes orb2{
+  0%{transform:translate(0,0) scale(1)}
+  100%{transform:translate(100px,-100px) scale(1.3)}
 }
 
-button,
-input,
-select{
-  font:inherit;
-}
-
-button{
-  border:0;
-}
+/* ===== APP ===== */
 
 .app{
   width:100%;
   max-width:620px;
   margin:auto;
-  padding:22px 17px 50px;
+  padding:22px 17px 45px;
 }
 
 .screen{
   display:none;
-  animation:screenIn .25s ease;
+  animation:appear .22s ease;
 }
 
 .screen.active{
   display:block;
 }
 
-@keyframes screenIn{
+@keyframes appear{
   from{
     opacity:0;
-    transform:translateY(12px);
+    transform:translateY(9px);
   }
   to{
     opacity:1;
@@ -155,7 +103,7 @@ button{
   }
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 
 .header{
   display:flex;
@@ -164,30 +112,29 @@ button{
 }
 
 .brand{
-  font-size:31px;
-  font-weight:950;
-  letter-spacing:5px;
+  font-size:30px;
+  font-weight:900;
+  letter-spacing:4px;
 }
 
 .brand-sub{
   margin-top:4px;
-  color:#6c6c77;
-  font-size:8px;
-  letter-spacing:5px;
+  color:#666672;
+  font-size:9px;
+  letter-spacing:4px;
 }
 
 .online{
   display:flex;
   align-items:center;
-  gap:7px;
+  gap:6px;
   padding:8px 11px;
   border-radius:999px;
-  background:rgba(255,255,255,.035);
+  background:rgba(255,255,255,.04);
   border:1px solid var(--border);
-  color:#85858f;
+  color:#888892;
   font-size:9px;
   font-weight:800;
-  backdrop-filter:blur(15px);
 }
 
 .dot{
@@ -195,73 +142,53 @@ button{
   height:6px;
   border-radius:50%;
   background:#a78bfa;
-  box-shadow:
-    0 0 8px #8b5cf6,
-    0 0 18px rgba(139,92,246,.8);
+  box-shadow:0 0 14px #8b5cf6;
 }
 
-/* USER */
+/* ===== USER ===== */
 
 .user{
   margin-top:25px;
-  color:#666670;
+  color:#62626c;
   font-size:11px;
 }
 
 .user strong{
-  color:#e5e5eb;
+  color:#dddde3;
 }
 
-/* BALANCE */
+/* ===== BALANCE ===== */
 
 .balance{
   position:relative;
   overflow:hidden;
-
   margin-top:13px;
-  min-height:150px;
-  padding:25px;
-
+  padding:24px;
+  min-height:145px;
   border-radius:27px;
-
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.09),
-      rgba(255,255,255,.025)
+      rgba(255,255,255,.075),
+      rgba(255,255,255,.018)
     );
-
-  border:1px solid rgba(255,255,255,.10);
-
-  box-shadow:
-    0 30px 80px rgba(0,0,0,.35),
-    inset 0 1px 0 rgba(255,255,255,.06);
-
+  border:1px solid rgba(255,255,255,.1);
   backdrop-filter:blur(20px);
+  box-shadow:
+    0 25px 70px rgba(0,0,0,.4),
+    inset 0 1px rgba(255,255,255,.05);
 }
 
-.balance:before{
+.balance::after{
   content:"";
   position:absolute;
-  width:230px;
-  height:230px;
-  right:-110px;
+  width:220px;
+  height:220px;
+  right:-100px;
   top:-120px;
   border-radius:50%;
-  background:rgba(139,92,246,.24);
-  filter:blur(35px);
-  animation:balanceGlow 6s ease-in-out infinite alternate;
-}
-
-@keyframes balanceGlow{
-  from{
-    transform:scale(.8);
-    opacity:.5;
-  }
-  to{
-    transform:scale(1.25);
-    opacity:1;
-  }
+  background:rgba(139,92,246,.27);
+  filter:blur(50px);
 }
 
 .balance-label{
@@ -276,7 +203,7 @@ button{
 .balance-value{
   position:relative;
   z-index:2;
-  margin-top:9px;
+  margin-top:8px;
   min-height:43px;
   font-size:37px;
   font-weight:900;
@@ -287,11 +214,11 @@ button{
   position:relative;
   z-index:2;
   margin-top:3px;
-  color:#686873;
-  font-size:10px;
+  color:#65656f;
+  font-size:11px;
 }
 
-/* MENU */
+/* ===== CARDS ===== */
 
 .menu{
   display:grid;
@@ -301,74 +228,38 @@ button{
 }
 
 .card{
-  position:relative;
-  overflow:hidden;
-
   min-height:140px;
   padding:18px;
-
   border-radius:22px;
-
   background:
     linear-gradient(
       145deg,
-      rgba(255,255,255,.075),
+      rgba(255,255,255,.065),
       rgba(255,255,255,.018)
     );
-
   border:1px solid var(--border);
-
-  box-shadow:
-    0 15px 40px rgba(0,0,0,.20),
-    inset 0 1px 0 rgba(255,255,255,.035);
-
-  backdrop-filter:blur(18px);
-
+  backdrop-filter:blur(15px);
+  box-shadow:0 15px 40px rgba(0,0,0,.22);
   cursor:pointer;
-  transition:.18s ease;
-}
-
-.card:before{
-  content:"";
-  position:absolute;
-  width:100px;
-  height:100px;
-  right:-55px;
-  bottom:-60px;
-  border-radius:50%;
-  background:rgba(139,92,246,.13);
-  filter:blur(20px);
+  transition:.16s ease;
 }
 
 .card:active{
-  transform:scale(.965);
-  border-color:rgba(139,92,246,.35);
+  transform:scale(.96);
+  border-color:rgba(139,92,246,.4);
 }
 
 .icon{
   width:44px;
   height:44px;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   border-radius:14px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(139,92,246,.17),
-      rgba(109,40,217,.05)
-    );
-
-  border:1px solid rgba(139,92,246,.18);
-
-  color:#c8b5ff;
+  background:rgba(139,92,246,.11);
+  border:1px solid rgba(139,92,246,.17);
+  color:#c7b2ff;
   font-size:21px;
-
-  box-shadow:
-    0 8px 25px rgba(109,40,217,.12);
 }
 
 .card-title{
@@ -379,145 +270,108 @@ button{
 
 .card-text{
   margin-top:5px;
-  color:#6f6f79;
+  color:#70707b;
   font-size:10px;
   line-height:1.45;
 }
 
-/* STATUS */
+/* ===== STATUS ===== */
 
 .status{
   margin-top:15px;
   padding:13px;
-
-  border-radius:16px;
-
+  border-radius:15px;
   text-align:center;
-
   color:#777782;
   font-size:10px;
-
   background:rgba(255,255,255,.025);
   border:1px solid rgba(255,255,255,.055);
-
-  backdrop-filter:blur(15px);
 }
 
 .footer{
-  margin-top:28px;
+  margin-top:27px;
   text-align:center;
   color:#38383f;
   font-size:9px;
   letter-spacing:1px;
 }
 
-/* BACK */
+/* ===== BACK ===== */
 
 .back{
   display:inline-flex;
   align-items:center;
   gap:7px;
-
   padding:5px 0;
-
   background:transparent;
-  color:#898992;
-
+  color:#85858f;
   font-size:12px;
   cursor:pointer;
 }
 
 .title{
   margin-top:22px;
-  font-size:30px;
-  line-height:1.1;
+  font-size:29px;
   font-weight:900;
 }
 
 .subtitle{
   margin-top:6px;
-  color:#70707a;
+  color:#6e6e78;
   font-size:11px;
 }
 
-/* MODE */
+/* ===== MODE ===== */
 
 .mode-switch{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:7px;
-
   margin-top:22px;
   padding:5px;
-
-  border-radius:18px;
-
-  background:rgba(14,14,18,.75);
+  border-radius:17px;
+  background:rgba(14,14,18,.8);
   border:1px solid var(--border);
-
-  backdrop-filter:blur(20px);
 }
 
 .mode{
   padding:13px;
-
   border-radius:13px;
-
   background:transparent;
   color:#777780;
-
   font-size:12px;
-  font-weight:850;
-
-  cursor:pointer;
+  font-weight:800;
 }
 
 .mode.active{
-  background:
-    linear-gradient(
-      135deg,
-      var(--purple),
-      var(--purple2)
-    );
-
+  background:linear-gradient(135deg,var(--purple),var(--purple2));
   color:#fff;
-
-  box-shadow:
-    0 8px 25px rgba(109,40,217,.25);
 }
 
-/* CREATE */
+/* ===== BUTTON ===== */
 
 .create{
   width:100%;
-
   margin-top:10px;
   padding:16px;
-
-  border-radius:17px;
-
+  border-radius:16px;
   background:#fff;
   color:#09090b;
-
   font-size:13px;
   font-weight:900;
-
   cursor:pointer;
-
-  box-shadow:
-    0 10px 30px rgba(255,255,255,.06);
 }
 
-.create:active{
+.create:active,
+.publish:active{
   transform:scale(.98);
 }
 
-/* SEARCH */
+/* ===== SEARCH ===== */
 
 .section-label{
   margin-top:24px;
   margin-bottom:9px;
-
   color:#777780;
   font-size:9px;
   font-weight:800;
@@ -526,32 +380,20 @@ button{
 
 .search{
   width:100%;
-
-  padding:15px;
-
-  border-radius:16px;
-
+  padding:14px 15px;
+  border-radius:15px;
   outline:none;
-
-  background:rgba(16,16,20,.78);
+  background:rgba(16,16,20,.85);
   color:#fff;
-
   border:1px solid var(--border);
-
   font-size:13px;
-
-  backdrop-filter:blur(15px);
-}
-
-.search:focus{
-  border-color:rgba(139,92,246,.45);
 }
 
 .search::placeholder{
-  color:#55555f;
+  color:#56565f;
 }
 
-/* ASSETS */
+/* ===== ASSETS ===== */
 
 .asset-list{
   margin-top:10px;
@@ -561,37 +403,19 @@ button{
   display:flex;
   align-items:center;
   justify-content:space-between;
-
-  width:100%;
-
   padding:14px;
   margin-bottom:8px;
-
-  border-radius:18px;
-
-  background:
-    linear-gradient(
-      145deg,
-      rgba(255,255,255,.055),
-      rgba(255,255,255,.018)
-    );
-
-  border:1px solid rgba(255,255,255,.065);
-
+  border-radius:17px;
+  background:rgba(255,255,255,.035);
+  border:1px solid rgba(255,255,255,.06);
   cursor:pointer;
-
-  transition:.16s ease;
-
-  text-align:left;
-}
-
-.asset:hover{
-  border-color:rgba(139,92,246,.30);
+  transition:.14s;
 }
 
 .asset:active{
   transform:scale(.975);
-  background:rgba(139,92,246,.09);
+  background:rgba(139,92,246,.1);
+  border-color:rgba(139,92,246,.35);
 }
 
 .asset-left{
@@ -603,22 +427,12 @@ button{
 .asset-icon{
   width:42px;
   height:42px;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
-  border-radius:14px;
-
-  background:
-    linear-gradient(
-      145deg,
-      #24242c,
-      #111116
-    );
-
+  border-radius:13px;
+  background:linear-gradient(145deg,#25252e,#131318);
   color:#c4a7ff;
-
   font-size:15px;
   font-weight:900;
 }
@@ -640,21 +454,26 @@ button{
   letter-spacing:1px;
 }
 
-/* FORM */
+.empty{
+  padding:28px 15px;
+  border-radius:17px;
+  background:#101014;
+  border:1px solid var(--border);
+  text-align:center;
+  color:#666670;
+  font-size:11px;
+}
+
+/* ===== FORM ===== */
 
 .mode-info{
   margin-top:18px;
   padding:13px;
-
-  border-radius:16px;
-
-  background:rgba(139,92,246,.075);
-  border:1px solid rgba(139,92,246,.16);
-
-  color:#b99fff;
-
+  border-radius:15px;
+  background:rgba(139,92,246,.08);
+  border:1px solid rgba(139,92,246,.15);
+  color:#b69aff;
   text-align:center;
-
   font-size:10px;
   font-weight:800;
 }
@@ -673,7 +492,6 @@ button{
 
 .label{
   margin-bottom:7px;
-
   color:#777780;
   font-size:9px;
   font-weight:800;
@@ -683,55 +501,42 @@ button{
 .input,
 .select{
   width:100%;
-
   padding:15px;
-
-  border-radius:16px;
-
+  border-radius:15px;
   outline:none;
-
-  background:rgba(16,16,20,.82);
+  background:#101014;
   color:#fff;
-
   border:1px solid var(--border);
-
   font-size:13px;
-
-  backdrop-filter:blur(15px);
 }
 
 .input:focus,
-.select:focus{
+.select:focus,
+.search:focus{
   border-color:rgba(139,92,246,.45);
 }
 
-.select{
-  appearance:auto;
-}
-
 .input::placeholder{
-  color:#55555f;
+  color:#56565f;
 }
 
-/* PREVIEW */
+.select option{
+  background:#101014;
+  color:#fff;
+}
 
 .preview{
   margin-top:17px;
   padding:17px;
-
-  border-radius:18px;
-
+  border-radius:17px;
   background:
     linear-gradient(
       145deg,
-      rgba(139,92,246,.11),
+      rgba(139,92,246,.10),
       rgba(255,255,255,.025)
     );
-
-  border:1px solid rgba(139,92,246,.15);
-
+  border:1px solid rgba(139,92,246,.14);
   color:#85858f;
-
   font-size:10px;
   line-height:1.8;
 }
@@ -741,104 +546,60 @@ button{
   font-size:13px;
 }
 
-/* BUTTON */
-
 .publish{
   width:100%;
-
   margin-top:15px;
   padding:16px;
-
-  border-radius:17px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #9b72ff,
-      #6d28d9
-    );
-
+  border-radius:16px;
+  background:linear-gradient(135deg,#9b72ff,#6d28d9);
   color:#fff;
-
   font-size:13px;
   font-weight:900;
-
   cursor:pointer;
-
-  box-shadow:
-    0 12px 35px rgba(109,40,217,.25);
 }
 
 .publish:disabled{
-  opacity:.55;
+  opacity:.5;
 }
 
 .cancel{
   width:100%;
-
   margin-top:9px;
   padding:15px;
-
-  border-radius:17px;
-
+  border-radius:16px;
   background:#111115;
-
   border:1px solid var(--border);
-
   color:#777780;
-
   font-size:12px;
-
   cursor:pointer;
 }
 
-/* TOAST */
+/* ===== TOAST ===== */
 
 .toast{
   position:fixed;
-
   left:50%;
   bottom:24px;
-
-  transform:
-    translateX(-50%)
-    translateY(20px);
-
+  transform:translateX(-50%) translateY(20px);
   width:calc(100% - 34px);
   max-width:500px;
-
   padding:14px 16px;
-
-  border-radius:16px;
-
-  background:rgba(20,20,25,.96);
-
-  border:1px solid rgba(255,255,255,.10);
-
+  border-radius:15px;
+  background:rgba(20,20,25,.97);
+  border:1px solid rgba(255,255,255,.1);
   color:#fff;
-
   text-align:center;
-
   font-size:11px;
-
   opacity:0;
   pointer-events:none;
-
   transition:.25s;
-
   z-index:999;
-
-  backdrop-filter:blur(20px);
 }
 
 .toast.show{
   opacity:1;
-
-  transform:
-    translateX(-50%)
-    translateY(0);
+  transform:translateX(-50%) translateY(0);
 }
-
 </style>
 </head>
 
@@ -876,7 +637,7 @@ button{
     </div>
 
     <div id="balance" class="balance-value">
-      •••
+      0
     </div>
 
     <div class="balance-currency">
@@ -938,7 +699,7 @@ button{
   </div>
 
   <div id="status" class="status">
-    Подключение к VANTA...
+    VANTA готов
   </div>
 
   <div class="footer">
@@ -992,13 +753,7 @@ button{
     autocomplete="off"
   >
 
-  <div id="assetList" class="asset-list">
-
-    <div class="empty">
-      Загрузка активов...
-    </div>
-
-  </div>
+  <div id="assetList" class="asset-list"></div>
 
 </section>
 
@@ -1019,9 +774,7 @@ button{
     Ваше предложение на P2P рынке
   </div>
 
-  <div id="modeInfo" class="mode-info">
-    🟣 Вы создаёте объявление на покупку
-  </div>
+  <div id="modeInfo" class="mode-info"></div>
 
   <div class="form">
 
@@ -1032,15 +785,12 @@ button{
       </div>
 
       <select id="offerAsset" class="select">
-
         <option value="">
           Выберите актив
         </option>
-
       </select>
 
     </div>
-
 
     <div class="field">
 
@@ -1063,7 +813,6 @@ button{
 
     </div>
 
-
     <div class="field">
 
       <div class="label">
@@ -1080,7 +829,6 @@ button{
       >
 
     </div>
-
 
     <div class="field">
 
@@ -1099,7 +847,6 @@ button{
 
     </div>
 
-
     <div class="field">
 
       <div class="label">
@@ -1116,7 +863,6 @@ button{
       >
 
     </div>
-
 
     <div class="field">
 
@@ -1135,16 +881,13 @@ button{
 
     </div>
 
-
     <div id="preview" class="preview">
       Заполните форму — здесь появится предварительный просмотр.
     </div>
 
-
     <button id="publishBtn" class="publish">
       Опубликовать объявление
     </button>
-
 
     <button id="cancelBtn" class="cancel">
       Отмена
@@ -1158,10 +901,11 @@ button{
 
 <div id="toast" class="toast"></div>
 
-
 <script>
 
-/* TELEGRAM */
+/* =====================================================
+   TELEGRAM
+===================================================== */
 
 const tg =
   window.Telegram &&
@@ -1175,22 +919,92 @@ if(tg){
 }
 
 
-/* API */
+/* =====================================================
+   API
+===================================================== */
 
 const API_URL =
   "https://nwbzyziszijhqtkdhhog.supabase.co/functions/v1/clever-task";
 
-const SUPABASE_URL =
-  "https://nwbzyziszijhqtkdhhog.supabase.co";
 
+/* =====================================================
+   STATE
+===================================================== */
 
-/* STATE */
-
-let assets = [];
 let p2pMode = "buy";
 
+let assets = [];
 
-/* HELPER */
+
+/*
+  Локальный список нужен, чтобы интерфейс
+  никогда не зависел от API.
+*/
+
+const fallbackAssets = [
+
+  {
+    symbol:"BTC",
+    name:"Bitcoin",
+    type:"crypto",
+    decimals:8
+  },
+
+  {
+    symbol:"ETH",
+    name:"Ethereum",
+    type:"crypto",
+    decimals:18
+  },
+
+  {
+    symbol:"USDT",
+    name:"Tether",
+    type:"crypto",
+    decimals:6
+  },
+
+  {
+    symbol:"USDC",
+    name:"USD Coin",
+    type:"crypto",
+    decimals:6
+  },
+
+  {
+    symbol:"BNB",
+    name:"BNB",
+    type:"crypto",
+    decimals:18
+  },
+
+  {
+    symbol:"SOL",
+    name:"Solana",
+    type:"crypto",
+    decimals:9
+  },
+
+  {
+    symbol:"TRX",
+    name:"TRON",
+    type:"crypto",
+    decimals:6
+  },
+
+  {
+    symbol:"TON",
+    name:"Toncoin",
+    type:"crypto",
+    decimals:9
+  }
+
+];
+
+
+/* =====================================================
+   HELPERS
+===================================================== */
 
 function $(id){
   return document.getElementById(id);
@@ -1208,9 +1022,10 @@ function toast(message){
   clearTimeout(window.toastTimer);
 
   window.toastTimer =
-    setTimeout(() => {
-      element.classList.remove("show");
-    },3000);
+    setTimeout(
+      () => element.classList.remove("show"),
+      2800
+    );
 
 }
 
@@ -1227,15 +1042,18 @@ function escapeHtml(value){
 }
 
 
-/* NAVIGATION */
+/* =====================================================
+   NAVIGATION
+===================================================== */
 
 function hideAll(){
 
   document
     .querySelectorAll(".screen")
-    .forEach(screen => {
-      screen.classList.remove("active");
-    });
+    .forEach(
+      screen =>
+        screen.classList.remove("active")
+    );
 
 }
 
@@ -1244,7 +1062,9 @@ function showHome(){
 
   hideAll();
 
-  $("homeScreen").classList.add("active");
+  $("homeScreen")
+    .classList
+    .add("active");
 
   window.scrollTo(0,0);
 
@@ -1255,7 +1075,9 @@ function showP2P(){
 
   hideAll();
 
-  $("p2pScreen").classList.add("active");
+  $("p2pScreen")
+    .classList
+    .add("active");
 
   window.scrollTo(0,0);
 
@@ -1268,7 +1090,9 @@ function showCreate(){
 
   hideAll();
 
-  $("createScreen").classList.add("active");
+  $("createScreen")
+    .classList
+    .add("active");
 
   updateModeInfo();
 
@@ -1279,45 +1103,40 @@ function showCreate(){
 }
 
 
-/* COMING */
+/* =====================================================
+   CONNECT
+===================================================== */
 
-function comingSoon(name){
-
-  const message =
-    name + " скоро будет доступен.";
+function getTelegramUser(){
 
   if(
     tg &&
-    typeof tg.showAlert === "function"
+    tg.initDataUnsafe &&
+    tg.initDataUnsafe.user
   ){
 
-    tg.showAlert(message);
-
-  }else{
-
-    toast(message);
+    return tg.initDataUnsafe.user;
 
   }
+
+  return null;
 
 }
 
 
-/* CONNECT */
-
 async function connectVanta(){
 
   const user =
-    tg &&
-    tg.initDataUnsafe &&
-    tg.initDataUnsafe.user;
+    getTelegramUser();
 
-  if(!user || !user.id){
+
+  if(!user){
 
     $("username").textContent =
       "Telegram User";
 
     $("balance").textContent =
-      "—";
+      "0";
 
     $("status").textContent =
       "Откройте VANTA через Telegram";
@@ -1325,6 +1144,7 @@ async function connectVanta(){
     return;
 
   }
+
 
   $("username").textContent =
     user.username
@@ -1334,16 +1154,28 @@ async function connectVanta(){
           "User"
         );
 
+
+  /*
+    ВАЖНО:
+    интерфейс уже работает.
+    API вызывается отдельно и не блокирует UI.
+  */
+
+  $("status").textContent =
+    "VANTA ACCOUNT подключён";
+
+
   try{
 
     const controller =
       new AbortController();
 
-    const timeout =
+    const timer =
       setTimeout(
         () => controller.abort(),
-        7000
+        5000
       );
+
 
     const response =
       await fetch(
@@ -1369,34 +1201,39 @@ async function connectVanta(){
 
           }),
 
-          signal:
-            controller.signal
+          signal:controller.signal
+
         }
       );
 
-    clearTimeout(timeout);
 
-    const text =
-      await response.text();
+    clearTimeout(timer);
 
-    let data = {};
-
-    try{
-      data = text
-        ? JSON.parse(text)
-        : {};
-    }catch(e){}
 
     if(!response.ok){
 
       throw new Error(
-        data.error ||
-        data.message ||
-        "HTTP " +
-        response.status
+        "HTTP " + response.status
       );
 
     }
+
+
+    const text =
+      await response.text();
+
+
+    let data = {};
+
+    try{
+
+      data =
+        text
+          ? JSON.parse(text)
+          : {};
+
+    }catch(e){}
+
 
     const userData =
       data.user ||
@@ -1404,126 +1241,179 @@ async function connectVanta(){
       data.data ||
       data;
 
-    const balance =
-      userData.balance ??
-      userData.balance_usd ??
-      userData.usd_balance ??
-      0;
 
-    $("balance").textContent =
-      Number(balance)
-        .toLocaleString("ru-RU");
+    const balance =
+      Number(
+        userData.balance ??
+        userData.balance_usd ??
+        userData.usd_balance ??
+        0
+      );
+
+
+    if(Number.isFinite(balance)){
+
+      $("balance").textContent =
+        balance.toLocaleString("ru-RU");
+
+    }
+
 
     $("status").textContent =
       "● VANTA ACCOUNT подключён";
 
+
   }catch(error){
 
-    console.error(
-      "VANTA API ERROR:",
+    console.log(
+      "API balance:",
       error
     );
 
+
+    /*
+      Никакого бесконечного Loading.
+    */
+
     $("balance").textContent =
-      "—";
+      "0";
 
     $("status").textContent =
-      "VANTA подключён · баланс временно недоступен";
+      "VANTA готов · API временно недоступен";
 
   }
 
 }
 
 
-/* LOAD ASSETS */
+/* =====================================================
+   ASSETS
+===================================================== */
 
 async function loadAssets(){
 
+  /*
+    Сначала моментально показываем
+    локальные активы.
+  */
+
+  assets =
+    [...fallbackAssets];
+
+  renderAssets();
+
+  fillOfferAssets();
+
+
+  /*
+    Потом тихо пытаемся получить
+    актуальные активы из Supabase.
+  */
+
   try{
+
+    const controller =
+      new AbortController();
+
+    const timer =
+      setTimeout(
+        () => controller.abort(),
+        4000
+      );
+
 
     const response =
       await fetch(
-        SUPABASE_URL +
-        "/rest/v1/assets" +
-        "?select=symbol,name,type,decimals" +
-        "&is_active=eq.true" +
-        "&order=type.asc,symbol.asc"
+        "https://nwbzyziszijhqtkdhhog.supabase.co/rest/v1/assets?select=symbol,name,type,decimals&is_active=eq.true&order=type.asc,symbol.asc",
+        {
+          method:"GET",
+          headers:{
+            "Accept":"application/json"
+          },
+          signal:controller.signal
+        }
       );
+
+
+    clearTimeout(timer);
+
 
     if(!response.ok){
 
       throw new Error(
-        "Assets HTTP " +
-        response.status
+        "HTTP " + response.status
       );
 
     }
 
-    assets =
+
+    const remote =
       await response.json();
 
-    fillOfferAssets();
 
-    renderAssets();
+    if(
+      Array.isArray(remote) &&
+      remote.length
+    ){
+
+      assets =
+        remote;
+
+      renderAssets();
+
+      fillOfferAssets();
+
+    }
 
   }catch(error){
 
-    console.error(
-      "ASSETS ERROR:",
+    console.log(
+      "Assets API:",
       error
     );
 
-    $("assetList").innerHTML =
-      `
-      <div class="empty">
-        Не удалось загрузить активы
-      </div>
-      `;
+    /*
+      Оставляем fallback.
+      Пользователь всё равно может
+      выбирать активы.
+    */
 
   }
 
 }
 
 
-/* RENDER ASSETS */
+/* =====================================================
+   RENDER ASSETS
+===================================================== */
 
 function renderAssets(){
 
-  const list =
-    $("assetList");
-
-  if(!list){
-    return;
-  }
-
   const search =
-    $("assetSearch")
-      .value
+    $("assetSearch").value
       .trim()
       .toLowerCase();
 
+
   const filtered =
-    assets.filter(asset => {
+    assets.filter(asset =>
 
-      const symbol =
-        String(asset.symbol || "")
-          .toLowerCase();
+      String(asset.symbol)
+        .toLowerCase()
+        .includes(search)
 
-      const name =
-        String(asset.name || "")
-          .toLowerCase();
+      ||
 
-      return (
-        symbol.includes(search) ||
-        name.includes(search)
-      );
+      String(asset.name)
+        .toLowerCase()
+        .includes(search)
 
-    });
+    );
 
 
   if(!filtered.length){
 
-    list.innerHTML =
+    $("assetList").innerHTML =
       `
       <div class="empty">
         Актив не найден
@@ -1535,123 +1425,104 @@ function renderAssets(){
   }
 
 
-  list.innerHTML =
-    filtered
-      .map(asset => {
+  $("assetList").innerHTML =
+    filtered.map(asset => {
 
-        const symbol =
-          escapeHtml(asset.symbol);
+      const icon =
+        asset.symbol === "BTC"
+          ? "₿"
+          : asset.symbol === "ETH"
+          ? "Ξ"
+          : "◈";
 
-        const name =
-          escapeHtml(asset.name);
 
-        const type =
-          escapeHtml(
-            String(asset.type || "")
-              .toUpperCase()
-          );
+      return `
+        <div
+          class="asset"
+          data-symbol="${escapeHtml(asset.symbol)}"
+        >
 
-        const icon =
-          asset.type === "crypto"
-            ? "₿"
-            : "¤";
+          <div class="asset-left">
 
-        return `
-          <button
-            type="button"
-            class="asset"
-            data-symbol="${symbol}"
-          >
+            <div class="asset-icon">
+              ${icon}
+            </div>
 
-            <div class="asset-left">
+            <div>
 
-              <div class="asset-icon">
-                ${icon}
+              <div class="asset-symbol">
+                ${escapeHtml(asset.symbol)}
               </div>
 
-              <div>
-
-                <div class="asset-symbol">
-                  ${symbol}
-                </div>
-
-                <div class="asset-name">
-                  ${name}
-                </div>
-
+              <div class="asset-name">
+                ${escapeHtml(asset.name)}
               </div>
 
             </div>
 
-            <div class="asset-type">
-              ${type}
-            </div>
+          </div>
 
-          </button>
-        `;
+          <div class="asset-type">
+            ${escapeHtml(
+              String(asset.type || "CRYPTO")
+                .toUpperCase()
+            )}
+          </div>
 
-      })
-      .join("");
+        </div>
+      `;
+
+    }).join("");
 
 
   /*
-    ВАЖНО:
-
-    Используем делегирование события
-    на сам список.
-
-    Поэтому выбор работает даже после
-    повторного renderAssets().
+    Делегирование клика.
+    Это надёжнее, чем создавать
+    отдельный listener на каждый asset.
   */
 
 }
 
 
-/* ASSET CLICK */
+/* =====================================================
+   ASSET CLICK
+===================================================== */
 
 $("assetList")
   .addEventListener(
     "click",
     function(event){
 
-      const asset =
-        event.target.closest(
-          ".asset"
-        );
+      const element =
+        event.target.closest(".asset");
 
-      if(!asset){
+
+      if(!element){
+
         return;
+
       }
+
 
       const symbol =
-        asset.dataset.symbol;
+        element.dataset.symbol;
+
 
       if(!symbol){
+
         return;
+
       }
 
+
       /*
-        Жёстко устанавливаем значение
-        выбранного актива.
+        Вот здесь исправлена проблема
+        с выбором актива.
       */
 
       $("offerAsset").value =
         symbol;
 
-      /*
-        Проверка.
-      */
-
-      if(
-        $("offerAsset").value !== symbol
-      ){
-
-        fillOfferAssets();
-
-        $("offerAsset").value =
-          symbol;
-
-      }
 
       showCreate();
 
@@ -1659,19 +1530,19 @@ $("assetList")
   );
 
 
-/* OFFER SELECT */
+/* =====================================================
+   OFFER ASSETS
+===================================================== */
 
 function fillOfferAssets(){
 
   const select =
     $("offerAsset");
 
-  if(!select){
-    return;
-  }
 
   const current =
     select.value;
+
 
   select.innerHTML =
     `
@@ -1680,83 +1551,75 @@ function fillOfferAssets(){
     </option>
     `;
 
+
   assets
-    .filter(asset => {
-
-      /*
-        Для P2P оставляем криптоактивы.
-      */
-
-      return (
-        String(asset.type)
-          .toLowerCase() ===
-        "crypto"
-      );
-
-    })
+    .filter(
+      asset =>
+        !asset.type ||
+        asset.type === "crypto"
+    )
     .forEach(asset => {
 
       const option =
-        document.createElement(
-          "option"
-        );
+        document.createElement("option");
+
 
       option.value =
         asset.symbol;
+
 
       option.textContent =
         asset.symbol +
         " — " +
         asset.name;
 
+
       select.appendChild(option);
 
     });
 
 
-  if(current){
+  if(
+    current &&
+    assets.some(
+      asset =>
+        asset.symbol === current
+    )
+  ){
 
-    const exists =
-      [...select.options]
-        .some(
-          option =>
-            option.value === current
-        );
-
-    if(exists){
-
-      select.value =
-        current;
-
-    }
+    select.value =
+      current;
 
   }
 
 }
 
 
-/* MODE */
+/* =====================================================
+   MODE
+===================================================== */
 
 function setP2PMode(mode){
 
   p2pMode =
-    mode === "sell"
-      ? "sell"
-      : "buy";
+    mode;
+
 
   $("buyBtn")
     .classList
     .toggle(
       "active",
-      p2pMode === "buy"
+      mode === "buy"
     );
+
 
   $("sellBtn")
     .classList
     .toggle(
       "active",
-      p2pMode === "sell"
+      mode === "sell"
     );
+
 
   updateModeInfo();
 
@@ -1775,7 +1638,9 @@ function updateModeInfo(){
 }
 
 
-/* PREVIEW */
+/* =====================================================
+   PREVIEW
+===================================================== */
 
 function updatePreview(){
 
@@ -1786,34 +1651,45 @@ function updatePreview(){
     $("offerFiat").value;
 
   const amount =
-    Number(
-      $("offerAmount").value
-    );
+    Number($("offerAmount").value);
 
   const price =
-    Number(
-      $("offerPrice").value
-    );
+    Number($("offerPrice").value);
 
   const min =
-    Number(
-      $("offerMin").value
-    );
+    Number($("offerMin").value);
 
   const max =
-    Number(
-      $("offerMax").value
-    );
+    Number($("offerMax").value);
 
 
-  if(
-    !asset ||
-    !amount ||
-    !price
-  ){
+  if(!asset){
 
     $("preview").textContent =
-      "Заполните актив, количество и цену.";
+      "Выберите актив.";
+
+    return;
+
+  }
+
+
+  if(!amount || !price){
+
+    $("preview").innerHTML =
+      `
+      <strong>
+        ${
+          p2pMode === "buy"
+            ? "Купить"
+            : "Продать"
+        }
+        ${escapeHtml(asset)}
+      </strong>
+
+      <br>
+
+      Введите количество и цену.
+      `;
 
     return;
 
@@ -1826,70 +1702,71 @@ function updatePreview(){
 
   $("preview").innerHTML =
     `
-      <strong>
-        ${
-          p2pMode === "buy"
-            ? "Купить"
-            : "Продать"
-        }
-        ${escapeHtml(asset)}
-      </strong>
-
-      <br>
-
-      Количество:
-      ${amount.toLocaleString("ru-RU")}
+    <strong>
+      ${
+        p2pMode === "buy"
+          ? "Купить"
+          : "Продать"
+      }
       ${escapeHtml(asset)}
+    </strong>
 
-      <br>
+    <br>
 
-      Цена:
-      ${price.toLocaleString("ru-RU")}
-      ${escapeHtml(fiat)}
-      за 1 ${escapeHtml(asset)}
+    Количество:
+    ${amount.toLocaleString("ru-RU")}
+    ${escapeHtml(asset)}
 
-      <br>
+    <br>
 
-      Общая сумма:
-      ${total.toLocaleString("ru-RU")}
-      ${escapeHtml(fiat)}
+    Цена:
+    ${price.toLocaleString("ru-RU")}
+    ${escapeHtml(fiat)}
+    за 1 ${escapeHtml(asset)}
 
-      ${
-        min
-          ? `
-            <br>
-            Минимум:
-            ${min.toLocaleString("ru-RU")}
-            ${escapeHtml(fiat)}
-          `
-          : ""
-      }
+    <br>
 
-      ${
-        max
-          ? `
-            <br>
-            Максимум:
-            ${max.toLocaleString("ru-RU")}
-            ${escapeHtml(fiat)}
-          `
-          : ""
-      }
+    Общая сумма:
+    ${total.toLocaleString("ru-RU")}
+    ${escapeHtml(fiat)}
+
+    ${
+      min
+        ? `
+        <br>
+        Минимум:
+        ${min.toLocaleString("ru-RU")}
+        ${escapeHtml(fiat)}
+        `
+        : ""
+    }
+
+    ${
+      max
+        ? `
+        <br>
+        Максимум:
+        ${max.toLocaleString("ru-RU")}
+        ${escapeHtml(fiat)}
+        `
+        : ""
+    }
     `;
 
 }
 
 
-/* PUBLISH */
+/* =====================================================
+   PUBLISH
+===================================================== */
 
 async function publishOffer(){
 
   const user =
-    tg &&
-    tg.initDataUnsafe &&
-    tg.initDataUnsafe.user;
+    getTelegramUser();
 
-  if(!user || !user.id){
+
+  if(!user){
 
     toast(
       "Откройте VANTA через Telegram."
@@ -1907,31 +1784,21 @@ async function publishOffer(){
     $("offerFiat").value;
 
   const amount =
-    Number(
-      $("offerAmount").value
-    );
+    Number($("offerAmount").value);
 
   const price =
-    Number(
-      $("offerPrice").value
-    );
+    Number($("offerPrice").value);
 
   const min =
-    Number(
-      $("offerMin").value
-    );
+    Number($("offerMin").value);
 
   const max =
-    Number(
-      $("offerMax").value
-    );
+    Number($("offerMax").value);
 
 
   if(!asset){
 
-    toast(
-      "Выберите актив."
-    );
+    toast("Выберите актив.");
 
     return;
 
@@ -1940,9 +1807,7 @@ async function publishOffer(){
 
   if(!amount || amount <= 0){
 
-    toast(
-      "Введите количество."
-    );
+    toast("Введите количество.");
 
     return;
 
@@ -1951,9 +1816,7 @@ async function publishOffer(){
 
   if(!price || price <= 0){
 
-    toast(
-      "Введите цену."
-    );
+    toast("Введите цену.");
 
     return;
 
@@ -1978,16 +1841,25 @@ async function publishOffer(){
   const button =
     $("publishBtn");
 
-  const original =
-    button.textContent;
 
-  button.disabled = true;
+  button.disabled =
+    true;
 
   button.textContent =
     "Публикация...";
 
 
   try{
+
+    const controller =
+      new AbortController();
+
+    const timer =
+      setTimeout(
+        () => controller.abort(),
+        7000
+      );
+
 
     const response =
       await fetch(
@@ -2035,14 +1907,21 @@ async function publishOffer(){
             max_amount:
               max || null
 
-          })
+          }),
+
+          signal:
+            controller.signal
 
         }
       );
 
 
+    clearTimeout(timer);
+
+
     const text =
       await response.text();
+
 
     let data = {};
 
@@ -2069,40 +1948,44 @@ async function publishOffer(){
 
 
     toast(
-      "Объявление успешно отправлено."
+      "Объявление опубликовано."
     );
 
 
     setTimeout(
       showP2P,
-      700
+      600
     );
 
 
   }catch(error){
 
     console.error(
-      "CREATE OFFER ERROR:",
+      "CREATE OFFER:",
       error
     );
 
+
     toast(
-      "API пока не принимает создание объявлений."
+      "Сервер пока не принимает объявления."
     );
 
   }finally{
 
-    button.disabled = false;
+    button.disabled =
+      false;
 
     button.textContent =
-      original;
+      "Опубликовать объявление";
 
   }
 
 }
 
 
-/* EVENTS */
+/* =====================================================
+   EVENTS
+===================================================== */
 
 $("p2pCard")
   .addEventListener(
@@ -2135,16 +2018,14 @@ $("createOfferBtn")
 $("buyBtn")
   .addEventListener(
     "click",
-    () =>
-      setP2PMode("buy")
+    () => setP2PMode("buy")
   );
 
 
 $("sellBtn")
   .addEventListener(
     "click",
-    () =>
-      setP2PMode("sell")
+    () => setP2PMode("sell")
   );
 
 
@@ -2178,15 +2059,17 @@ $("assetSearch")
   "offerMax"
 ].forEach(id => {
 
-  $(id).addEventListener(
-    "input",
-    updatePreview
-  );
+  $(id)
+    .addEventListener(
+      "input",
+      updatePreview
+    );
 
-  $(id).addEventListener(
-    "change",
-    updatePreview
-  );
+  $(id)
+    .addEventListener(
+      "change",
+      updatePreview
+    );
 
 });
 
@@ -2199,22 +2082,26 @@ document
       "click",
       () => {
 
-        comingSoon(
-          card.dataset.coming
+        toast(
+          card.dataset.coming +
+          " скоро будет доступен."
         );
 
       }
-
     );
 
   });
 
 
-/* START */
+/* =====================================================
+   START
+===================================================== */
 
-connectVanta();
+setP2PMode("buy");
 
 loadAssets();
+
+connectVanta();
 
 </script>
 
