@@ -310,6 +310,7 @@ button{
   color:#777780;
   font-size:12px;
   font-weight:800;
+  cursor:pointer;
 }
 
 .mode.active{
@@ -377,6 +378,7 @@ button{
   background:rgba(255,255,255,.035);
   border:1px solid rgba(255,255,255,.06);
   cursor:pointer;
+  transition:.15s;
 }
 
 .asset:active{
@@ -480,6 +482,11 @@ button{
   font-size:13px;
 }
 
+.select option{
+  background:#101014;
+  color:#fff;
+}
+
 .input::placeholder{
   color:#56565f;
 }
@@ -518,6 +525,10 @@ button{
   font-size:13px;
   font-weight:850;
   cursor:pointer;
+}
+
+.publish:disabled{
+  opacity:.6;
 }
 
 .cancel{
@@ -565,12 +576,9 @@ button{
 
 <div class="app">
 
-<!-- ================= HOME ================= -->
-
 <section id="homeScreen" class="screen active">
 
   <div class="header">
-
     <div>
       <div class="brand">VANTA</div>
       <div class="brand-sub">EXCHANGE</div>
@@ -580,7 +588,6 @@ button{
       <span class="dot"></span>
       ONLINE
     </div>
-
   </div>
 
   <div class="user">
@@ -667,8 +674,6 @@ button{
 </section>
 
 
-<!-- ================= P2P ================= -->
-
 <section id="p2pScreen" class="screen">
 
   <button class="back" id="backFromP2P">
@@ -722,8 +727,6 @@ button{
 </section>
 
 
-<!-- ================= CREATE ================= -->
-
 <section id="createScreen" class="screen">
 
   <button class="back" id="backFromCreate">
@@ -769,37 +772,14 @@ button{
 
       <select id="offerFiat" class="select">
 
-        <option value="USD">
-          🇺🇸 USD — Доллар США
-        </option>
-
-        <option value="EUR">
-          🇪🇺 EUR — Евро
-        </option>
-
-        <option value="KZT">
-          🇰🇿 KZT — Тенге
-        </option>
-
-        <option value="RUB">
-          🇷🇺 RUB — Рубль
-        </option>
-
-        <option value="GBP">
-          🇬🇧 GBP — Фунт
-        </option>
-
-        <option value="TRY">
-          🇹🇷 TRY — Лира
-        </option>
-
-        <option value="AED">
-          🇦🇪 AED — Дирхам
-        </option>
-
-        <option value="CNY">
-          🇨🇳 CNY — Юань
-        </option>
+        <option value="USD">🇺🇸 USD — Доллар США</option>
+        <option value="EUR">🇪🇺 EUR — Евро</option>
+        <option value="KZT">🇰🇿 KZT — Тенге</option>
+        <option value="RUB">🇷🇺 RUB — Рубль</option>
+        <option value="GBP">🇬🇧 GBP — Фунт</option>
+        <option value="TRY">🇹🇷 TRY — Лира</option>
+        <option value="AED">🇦🇪 AED — Дирхам</option>
+        <option value="CNY">🇨🇳 CNY — Юань</option>
 
       </select>
 
@@ -898,7 +878,6 @@ button{
 
 </div>
 
-
 <div id="toast" class="toast"></div>
 
 
@@ -937,6 +916,59 @@ const SUPABASE_URL =
 
 let assets = [];
 let p2pMode = "buy";
+
+
+/* =====================================================
+   FALLBACK ASSETS
+   Нужны, чтобы интерфейс не был пустым,
+   даже если REST/API временно недоступен.
+===================================================== */
+
+const FALLBACK_ASSETS = [
+
+  {
+    symbol:"BTC",
+    name:"Bitcoin",
+    type:"crypto",
+    decimals:8
+  },
+
+  {
+    symbol:"ETH",
+    name:"Ethereum",
+    type:"crypto",
+    decimals:18
+  },
+
+  {
+    symbol:"USDT",
+    name:"Tether USD",
+    type:"crypto",
+    decimals:6
+  },
+
+  {
+    symbol:"USDC",
+    name:"USD Coin",
+    type:"crypto",
+    decimals:6
+  },
+
+  {
+    symbol:"BNB",
+    name:"BNB",
+    type:"crypto",
+    decimals:18
+  },
+
+  {
+    symbol:"SOL",
+    name:"Solana",
+    type:"crypto",
+    decimals:9
+  }
+
+];
 
 
 /* =====================================================
@@ -1009,7 +1041,7 @@ function showP2P(){
 
   window.scrollTo(0,0);
 
-  loadAssets();
+  renderAssets();
 
 }
 
@@ -1060,6 +1092,7 @@ async function connectVanta(){
     tg &&
     tg.initDataUnsafe &&
     tg.initDataUnsafe.user;
+
 
   if(!user || !user.id){
 
@@ -1151,19 +1184,7 @@ async function connectVanta(){
           ? JSON.parse(text)
           : {};
 
-    }catch(e){
-
-      console.log(
-        "API вернул не JSON"
-      );
-
-    }
-
-
-    console.log(
-      "VANTA API DATA:",
-      data
-    );
+    }catch(e){}
 
 
     if(!response.ok){
@@ -1222,12 +1243,65 @@ async function connectVanta(){
 
 
 /* =====================================================
+   NORMALIZE ASSETS
+===================================================== */
+
+function normalizeAssets(data){
+
+  if(!Array.isArray(data)){
+    return [];
+  }
+
+
+  return data
+    .filter(asset =>
+      asset &&
+      asset.symbol
+    )
+    .map(asset => ({
+
+      symbol:
+        String(asset.symbol)
+          .toUpperCase(),
+
+      name:
+        String(
+          asset.name ||
+          asset.symbol
+        ),
+
+      type:
+        String(
+          asset.type ||
+          "crypto"
+        ).toLowerCase(),
+
+      decimals:
+        Number(
+          asset.decimals ?? 0
+        )
+
+    }));
+
+}
+
+
+/* =====================================================
    LOAD ASSETS
 ===================================================== */
 
 async function loadAssets(){
 
+  console.log(
+    "VANTA: loading assets..."
+  );
+
+
   try{
+
+    /*
+      Сначала прямой Supabase REST.
+    */
 
     const response =
       await fetch(
@@ -1235,45 +1309,199 @@ async function loadAssets(){
         "/rest/v1/assets" +
         "?select=symbol,name,type,decimals" +
         "&is_active=eq.true" +
-        "&order=type.asc,symbol.asc"
+        "&order=type.asc,symbol.asc",
+        {
+          method:"GET",
+
+          headers:{
+            "Accept":
+              "application/json"
+          }
+        }
       );
 
 
-    if(!response.ok){
+    const text =
+      await response.text();
 
-      throw new Error(
-        "Assets HTTP " +
-        response.status
-      );
+
+    console.log(
+      "ASSETS REST:",
+      response.status,
+      text
+    );
+
+
+    if(response.ok){
+
+      let data = [];
+
+      try{
+
+        data =
+          text
+            ? JSON.parse(text)
+            : [];
+
+      }catch(e){
+
+        data = [];
+
+      }
+
+
+      const normalized =
+        normalizeAssets(data);
+
+
+      if(normalized.length){
+
+        assets =
+          normalized;
+
+        renderAssets();
+        fillOfferAssets();
+
+        console.log(
+          "ASSETS: loaded from Supabase",
+          assets
+        );
+
+        return;
+
+      }
 
     }
-
-
-    assets =
-      await response.json();
-
-
-    renderAssets();
-
-    fillOfferAssets();
 
 
   }catch(error){
 
     console.error(
-      "ASSETS ERROR:",
+      "ASSETS REST ERROR:",
       error
     );
 
+  }
 
-    $("assetList").innerHTML =
-      `
-      <div class="empty">
-        Не удалось загрузить активы
-      </div>
-      `;
+
+  /*
+    Второй вариант — Edge Function.
+  */
+
+  try{
+
+    const response =
+      await fetch(
+        API_URL,
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+            action:"get_assets"
+          })
+        }
+      );
+
+
+    const text =
+      await response.text();
+
+
+    console.log(
+      "ASSETS API:",
+      response.status,
+      text
+    );
+
+
+    if(response.ok){
+
+      let data = {};
+
+      try{
+
+        data =
+          text
+            ? JSON.parse(text)
+            : {};
+
+      }catch(e){
+
+        data = {};
+
+      }
+
+
+      const result =
+        data.assets ||
+        data.data?.assets ||
+        data.data ||
+        data;
+
+
+      const normalized =
+        normalizeAssets(result);
+
+
+      if(normalized.length){
+
+        assets =
+          normalized;
+
+        renderAssets();
+        fillOfferAssets();
+
+        console.log(
+          "ASSETS: loaded from API",
+          assets
+        );
+
+        return;
+
+      }
+
+    }
+
+
+  }catch(error){
+
+    console.error(
+      "ASSETS API ERROR:",
+      error
+    );
 
   }
+
+
+  /*
+    Последний fallback.
+    Интерфейс всё равно работает.
+  */
+
+  console.warn(
+    "VANTA: using fallback assets"
+  );
+
+
+  assets =
+    FALLBACK_ASSETS.map(asset => ({
+      ...asset
+    }));
+
+
+  renderAssets();
+  fillOfferAssets();
+
+
+  console.log(
+    "ASSETS: fallback",
+    assets
+  );
 
 }
 
@@ -1284,31 +1512,46 @@ async function loadAssets(){
 
 function renderAssets(){
 
+  const list =
+    $("assetList");
+
+
+  if(!list){
+    return;
+  }
+
+
   const search =
-    $("assetSearch").value
+    $("assetSearch")
+      .value
       .trim()
       .toLowerCase();
 
 
   const filtered =
-    assets.filter(asset =>
+    assets.filter(asset => {
 
-      String(asset.symbol)
-        .toLowerCase()
-        .includes(search)
+      const symbol =
+        String(
+          asset.symbol || ""
+        ).toLowerCase();
 
-      ||
+      const name =
+        String(
+          asset.name || ""
+        ).toLowerCase();
 
-      String(asset.name)
-        .toLowerCase()
-        .includes(search)
+      return (
+        symbol.includes(search) ||
+        name.includes(search)
+      );
 
-    );
+    });
 
 
   if(!filtered.length){
 
-    $("assetList").innerHTML =
+    list.innerHTML =
       `
       <div class="empty">
         Актив не найден
@@ -1320,12 +1563,18 @@ function renderAssets(){
   }
 
 
-  $("assetList").innerHTML =
+  list.innerHTML =
     filtered
       .map(asset => {
 
+        const type =
+          String(
+            asset.type || ""
+          ).toLowerCase();
+
+
         const icon =
-          asset.type === "crypto"
+          type === "crypto"
             ? "₿"
             : "¤";
 
@@ -1359,7 +1608,7 @@ function renderAssets(){
 
             <div class="asset-type">
               ${escapeHtml(
-                String(asset.type).toUpperCase()
+                type.toUpperCase()
               )}
             </div>
 
@@ -1371,7 +1620,7 @@ function renderAssets(){
       .join("");
 
 
-  document
+  list
     .querySelectorAll(".asset")
     .forEach(element => {
 
@@ -1379,8 +1628,51 @@ function renderAssets(){
         "click",
         () => {
 
-          $("offerAsset").value =
+          const symbol =
             element.dataset.symbol;
+
+
+          /*
+            Перед переходом обязательно
+            заполняем select.
+          */
+
+          fillOfferAssets();
+
+
+          $("offerAsset").value =
+            symbol;
+
+
+          /*
+            Если браузер не смог установить
+            значение — создаём option.
+          */
+
+          if(
+            $("offerAsset").value !==
+            symbol
+          ){
+
+            const option =
+              document.createElement(
+                "option"
+              );
+
+            option.value =
+              symbol;
+
+            option.textContent =
+              symbol;
+
+            $("offerAsset")
+              .appendChild(option);
+
+            $("offerAsset").value =
+              symbol;
+
+          }
+
 
           showCreate();
 
@@ -1402,6 +1694,15 @@ function fillOfferAssets(){
     $("offerAsset");
 
 
+  if(!select){
+    return;
+  }
+
+
+  const currentValue =
+    select.value;
+
+
   select.innerHTML =
     `
     <option value="">
@@ -1411,14 +1712,12 @@ function fillOfferAssets(){
 
 
   assets
-    .filter(
-      asset =>
-        asset.type === "crypto"
-    )
     .forEach(asset => {
 
       const option =
-        document.createElement("option");
+        document.createElement(
+          "option"
+        );
 
 
       option.value =
@@ -1435,6 +1734,21 @@ function fillOfferAssets(){
 
     });
 
+
+  if(
+    currentValue &&
+    assets.some(
+      asset =>
+        asset.symbol ===
+        currentValue
+    )
+  ){
+
+    select.value =
+      currentValue;
+
+  }
+
 }
 
 
@@ -1444,7 +1758,8 @@ function fillOfferAssets(){
 
 function setP2PMode(mode){
 
-  p2pMode = mode;
+  p2pMode =
+    mode;
 
 
   $("buyBtn")
@@ -1464,7 +1779,6 @@ function setP2PMode(mode){
 
 
   updateModeInfo();
-
   updatePreview();
 
 }
@@ -1493,16 +1807,24 @@ function updatePreview(){
     $("offerFiat").value;
 
   const amount =
-    Number($("offerAmount").value);
+    Number(
+      $("offerAmount").value
+    );
 
   const price =
-    Number($("offerPrice").value);
+    Number(
+      $("offerPrice").value
+    );
 
   const min =
-    Number($("offerMin").value);
+    Number(
+      $("offerMin").value
+    );
 
   const max =
-    Number($("offerMax").value);
+    Number(
+      $("offerMax").value
+    );
 
 
   if(
@@ -1611,16 +1933,24 @@ async function publishOffer(){
     $("offerFiat").value;
 
   const amount =
-    Number($("offerAmount").value);
+    Number(
+      $("offerAmount").value
+    );
 
   const price =
-    Number($("offerPrice").value);
+    Number(
+      $("offerPrice").value
+    );
 
   const min =
-    Number($("offerMin").value);
+    Number(
+      $("offerMin").value
+    );
 
   const max =
-    Number($("offerMax").value);
+    Number(
+      $("offerMax").value
+    );
 
 
   if(!asset){
@@ -1679,22 +2009,15 @@ async function publishOffer(){
     button.textContent;
 
 
-  button.disabled = true;
+  button.disabled =
+    true;
+
 
   button.textContent =
     "Публикация...";
 
 
   try{
-
-    /*
-      Отправляем данные в существующую
-      VANTA Edge Function.
-
-      Backend сможет принять эти поля,
-      даже если публикация пока ещё
-      не реализована в самой функции.
-    */
 
     const response =
       await fetch(
@@ -1782,11 +2105,6 @@ async function publishOffer(){
     }
 
 
-    /*
-      Если backend уже поддерживает
-      create_offer — объявление сохранено.
-    */
-
     toast(
       "Объявление успешно отправлено."
     );
@@ -1806,20 +2124,14 @@ async function publishOffer(){
     );
 
 
-    /*
-      Если backend ещё не знает action
-      create_offer, показываем понятную
-      ошибку, а не делаем вид,
-      что объявление сохранилось.
-    */
-
     toast(
       "API пока не принимает создание объявлений."
     );
 
   }finally{
 
-    button.disabled = false;
+    button.disabled =
+      false;
 
     button.textContent =
       originalText;
@@ -1857,7 +2169,18 @@ $("backFromCreate")
 $("createOfferBtn")
   .addEventListener(
     "click",
-    showCreate
+    () => {
+
+      /*
+        Всегда обновляем список перед
+        открытием формы.
+      */
+
+      fillOfferAssets();
+
+      showCreate();
+
+    }
   );
 
 
@@ -1925,10 +2248,13 @@ document
     card.addEventListener(
       "click",
       () => {
+
         comingSoon(
           card.dataset.coming
         );
+
       }
+
     );
 
   });
