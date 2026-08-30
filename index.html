@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-<meta name="theme-color" content="#07070a">
 <title>VANTA EXCHANGE</title>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
@@ -19,68 +18,25 @@
 :root{
   --bg:#060608;
   --panel:#101014;
-  --panel2:#15151b;
   --border:rgba(255,255,255,.08);
   --text:#fff;
   --muted:#777780;
-  --purple:#9b72ff;
+  --purple:#8b5cf6;
   --purple2:#6d28d9;
 }
 
 html,body{
   min-height:100%;
-  background:#060608;
+  background:var(--bg);
 }
 
 body{
   color:var(--text);
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Arial,sans-serif;
-  overflow-x:hidden;
   background:
-    radial-gradient(circle at 80% 0%,rgba(124,58,237,.22),transparent 30%),
-    radial-gradient(circle at -10% 40%,rgba(109,40,217,.13),transparent 32%),
-    linear-gradient(180deg,#09090d 0%,#050507 100%);
-}
-
-/* ЖИВОЙ ФОН */
-
-body:before,
-body:after{
-  content:"";
-  position:fixed;
-  pointer-events:none;
-  z-index:-1;
-  border-radius:50%;
-  filter:blur(80px);
-  opacity:.35;
-}
-
-body:before{
-  width:280px;
-  height:280px;
-  background:#7c3aed;
-  top:-100px;
-  right:-80px;
-  animation:floatOne 12s ease-in-out infinite alternate;
-}
-
-body:after{
-  width:240px;
-  height:240px;
-  background:#4c1d95;
-  bottom:5%;
-  left:-120px;
-  animation:floatTwo 15s ease-in-out infinite alternate;
-}
-
-@keyframes floatOne{
-  from{transform:translate(0,0) scale(1)}
-  to{transform:translate(-60px,100px) scale(1.25)}
-}
-
-@keyframes floatTwo{
-  from{transform:translate(0,0) scale(1)}
-  to{transform:translate(70px,-80px) scale(1.2)}
+    radial-gradient(circle at 85% 5%,rgba(124,58,237,.20),transparent 28%),
+    radial-gradient(circle at 5% 45%,rgba(109,40,217,.10),transparent 27%),
+    linear-gradient(180deg,#08080b,#050507);
 }
 
 button,input,select{
@@ -100,7 +56,7 @@ button{
 
 .screen{
   display:none;
-  animation:appear .22s ease;
+  animation:appear .2s ease;
 }
 
 .screen.active{
@@ -110,7 +66,7 @@ button{
 @keyframes appear{
   from{
     opacity:0;
-    transform:translateY(7px);
+    transform:translateY(8px);
   }
   to{
     opacity:1;
@@ -131,12 +87,11 @@ button{
   line-height:1;
   font-weight:900;
   letter-spacing:4px;
-  text-shadow:0 0 25px rgba(155,114,255,.18);
 }
 
 .brand-sub{
   margin-top:5px;
-  color:#70707a;
+  color:#6d6d77;
   font-size:9px;
   letter-spacing:4px;
 }
@@ -148,11 +103,10 @@ button{
   padding:8px 11px;
   border-radius:999px;
   background:rgba(255,255,255,.035);
-  border:1px solid rgba(255,255,255,.08);
+  border:1px solid var(--border);
   color:#85858f;
   font-size:9px;
   font-weight:700;
-  backdrop-filter:blur(15px);
 }
 
 .dot{
@@ -184,31 +138,27 @@ button{
   padding:24px;
   min-height:140px;
   border-radius:26px;
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.075),rgba(255,255,255,.018));
-  border:1px solid rgba(255,255,255,.1);
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,.065),
+    rgba(255,255,255,.018)
+  );
+  border:1px solid rgba(255,255,255,.09);
   box-shadow:
-    0 25px 70px rgba(0,0,0,.38),
-    inset 0 1px 0 rgba(255,255,255,.05);
-  backdrop-filter:blur(18px);
+    0 20px 60px rgba(0,0,0,.35),
+    inset 0 1px 0 rgba(255,255,255,.04);
 }
 
 .balance:after{
   content:"";
   position:absolute;
-  width:220px;
-  height:220px;
-  right:-90px;
-  top:-120px;
+  width:200px;
+  height:200px;
+  right:-80px;
+  top:-110px;
   border-radius:50%;
-  background:rgba(124,58,237,.28);
-  filter:blur(45px);
-  animation:pulse 6s ease-in-out infinite alternate;
-}
-
-@keyframes pulse{
-  from{opacity:.5;transform:scale(.9)}
-  to{opacity:1;transform:scale(1.15)}
+  background:rgba(124,58,237,.22);
+  filter:blur(40px);
 }
 
 .balance-label{
@@ -248,36 +198,23 @@ button{
 }
 
 .card{
-  position:relative;
-  overflow:hidden;
   min-height:138px;
   padding:18px;
   border-radius:21px;
-  background:
-    linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.018));
-  border:1px solid rgba(255,255,255,.075);
-  box-shadow:0 12px 38px rgba(0,0,0,.22);
+  background:linear-gradient(
+    145deg,
+    rgba(255,255,255,.055),
+    rgba(255,255,255,.018)
+  );
+  border:1px solid var(--border);
+  box-shadow:0 10px 35px rgba(0,0,0,.2);
   cursor:pointer;
-  transition:transform .15s ease,border-color .15s ease,background .15s ease;
-  backdrop-filter:blur(12px);
-}
-
-.card:before{
-  content:"";
-  position:absolute;
-  width:90px;
-  height:90px;
-  right:-50px;
-  bottom:-50px;
-  border-radius:50%;
-  background:rgba(139,92,246,.08);
-  filter:blur(20px);
+  transition:.15s;
 }
 
 .card:active{
   transform:scale(.965);
   background:rgba(139,92,246,.09);
-  border-color:rgba(139,92,246,.25);
 }
 
 .icon{
@@ -317,12 +254,6 @@ button{
   font-size:10px;
   background:rgba(255,255,255,.025);
   border:1px solid rgba(255,255,255,.055);
-  backdrop-filter:blur(10px);
-}
-
-.status.connected{
-  color:#aaa0c7;
-  border-color:rgba(139,92,246,.14);
 }
 
 .footer{
@@ -379,13 +310,15 @@ button{
   color:#777780;
   font-size:12px;
   font-weight:800;
-  cursor:pointer;
 }
 
 .mode.active{
-  background:linear-gradient(135deg,var(--purple),var(--purple2));
+  background:linear-gradient(
+    135deg,
+    var(--purple),
+    var(--purple2)
+  );
   color:#fff;
-  box-shadow:0 7px 20px rgba(109,40,217,.25);
 }
 
 /* CREATE */
@@ -400,11 +333,6 @@ button{
   font-size:13px;
   font-weight:850;
   cursor:pointer;
-  transition:.15s;
-}
-
-.create:active{
-  transform:scale(.98);
 }
 
 /* SEARCH */
@@ -423,16 +351,10 @@ button{
   padding:14px 15px;
   border-radius:15px;
   outline:none;
-  background:rgba(16,16,20,.88);
+  background:#101014;
   color:#fff;
   border:1px solid var(--border);
   font-size:13px;
-  transition:.2s;
-}
-
-.search:focus{
-  border-color:rgba(139,92,246,.4);
-  box-shadow:0 0 0 3px rgba(139,92,246,.06);
 }
 
 .search::placeholder{
@@ -455,13 +377,11 @@ button{
   background:rgba(255,255,255,.035);
   border:1px solid rgba(255,255,255,.06);
   cursor:pointer;
-  transition:.15s;
 }
 
 .asset:active{
   transform:scale(.98);
   border-color:rgba(139,92,246,.35);
-  background:rgba(139,92,246,.07);
 }
 
 .asset-left{
@@ -477,7 +397,11 @@ button{
   align-items:center;
   justify-content:center;
   border-radius:13px;
-  background:linear-gradient(145deg,#202027,#131318);
+  background:linear-gradient(
+    145deg,
+    #202027,
+    #131318
+  );
   color:#c4a7ff;
   font-size:15px;
   font-weight:900;
@@ -508,29 +432,6 @@ button{
   text-align:center;
   color:#666670;
   font-size:11px;
-}
-
-.loader{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-}
-
-.loader-dot{
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#8b5cf6;
-  animation:loadDot .8s infinite alternate;
-}
-
-.loader-dot:nth-child(2){animation-delay:.15s}
-.loader-dot:nth-child(3){animation-delay:.3s}
-
-@keyframes loadDot{
-  from{opacity:.25;transform:translateY(0)}
-  to{opacity:1;transform:translateY(-4px)}
 }
 
 /* FORM */
@@ -579,26 +480,19 @@ button{
   font-size:13px;
 }
 
-.input:focus,
-.select:focus{
-  border-color:rgba(139,92,246,.4);
-  box-shadow:0 0 0 3px rgba(139,92,246,.06);
-}
-
 .input::placeholder{
   color:#56565f;
-}
-
-.select option{
-  background:#101014;
-  color:#fff;
 }
 
 .preview{
   margin-top:17px;
   padding:17px;
   border-radius:17px;
-  background:linear-gradient(145deg,rgba(139,92,246,.10),rgba(255,255,255,.025));
+  background:linear-gradient(
+    145deg,
+    rgba(139,92,246,.10),
+    rgba(255,255,255,.025)
+  );
   border:1px solid rgba(139,92,246,.14);
   color:#85858f;
   font-size:10px;
@@ -615,16 +509,15 @@ button{
   margin-top:15px;
   padding:16px;
   border-radius:16px;
-  background:linear-gradient(135deg,#9b72ff,#6d28d9);
+  background:linear-gradient(
+    135deg,
+    #9b72ff,
+    #6d28d9
+  );
   color:#fff;
   font-size:13px;
   font-weight:850;
   cursor:pointer;
-  box-shadow:0 12px 28px rgba(109,40,217,.22);
-}
-
-.publish:disabled{
-  opacity:.55;
 }
 
 .cancel{
@@ -659,7 +552,6 @@ button{
   pointer-events:none;
   transition:.25s;
   z-index:999;
-  backdrop-filter:blur(20px);
 }
 
 .toast.show{
@@ -673,7 +565,7 @@ button{
 
 <div class="app">
 
-<!-- HOME -->
+<!-- ================= HOME ================= -->
 
 <section id="homeScreen" class="screen active">
 
@@ -775,7 +667,7 @@ button{
 </section>
 
 
-<!-- P2P -->
+<!-- ================= P2P ================= -->
 
 <section id="p2pScreen" class="screen">
 
@@ -822,11 +714,7 @@ button{
   <div id="assetList" class="asset-list">
 
     <div class="empty">
-      <div class="loader">
-        <span class="loader-dot"></span>
-        <span class="loader-dot"></span>
-        <span class="loader-dot"></span>
-      </div>
+      Загрузка активов...
     </div>
 
   </div>
@@ -834,7 +722,7 @@ button{
 </section>
 
 
-<!-- CREATE -->
+<!-- ================= CREATE ================= -->
 
 <section id="createScreen" class="screen">
 
@@ -881,14 +769,37 @@ button{
 
       <select id="offerFiat" class="select">
 
-        <option value="USD">🇺🇸 USD — Доллар США</option>
-        <option value="EUR">🇪🇺 EUR — Евро</option>
-        <option value="KZT">🇰🇿 KZT — Тенге</option>
-        <option value="RUB">🇷🇺 RUB — Рубль</option>
-        <option value="GBP">🇬🇧 GBP — Фунт</option>
-        <option value="TRY">🇹🇷 TRY — Лира</option>
-        <option value="AED">🇦🇪 AED — Дирхам</option>
-        <option value="CNY">🇨🇳 CNY — Юань</option>
+        <option value="USD">
+          🇺🇸 USD — Доллар США
+        </option>
+
+        <option value="EUR">
+          🇪🇺 EUR — Евро
+        </option>
+
+        <option value="KZT">
+          🇰🇿 KZT — Тенге
+        </option>
+
+        <option value="RUB">
+          🇷🇺 RUB — Рубль
+        </option>
+
+        <option value="GBP">
+          🇬🇧 GBP — Фунт
+        </option>
+
+        <option value="TRY">
+          🇹🇷 TRY — Лира
+        </option>
+
+        <option value="AED">
+          🇦🇪 AED — Дирхам
+        </option>
+
+        <option value="CNY">
+          🇨🇳 CNY — Юань
+        </option>
 
       </select>
 
@@ -1004,17 +915,13 @@ const tg =
     : null;
 
 if(tg){
-  try{
-    tg.ready();
-    tg.expand();
-  }catch(e){
-    console.log("Telegram init:",e);
-  }
+  tg.ready();
+  tg.expand();
 }
 
 
 /* =====================================================
-   VANTA API
+   SUPABASE
 ===================================================== */
 
 const API_URL =
@@ -1030,7 +937,6 @@ const SUPABASE_URL =
 
 let assets = [];
 let p2pMode = "buy";
-let assetsLoaded = false;
 
 
 /* =====================================================
@@ -1047,11 +953,10 @@ function toast(message){
   const element = $("toast");
 
   element.textContent = message;
+
   element.classList.add("show");
 
-  clearTimeout(element._timer);
-
-  element._timer = setTimeout(() => {
+  setTimeout(() => {
     element.classList.remove("show");
   },3000);
 
@@ -1060,72 +965,12 @@ function toast(message){
 
 function escapeHtml(value){
 
-  return String(value ?? "")
+  return String(value)
     .replaceAll("&","&amp;")
     .replaceAll("<","&lt;")
     .replaceAll(">","&gt;")
     .replaceAll('"',"&quot;")
     .replaceAll("'","&#039;");
-
-}
-
-
-async function fetchWithTimeout(
-  url,
-  options = {},
-  timeout = 7000
-){
-
-  const controller =
-    new AbortController();
-
-  const timer =
-    setTimeout(
-      () => controller.abort(),
-      timeout
-    );
-
-  try{
-
-    return await fetch(
-      url,
-      {
-        ...options,
-        signal:
-          controller.signal
-      }
-    );
-
-  }finally{
-
-    clearTimeout(timer);
-
-  }
-
-}
-
-
-async function parseResponse(response){
-
-  const text =
-    await response.text();
-
-  let data = {};
-
-  if(text){
-
-    try{
-      data = JSON.parse(text);
-    }catch(e){
-      data = { raw:text };
-    }
-
-  }
-
-  return {
-    text,
-    data
-  };
 
 }
 
@@ -1149,9 +994,7 @@ function showHome(){
 
   hideAll();
 
-  $("homeScreen")
-    .classList
-    .add("active");
+  $("homeScreen").classList.add("active");
 
   window.scrollTo(0,0);
 
@@ -1162,17 +1005,11 @@ function showP2P(){
 
   hideAll();
 
-  $("p2pScreen")
-    .classList
-    .add("active");
+  $("p2pScreen").classList.add("active");
 
   window.scrollTo(0,0);
 
-  if(!assetsLoaded){
-    loadAssets();
-  }else{
-    renderAssets();
-  }
+  loadAssets();
 
 }
 
@@ -1181,11 +1018,10 @@ function showCreate(){
 
   hideAll();
 
-  $("createScreen")
-    .classList
-    .add("active");
+  $("createScreen").classList.add("active");
 
   updateModeInfo();
+
   updatePreview();
 
   window.scrollTo(0,0);
@@ -1225,7 +1061,6 @@ async function connectVanta(){
     tg.initDataUnsafe &&
     tg.initDataUnsafe.user;
 
-
   if(!user || !user.id){
 
     $("username").textContent =
@@ -1253,8 +1088,18 @@ async function connectVanta(){
 
   try{
 
+    const controller =
+      new AbortController();
+
+    const timeout =
+      setTimeout(
+        () => controller.abort(),
+        7000
+      );
+
+
     const response =
-      await fetchWithTimeout(
+      await fetch(
         API_URL,
         {
           method:"POST",
@@ -1275,18 +1120,48 @@ async function connectVanta(){
             first_name:
               user.first_name || null
 
-          })
-        },
-        7000
+          }),
+
+          signal:
+            controller.signal
+
+        }
       );
 
 
-    const {data} =
-      await parseResponse(response);
+    clearTimeout(timeout);
+
+
+    const text =
+      await response.text();
 
 
     console.log(
-      "VANTA API:",
+      "VANTA API RAW:",
+      text
+    );
+
+
+    let data = {};
+
+    try{
+
+      data =
+        text
+          ? JSON.parse(text)
+          : {};
+
+    }catch(e){
+
+      console.log(
+        "API вернул не JSON"
+      );
+
+    }
+
+
+    console.log(
+      "VANTA API DATA:",
       data
     );
 
@@ -1296,7 +1171,8 @@ async function connectVanta(){
       throw new Error(
         data.error ||
         data.message ||
-        "HTTP " + response.status
+        "HTTP " +
+        response.status
       );
 
     }
@@ -1316,22 +1192,13 @@ async function connectVanta(){
       0;
 
 
-    const numericBalance =
-      Number(balance);
-
-
     $("balance").textContent =
-      Number.isFinite(numericBalance)
-        ? numericBalance.toLocaleString("ru-RU")
-        : "0";
+      Number(balance)
+        .toLocaleString("ru-RU");
 
 
     $("status").textContent =
       "● VANTA ACCOUNT подключён";
-
-    $("status")
-      .classList
-      .add("connected");
 
 
   }catch(error){
@@ -1347,7 +1214,7 @@ async function connectVanta(){
 
 
     $("status").textContent =
-      "VANTA подключён · API временно недоступен";
+      "VANTA подключён · баланс временно недоступен";
 
   }
 
@@ -1360,91 +1227,34 @@ async function connectVanta(){
 
 async function loadAssets(){
 
-  if(assetsLoaded){
-    renderAssets();
-    fillOfferAssets();
-    return;
-  }
-
-
-  $("assetList").innerHTML =
-    `
-      <div class="empty">
-        <div class="loader">
-          <span class="loader-dot"></span>
-          <span class="loader-dot"></span>
-          <span class="loader-dot"></span>
-        </div>
-      </div>
-    `;
-
-
   try{
 
-    const url =
-      SUPABASE_URL +
-      "/rest/v1/assets" +
-      "?select=symbol,name,type,decimals" +
-      "&is_active=eq.true" +
-      "&order=type.asc,symbol.asc";
-
-
     const response =
-      await fetchWithTimeout(
-        url,
-        {
-          method:"GET",
-          headers:{
-            "Accept":
-              "application/json"
-          }
-        },
-        7000
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/assets" +
+        "?select=symbol,name,type,decimals" +
+        "&is_active=eq.true" +
+        "&order=type.asc,symbol.asc"
       );
-
-
-    const {data} =
-      await parseResponse(response);
-
-
-    console.log(
-      "ASSETS API:",
-      data
-    );
 
 
     if(!response.ok){
 
       throw new Error(
-        data?.message ||
-        data?.error ||
-        "HTTP " +
+        "Assets HTTP " +
         response.status
       );
 
     }
 
 
-    if(!Array.isArray(data)){
-
-      throw new Error(
-        "Некорректный ответ assets"
-      );
-
-    }
-
-
     assets =
-      data.filter(asset =>
-        asset &&
-        asset.symbol
-      );
-
-
-    assetsLoaded = true;
+      await response.json();
 
 
     renderAssets();
+
     fillOfferAssets();
 
 
@@ -1458,37 +1268,10 @@ async function loadAssets(){
 
     $("assetList").innerHTML =
       `
-        <div class="empty">
-          Не удалось загрузить активы.<br><br>
-          <button
-            id="retryAssets"
-            style="
-              padding:10px 16px;
-              border-radius:11px;
-              background:#8b5cf6;
-              color:#fff;
-              font-size:11px;
-              font-weight:800;
-            "
-          >
-            Повторить
-          </button>
-        </div>
+      <div class="empty">
+        Не удалось загрузить активы
+      </div>
       `;
-
-
-    const retry =
-      $("retryAssets");
-
-
-    if(retry){
-
-      retry.addEventListener(
-        "click",
-        loadAssets
-      );
-
-    }
 
   }
 
@@ -1508,31 +1291,28 @@ function renderAssets(){
 
 
   const filtered =
-    assets.filter(asset => {
+    assets.filter(asset =>
 
-      const symbol =
-        String(asset.symbol || "")
-          .toLowerCase();
+      String(asset.symbol)
+        .toLowerCase()
+        .includes(search)
 
-      const name =
-        String(asset.name || "")
-          .toLowerCase();
+      ||
 
-      return (
-        symbol.includes(search) ||
-        name.includes(search)
-      );
+      String(asset.name)
+        .toLowerCase()
+        .includes(search)
 
-    });
+    );
 
 
   if(!filtered.length){
 
     $("assetList").innerHTML =
       `
-        <div class="empty">
-          Актив не найден
-        </div>
+      <div class="empty">
+        Актив не найден
+      </div>
       `;
 
     return;
@@ -1544,17 +1324,14 @@ function renderAssets(){
     filtered
       .map(asset => {
 
-        const type =
-          String(asset.type || "")
-            .toLowerCase();
-
         const icon =
-          type === "crypto"
+          asset.type === "crypto"
             ? "₿"
             : "¤";
 
 
         return `
+
           <div
             class="asset"
             data-symbol="${escapeHtml(asset.symbol)}"
@@ -1573,7 +1350,7 @@ function renderAssets(){
                 </div>
 
                 <div class="asset-name">
-                  ${escapeHtml(asset.name || "")}
+                  ${escapeHtml(asset.name)}
                 </div>
 
               </div>
@@ -1581,10 +1358,13 @@ function renderAssets(){
             </div>
 
             <div class="asset-type">
-              ${escapeHtml(type.toUpperCase())}
+              ${escapeHtml(
+                String(asset.type).toUpperCase()
+              )}
             </div>
 
           </div>
+
         `;
 
       })
@@ -1599,21 +1379,8 @@ function renderAssets(){
         "click",
         () => {
 
-          const symbol =
-            element.dataset.symbol;
-
-
-          if(!symbol){
-            return;
-          }
-
-
-          fillOfferAssets();
-
-
           $("offerAsset").value =
-            symbol;
-
+            element.dataset.symbol;
 
           showCreate();
 
@@ -1635,28 +1402,19 @@ function fillOfferAssets(){
     $("offerAsset");
 
 
-  const current =
-    select.value;
-
-
   select.innerHTML =
     `
-      <option value="">
-        Выберите актив
-      </option>
+    <option value="">
+      Выберите актив
+    </option>
     `;
 
 
   assets
-    .filter(asset => {
-
-      const type =
-        String(asset.type || "")
-          .toLowerCase();
-
-      return type === "crypto";
-
-    })
+    .filter(
+      asset =>
+        asset.type === "crypto"
+    )
     .forEach(asset => {
 
       const option =
@@ -1670,26 +1428,12 @@ function fillOfferAssets(){
       option.textContent =
         asset.symbol +
         " — " +
-        (asset.name || "");
+        asset.name;
 
 
       select.appendChild(option);
 
     });
-
-
-  if(
-    current &&
-    assets.some(
-      asset =>
-        asset.symbol === current
-    )
-  ){
-
-    select.value =
-      current;
-
-  }
 
 }
 
@@ -1720,6 +1464,7 @@ function setP2PMode(mode){
 
 
   updateModeInfo();
+
   updatePreview();
 
 }
@@ -1780,55 +1525,57 @@ function updatePreview(){
 
   $("preview").innerHTML =
     `
-      <strong>
-        ${
-          p2pMode === "buy"
-            ? "Купить"
-            : "Продать"
-        }
-        ${escapeHtml(asset)}
-      </strong>
 
-      <br>
-
-      Количество:
-      ${amount.toLocaleString("ru-RU")}
+    <strong>
+      ${
+        p2pMode === "buy"
+          ? "Купить"
+          : "Продать"
+      }
       ${escapeHtml(asset)}
+    </strong>
 
-      <br>
+    <br>
 
-      Цена:
-      ${price.toLocaleString("ru-RU")}
-      ${escapeHtml(fiat)}
-      за 1 ${escapeHtml(asset)}
+    Количество:
+    ${amount.toLocaleString("ru-RU")}
+    ${escapeHtml(asset)}
 
-      <br>
+    <br>
 
-      Общая сумма:
-      ${total.toLocaleString("ru-RU")}
-      ${escapeHtml(fiat)}
+    Цена:
+    ${price.toLocaleString("ru-RU")}
+    ${escapeHtml(fiat)}
+    за 1 ${escapeHtml(asset)}
 
-      ${
-        min
-          ? `
-            <br>
-            Минимум:
-            ${min.toLocaleString("ru-RU")}
-            ${escapeHtml(fiat)}
-          `
-          : ""
-      }
+    <br>
 
-      ${
-        max
-          ? `
-            <br>
-            Максимум:
-            ${max.toLocaleString("ru-RU")}
-            ${escapeHtml(fiat)}
-          `
-          : ""
-      }
+    Общая сумма:
+    ${total.toLocaleString("ru-RU")}
+    ${escapeHtml(fiat)}
+
+    ${
+      min
+        ? `
+          <br>
+          Минимум:
+          ${min.toLocaleString("ru-RU")}
+          ${escapeHtml(fiat)}
+        `
+        : ""
+    }
+
+    ${
+      max
+        ? `
+          <br>
+          Максимум:
+          ${max.toLocaleString("ru-RU")}
+          ${escapeHtml(fiat)}
+        `
+        : ""
+    }
+
     `;
 
 }
@@ -1878,7 +1625,10 @@ async function publishOffer(){
 
   if(!asset){
 
-    toast("Выберите актив.");
+    toast(
+      "Выберите актив."
+    );
+
     return;
 
   }
@@ -1886,7 +1636,10 @@ async function publishOffer(){
 
   if(!amount || amount <= 0){
 
-    toast("Введите количество.");
+    toast(
+      "Введите количество."
+    );
+
     return;
 
   }
@@ -1894,13 +1647,20 @@ async function publishOffer(){
 
   if(!price || price <= 0){
 
-    toast("Введите цену.");
+    toast(
+      "Введите цену."
+    );
+
     return;
 
   }
 
 
-  if(min && max && min > max){
+  if(
+    min &&
+    max &&
+    min > max
+  ){
 
     toast(
       "Минимум больше максимума."
@@ -1927,8 +1687,17 @@ async function publishOffer(){
 
   try{
 
+    /*
+      Отправляем данные в существующую
+      VANTA Edge Function.
+
+      Backend сможет принять эти поля,
+      даже если публикация пока ещё
+      не реализована в самой функции.
+    */
+
     const response =
-      await fetchWithTimeout(
+      await fetch(
         API_URL,
         {
           method:"POST",
@@ -1974,26 +1743,38 @@ async function publishOffer(){
               max || null
 
           })
-        },
-        10000
+
+        }
       );
 
 
-    const {data} =
-      await parseResponse(response);
+    const text =
+      await response.text();
 
 
     console.log(
-      "CREATE OFFER:",
-      data
+      "CREATE OFFER RAW:",
+      text
     );
+
+
+    let data = {};
+
+    try{
+
+      data =
+        text
+          ? JSON.parse(text)
+          : {};
+
+    }catch(e){}
 
 
     if(!response.ok){
 
       throw new Error(
-        data?.error ||
-        data?.message ||
+        data.error ||
+        data.message ||
         "HTTP " +
         response.status
       );
@@ -2001,8 +1782,13 @@ async function publishOffer(){
     }
 
 
+    /*
+      Если backend уже поддерживает
+      create_offer — объявление сохранено.
+    */
+
     toast(
-      "Объявление успешно создано."
+      "Объявление успешно отправлено."
     );
 
 
@@ -2020,9 +1806,15 @@ async function publishOffer(){
     );
 
 
+    /*
+      Если backend ещё не знает action
+      create_offer, показываем понятную
+      ошибку, а не делаем вид,
+      что объявление сохранилось.
+    */
+
     toast(
-      error.message ||
-      "Не удалось создать объявление."
+      "API пока не принимает создание объявлений."
     );
 
   }finally{
@@ -2065,16 +1857,7 @@ $("backFromCreate")
 $("createOfferBtn")
   .addEventListener(
     "click",
-    () => {
-
-      if(!assetsLoaded){
-        loadAssets();
-      }
-
-      fillOfferAssets();
-      showCreate();
-
-    }
+    showCreate
   );
 
 
