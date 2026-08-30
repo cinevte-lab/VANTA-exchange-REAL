@@ -1,699 +1,1064 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VANTA EXCHANGE</title>
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      background: #0b0b0d;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      min-height: 100vh;
-    }
-    button,
-    input,
-    select {
-      font-family: Arial, sans-serif;
-    }
-    button {
-      cursor: pointer;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 24px 18px 35px;
-    }
-    .logo {
-      font-size: 29px;
-      font-weight: 800;
-      letter-spacing: 3px;
-    }
-    .subtitle {
-      color: #777780;
-      margin-top: 5px;
-      font-size: 13px;
-      letter-spacing: 2px;
-    }
-    .user {
-      margin-top: 22px;
-      color: #777780;
-      font-size: 13px;
-    }
-    .user span {
-      color: #fff;
-      font-weight: 700;
-    }
-    .balance {
-      margin-top: 20px;
-      padding: 22px;
-      background: linear-gradient(145deg, #18181d, #111114);
-      border-radius: 22px;
-      border: 1px solid #292930;
-    }
-    .balance-title {
-      color: #85858f;
-      font-size: 12px;
-      letter-spacing: 1.5px;
-    }
-    .balance-value {
-      font-size: 34px;
-      font-weight: 800;
-      margin-top: 9px;
-      min-height: 40px;
-    }
-    .loading {
-      color: #777780;
-      opacity: .4;
-      animation: pulse 1s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% {
-        opacity: .3;
-      }
-      50% {
-        opacity: 1;
-      }
-    }
-    .balance-currency {
-      color: #777780;
-      font-size: 13px;
-      margin-top: 3px;
-    }
-    .menu {
-      margin-top: 22px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .card {
-      background: #151519;
-      border-radius: 19px;
-      padding: 18px;
-      border: 1px solid #24242b;
-      transition: .15s;
-    }
-    .card:active {
-      transform: scale(.97);
-    }
-    .icon {
-      font-size: 27px;
-    }
-    .card-title {
-      margin-top: 12px;
-      font-weight: 700;
-      font-size: 14px;
-    }
-    .card-text {
-      margin-top: 5px;
-      color: #777780;
-      font-size: 11px;
-      line-height: 1.4;
-    }
-    .status {
-      margin-top: 18px;
-      padding: 14px 16px;
-      background: #111114;
-      border-radius: 15px;
-      border: 1px solid #1e1e23;
-      color: #777780;
-      font-size: 12px;
-      text-align: center;
-      word-break: break-word;
-    }
-    .footer {
-      margin-top: 28px;
-      text-align: center;
-      color: #44444c;
-      font-size: 11px;
-    }
-    /* SCREENS */
-    #p2pScreen,
-    #assetsScreen {
-      display: none;
-    }
-    .back {
-      background: none;
-      border: none;
-      color: #8c8c95;
-      font-size: 14px;
-      padding: 0;
-      margin-bottom: 24px;
-    }
-    .screen-title {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-    .screen-subtitle {
-      margin-top: 6px;
-      color: #777780;
-      font-size: 13px;
-    }
-    /* P2P */
-    .p2p-actions {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-top: 22px;
-    }
-    .action-btn {
-      border: 1px solid #292930;
-      background: #151519;
-      color: #fff;
-      border-radius: 15px;
-      padding: 15px 10px;
-      font-size: 13px;
-      font-weight: 700;
-    }
-    .action-btn.active {
-      background: #fff;
-      color: #0b0b0d;
-    }
-    .create-btn {
-      width: 100%;
-      margin-top: 10px;
-      border: none;
-      background: #fff;
-      color: #0b0b0d;
-      border-radius: 15px;
-      padding: 16px;
-      font-size: 14px;
-      font-weight: 800;
-    }
-    .market-title {
-      margin-top: 28px;
-      margin-bottom: 12px;
-      color: #85858f;
-      font-size: 12px;
-      letter-spacing: 1.5px;
-    }
-    .search {
-      width: 100%;
-      background: #151519;
-      color: #fff;
-      border: 1px solid #292930;
-      border-radius: 14px;
-      padding: 14px;
-      outline: none;
-      font-size: 14px;
-    }
-    .search::placeholder {
-      color: #66666f;
-    }
-    .asset-list {
-      margin-top: 10px;
-    }
-    .asset {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: #151519;
-      border: 1px solid #24242b;
-      border-radius: 16px;
-      padding: 15px;
-      margin-bottom: 9px;
-    }
-    .asset-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .asset-icon {
-      width: 40px;
-      height: 40px;
-      border-radius: 12px;
-      background: #202026;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 17px;
-      font-weight: 800;
-    }
-    .asset-symbol {
-      font-size: 14px;
-      font-weight: 800;
-    }
-    .asset-name {
-      margin-top: 3px;
-      color: #777780;
-      font-size: 11px;
-    }
-    .asset-type {
-      color: #777780;
-      font-size: 10px;
-    }
-    .empty {
-      padding: 30px 15px;
-      background: #111114;
-      border: 1px solid #1e1e23;
-      border-radius: 17px;
-      text-align: center;
-      color: #66666f;
-      font-size: 13px;
-    }
-    .notice {
-      margin-top: 16px;
-      padding: 13px;
-      border-radius: 13px;
-      background: #111114;
-      color: #66666f;
-      font-size: 11px;
-      line-height: 1.5;
-      text-align: center;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VANTA EXCHANGE</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+body{
+  background:#0b0b0d;
+  color:#fff;
+  font-family:Arial,sans-serif;
+  min-height:100vh;
+}
+button,input,select{
+  font-family:Arial,sans-serif;
+}
+button{
+  cursor:pointer;
+}
+.container{
+  max-width:600px;
+  margin:auto;
+  padding:24px 18px 40px;
+}
+.logo{
+  font-size:29px;
+  font-weight:800;
+  letter-spacing:3px;
+}
+.subtitle{
+  color:#777780;
+  margin-top:5px;
+  font-size:13px;
+  letter-spacing:2px;
+}
+.user{
+  margin-top:22px;
+  color:#777780;
+  font-size:13px;
+}
+.user span{
+  color:#fff;
+  font-weight:bold;
+}
+.balance{
+  margin-top:20px;
+  padding:22px;
+  background:linear-gradient(145deg,#18181d,#111114);
+  border-radius:22px;
+  border:1px solid #292930;
+}
+.balance-title{
+  color:#85858f;
+  font-size:12px;
+  letter-spacing:1.5px;
+}
+.balance-value{
+  font-size:34px;
+  font-weight:800;
+  margin-top:9px;
+}
+.loading{
+  color:#777780;
+  animation:pulse 1s infinite;
+}
+@keyframes pulse{
+  0%,100%{opacity:.3}
+  50%{opacity:1}
+}
+.balance-currency{
+  color:#777780;
+  font-size:13px;
+  margin-top:3px;
+}
+.menu{
+  margin-top:22px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.card{
+  background:#151519;
+  border-radius:19px;
+  padding:18px;
+  border:1px solid #24242b;
+  transition:.15s;
+}
+.card:active{
+  transform:scale(.97);
+}
+.icon{
+  font-size:27px;
+}
+.card-title{
+  margin-top:12px;
+  font-weight:700;
+  font-size:14px;
+}
+.card-text{
+  margin-top:5px;
+  color:#777780;
+  font-size:11px;
+  line-height:1.4;
+}
+.status{
+  margin-top:18px;
+  padding:14px 16px;
+  background:#111114;
+  border-radius:15px;
+  border:1px solid #1e1e23;
+  color:#777780;
+  font-size:12px;
+  text-align:center;
+}
+.footer{
+  margin-top:28px;
+  text-align:center;
+  color:#44444c;
+  font-size:11px;
+}
+.screen{
+  display:none;
+}
+.back{
+  background:none;
+  border:none;
+  color:#8c8c95;
+  font-size:14px;
+  padding:0;
+  margin-bottom:24px;
+}
+.screen-title{
+  font-size:28px;
+  font-weight:800;
+}
+.screen-subtitle{
+  margin-top:6px;
+  color:#777780;
+  font-size:13px;
+}
+.p2p-actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-top:22px;
+}
+.action-btn{
+  border:1px solid #292930;
+  background:#151519;
+  color:#fff;
+  border-radius:15px;
+  padding:15px 10px;
+  font-size:13px;
+  font-weight:700;
+}
+.action-btn.active{
+  background:#fff;
+  color:#0b0b0d;
+}
+.create-btn{
+  width:100%;
+  margin-top:10px;
+  border:none;
+  background:#fff;
+  color:#0b0b0d;
+  border-radius:15px;
+  padding:16px;
+  font-size:14px;
+  font-weight:800;
+}
+.market-title{
+  margin-top:28px;
+  margin-bottom:12px;
+  color:#85858f;
+  font-size:12px;
+  letter-spacing:1.5px;
+}
+.search{
+  width:100%;
+  background:#151519;
+  color:#fff;
+  border:1px solid #292930;
+  border-radius:14px;
+  padding:14px;
+  outline:none;
+  font-size:14px;
+}
+.search::placeholder{
+  color:#66666f;
+}
+.asset-list{
+  margin-top:10px;
+}
+.asset{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  background:#151519;
+  border:1px solid #24242b;
+  border-radius:16px;
+  padding:15px;
+  margin-bottom:9px;
+}
+.asset-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.asset-icon{
+  width:40px;
+  height:40px;
+  border-radius:12px;
+  background:#202026;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:17px;
+  font-weight:800;
+}
+.asset-symbol{
+  font-size:14px;
+  font-weight:800;
+}
+.asset-name{
+  margin-top:3px;
+  color:#777780;
+  font-size:11px;
+}
+.asset-type{
+  color:#777780;
+  font-size:10px;
+}
+.empty{
+  padding:30px 15px;
+  background:#111114;
+  border:1px solid #1e1e23;
+  border-radius:17px;
+  text-align:center;
+  color:#66666f;
+  font-size:13px;
+}
+/* FORM */
+.form-box{
+  margin-top:22px;
+}
+.field{
+  margin-top:16px;
+}
+.field:first-child{
+  margin-top:0;
+}
+.label{
+  color:#85858f;
+  font-size:11px;
+  letter-spacing:1px;
+  margin-bottom:8px;
+}
+.input,
+.select{
+  width:100%;
+  background:#151519;
+  color:#fff;
+  border:1px solid #292930;
+  border-radius:14px;
+  padding:15px;
+  outline:none;
+  font-size:14px;
+}
+.select{
+  appearance:auto;
+}
+.input:focus,
+.select:focus{
+  border-color:#55555f;
+}
+.publish-btn{
+  width:100%;
+  margin-top:22px;
+  border:none;
+  background:#fff;
+  color:#0b0b0d;
+  border-radius:15px;
+  padding:17px;
+  font-size:14px;
+  font-weight:800;
+}
+.cancel-btn{
+  width:100%;
+  margin-top:10px;
+  border:1px solid #292930;
+  background:#151519;
+  color:#fff;
+  border-radius:15px;
+  padding:15px;
+  font-size:13px;
+}
+.preview{
+  margin-top:18px;
+  padding:16px;
+  background:#111114;
+  border:1px solid #222228;
+  border-radius:16px;
+  color:#777780;
+  font-size:12px;
+  line-height:1.7;
+}
+.preview strong{
+  color:#fff;
+}
+.mode-label{
+  margin-top:14px;
+  padding:12px;
+  border-radius:12px;
+  background:#151519;
+  color:#85858f;
+  font-size:12px;
+  text-align:center;
+}
+</style>
 </head>
 <body>
 <div class="container">
-  <!-- HOME -->
-  <div id="homeScreen">
-<div class="logo">VANTA</div>
-<div class="subtitle">
-  EXCHANGE
+<!-- HOME -->
+<div id="homeScreen">
+  <div class="logo">VANTA</div>
+  <div class="subtitle">EXCHANGE</div>
+  <div class="user">
+    VANTA ID:
+    <span id="username">Загрузка...</span>
+  </div>
+  <div class="balance">
+<div class="balance-title">
+  VANTA ACCOUNT
 </div>
-<div class="user">
-  VANTA ID:
-  <span id="username">Загрузка...</span>
+<div
+  class="balance-value loading"
+  id="balance">
+  •••
 </div>
-<div class="balance">
-  <div class="balance-title">
-    VANTA ACCOUNT
-  </div>
-  <div
-    class="balance-value loading"
-    id="balance">
-    •••
-  </div>
-  <div class="balance-currency">
-    USD
-  </div>
+<div class="balance-currency">
+  USD
 </div>
-<div class="menu">
-  <div
-    class="card"
-    onclick="openSection('p2p')">
-    <div class="icon">🤝</div>
-    <div class="card-title">
-      P2P MARKET
-    </div>
-    <div class="card-text">
-      Обмен между пользователями
-    </div>
   </div>
-  <div
-    class="card"
-    onclick="openSection('convert')">
-    <div class="icon">🔄</div>
-    <div class="card-title">
-      CONVERT
-    </div>
-    <div class="card-text">
-      Конвертация валют
-    </div>
+  <div class="menu">
+<div
+  class="card"
+  onclick="openSection('p2p')">
+  <div class="icon">🤝</div>
+  <div class="card-title">
+    P2P MARKET
   </div>
-  <div
-    class="card"
-    onclick="openSection('markets')">
-    <div class="icon">📈</div>
-    <div class="card-title">
-      MARKETS
-    </div>
-    <div class="card-text">
-      Курсы валют и крипты
-    </div>
-  </div>
-  <div
-    class="card"
-    onclick="openSection('deals')">
-    <div class="icon">📑</div>
-    <div class="card-title">
-      MY DEALS
-    </div>
-    <div class="card-text">
-      Активные сделки
-    </div>
-  </div>
-  <div
-    class="card"
-    onclick="openSection('profile')">
-    <div class="icon">👤</div>
-    <div class="card-title">
-      PROFILE
-    </div>
-    <div class="card-text">
-      VANTA ID и настройки
-    </div>
-  </div>
-  <div
-    class="card"
-    onclick="openSection('status')">
-    <div class="icon">💎</div>
-    <div class="card-title">
-      STATUS
-    </div>
-    <div class="card-text">
-      Basic · Pro · Elite
-    </div>
+  <div class="card-text">
+    Обмен между пользователями
   </div>
 </div>
 <div
-  class="status"
-  id="status">
-  Подключение к VANTA...
-</div>
-<div class="footer">
-  VANTA EXCHANGE © 2026
-</div>
+  class="card"
+  onclick="openSection('convert')">
+  <div class="icon">🔄</div>
+  <div class="card-title">
+    CONVERT
   </div>
-  <!-- P2P -->
-  <div id="p2pScreen">
-<button
-  class="back"
-  onclick="showHome()">
-  ← Назад
-</button>
-<div class="screen-title">
-  P2P MARKET
+  <div class="card-text">
+    Конвертация валют
+  </div>
 </div>
-<div class="screen-subtitle">
-  Покупка и продажа активов между пользователями
-</div>
-<div class="p2p-actions">
-  <button
-    id="buyBtn"
-    class="action-btn active"
-    onclick="setP2PMode('buy')">
-    🟢 Купить
-  </button>
-  <button
-    id="sellBtn"
-    class="action-btn"
-    onclick="setP2PMode('sell')">
-    🔴 Продать
-  </button>
-</div>
-<button
-  class="create-btn"
-  onclick="createOffer()">
-  ＋ Создать объявление
-</button>
-<div class="market-title">
-  ВЫБЕРИТЕ АКТИВ
-</div>
-<input
-  id="assetSearch"
-  class="search"
-  type="text"
-  placeholder="🔍 Поиск BTC, USDT, EUR..."
-  oninput="searchAssets()"
->
 <div
-  id="assetList"
-  class="asset-list">
-  <div class="empty">
-    Загрузка активов...
+  class="card"
+  onclick="openSection('markets')">
+  <div class="icon">📈</div>
+  <div class="card-title">
+    MARKETS
+  </div>
+  <div class="card-text">
+    Курсы валют и крипты
   </div>
 </div>
-<div class="notice">
-  Цены и объявления P2P будут подключены
-  к базе на следующем этапе.
+<div
+  class="card"
+  onclick="openSection('deals')">
+  <div class="icon">📑</div>
+  <div class="card-title">
+    MY DEALS
+  </div>
+  <div class="card-text">
+    Активные сделки
+  </div>
+</div>
+<div
+  class="card"
+  onclick="openSection('profile')">
+  <div class="icon">👤</div>
+  <div class="card-title">
+    PROFILE
+  </div>
+  <div class="card-text">
+    VANTA ID и настройки
+  </div>
+</div>
+<div
+  class="card"
+  onclick="openSection('status')">
+  <div class="icon">💎</div>
+  <div class="card-title">
+    STATUS
+  </div>
+  <div class="card-text">
+    Basic · Pro · Elite
+  </div>
 </div>
   </div>
+  <div
+    class="status"
+    id="status">
+    Подключение к VANTA...
+  </div>
+  <div class="footer">
+    VANTA EXCHANGE © 2026
+  </div>
+</div>
+<!-- P2P -->
+<div id="p2pScreen" class="screen">
+
+← Назад
+  <div class="screen-title">
+    P2P MARKET
+  </div>
+  <div class="screen-subtitle">
+    Обмен активов между пользователями
+  </div>
+  <div class="p2p-actions">
+<button
+  id="buyBtn"
+  class="action-btn active"
+  onclick="setP2PMode('buy')">
+  🟢 Купить
+</button>
+<button
+  id="sellBtn"
+  class="action-btn"
+  onclick="setP2PMode('sell')">
+  🔴 Продать
+</button>
+  </div>
+
+＋ Создать объявление
+  <div class="market-title">
+    ВЫБЕРИТЕ АКТИВ
+  </div>
+  <div
+    id="assetList"
+    class="asset-list">
+<div class="empty">
+  Загрузка активов...
+</div>
+  </div>
+</div>
+<!-- CREATE OFFER -->
+<div id="createScreen" class="screen">
+
+← P2P MARKET
+  <div class="screen-title">
+    Новое объявление
+  </div>
+  <div class="screen-subtitle">
+    Создайте своё P2P-предложение
+  </div>
+  <div
+    class="mode-label"
+    id="modeLabel">
+    🟢 Покупка
+  </div>
+  <div class="form-box">
+<div class="field">
+  <div class="label">
+    АКТИВ
+  </div>
+  <select
+    id="offerAsset"
+    class="select">
+    <option value="">
+      Выберите актив
+    </option>
+  </select>
+</div>
+<div class="field">
+  <div class="label">
+    ВАЛЮТА РАСЧЁТА
+  </div>
+  <select
+    id="offerFiat"
+    class="select">
+    <option value="USD">
+      🇺🇸 USD — US Dollar
+    </option>
+    <option value="EUR">
+      🇪🇺 EUR — Euro
+    </option>
+    <option value="KZT">
+      🇰🇿 KZT — Kazakhstani Tenge
+    </option>
+    <option value="RUB">
+      🇷🇺 RUB — Russian Ruble
+    </option>
+    <option value="GBP">
+      🇬🇧 GBP — British Pound
+    </option>
+    <option value="TRY">
+      🇹🇷 TRY — Turkish Lira
+    </option>
+    <option value="AED">
+      🇦🇪 AED — UAE Dirham
+    </option>
+    <option value="CNY">
+      🇨🇳 CNY — Chinese Yuan
+    </option>
+  </select>
+</div>
+<div class="field">
+  <div class="label">
+    КОЛИЧЕСТВО АКТИВА
+  </div>
+  <input
+    id="offerAmount"
+    class="input"
+    type="number"
+    min="0"
+    step="any"
+    placeholder="Например: 500">
+</div>
+<div class="field">
+  <div class="label">
+    ЦЕНА ЗА 1 АКТИВ
+  </div>
+  <input
+    id="offerPrice"
+    class="input"
+    type="number"
+    min="0"
+    step="any"
+    placeholder="Например: 500">
+</div>
+<div class="field">
+  <div class="label">
+    МИНИМАЛЬНАЯ СУММА СДЕЛКИ
+  </div>
+  <input
+    id="offerMin"
+    class="input"
+    type="number"
+    min="0"
+    step="any"
+    placeholder="Например: 1000">
+</div>
+<div class="field">
+  <div class="label">
+    МАКСИМАЛЬНАЯ СУММА СДЕЛКИ
+  </div>
+  <input
+    id="offerMax"
+    class="input"
+    type="number"
+    min="0"
+    step="any"
+    placeholder="Например: 100000">
+</div>
+<div
+  id="offerPreview"
+  class="preview">
+  Заполните форму — здесь появится
+  предварительный просмотр объявления.
+</div>
+<button
+  class="publish-btn"
+  onclick="publishOffer()">
+  Опубликовать объявление
+</button>
+<button
+  class="cancel-btn"
+  onclick="showP2P()">
+  Отмена
+</button>
+  </div>
+</div>
 </div>
 <script>
-  const tg = window.Telegram.WebApp;
-  tg.ready();
-  tg.expand();
-  const API_URL =
-    "https://nwbzyziszijhqtkdhhog.supabase.co/functions/v1/clever-task";
-  /*
-    ВАЖНО:
-    Для чтения assets используем REST API Supabase.
-    Ключ не хранится в коде.
-    Пока список активов загружается через публичный REST endpoint.
-  */
-  const SUPABASE_URL =
-    "https://nwbzyziszijhqtkdhhog.supabase.co";
-  let assets = [];
-  let p2pMode = "buy";
-  /* CONNECT VANTA */
-  async function connectVanta() {
-    const user =
-      tg.initDataUnsafe &&
-      tg.initDataUnsafe.user;
-    if (!user || !user.id) {
-      document.getElementById("username")
-        .textContent =
-        "Telegram User";
-      document.getElementById("balance")
-        .textContent =
-        "—";
-      document.getElementById("balance")
-        .classList
-        .remove("loading");
-      document.getElementById("status")
-        .textContent =
-        "Откройте VANTA через Telegram";
-      return;
-    }
-    const username =
-      user.username
-        ? "@" + user.username
-        : (user.first_name || "User");
+const tg =
+  window.Telegram.WebApp;
+tg.ready();
+tg.expand();
+const API_URL =
+  "https://nwbzyziszijhqtkdhhog.supabase.co/functions/v1/clever-task";
+const SUPABASE_URL =
+  "https://nwbzyziszijhqtkdhhog.supabase.co";
+let assets = [];
+let p2pMode = "buy";
+/* VANTA CONNECTION */
+async function connectVanta(){
+  const user =
+    tg.initDataUnsafe &&
+    tg.initDataUnsafe.user;
+  if(!user || !user.id){
     document.getElementById("username")
       .textContent =
-      username;
-    try {
-      const response =
-        await fetch(API_URL, {
-          method: "POST",
-          body: JSON.stringify({
-            telegram_id: user.id,
-            username:
-              user.username || null,
-            first_name:
-              user.first_name || null
-          })
-        });
-      const responseText =
-        await response.text();
-      let data;
-      try {
-        data =
-          JSON.parse(responseText);
-      } catch {
-        throw new Error(
-          "Неверный ответ сервера: " +
-          responseText
-        );
-      }
-      if (!response.ok) {
-        throw new Error(
-          data.error ||
-          data.message ||
-          JSON.stringify(data)
-        );
-      }
-      if (!data.success) {
-        throw new Error(
-          data.error ||
-          data.message ||
-          JSON.stringify(data)
-        );
-      }
-      if (!data.user) {
-        throw new Error(
-          "Сервер не вернул пользователя"
-        );
-      }
-      const balanceElement =
-        document.getElementById("balance");
-      balanceElement
-        .classList
-        .remove("loading");
-      balanceElement.textContent =
-        Number(
-          data.user.balance || 0
-        ).toLocaleString("ru-RU");
-      document.getElementById("status")
-        .textContent =
-        "● VANTA ACCOUNT подключён";
-    } catch (error) {
-      console.error(
-        "VANTA API ERROR:",
-        error
-      );
-      document.getElementById("balance")
-        .classList
-        .remove("loading");
-      document.getElementById("balance")
-        .textContent =
-        "—";
-      document.getElementById("status")
-        .textContent =
-        "Ошибка API";
-    }
+      "Telegram User";
+    document.getElementById("balance")
+      .classList
+      .remove("loading");
+    document.getElementById("balance")
+      .textContent =
+      "—";
+    document.getElementById("status")
+      .textContent =
+      "Откройте VANTA через Telegram";
+    return;
   }
-  /* LOAD ASSETS */
-  async function loadAssets() {
-    const list =
-      document.getElementById("assetList");
-    try {
-      const response =
-        await fetch(
-          SUPABASE_URL +
-          "/rest/v1/assets?select=symbol,name,type,decimals&is_active=eq.true&order=type.asc,symbol.asc"
-        );
-      if (!response.ok) {
-        throw new Error(
-          "Assets HTTP " +
-          response.status
-        );
-      }
-      assets =
-        await response.json();
-      renderAssets();
-    } catch (error) {
-      console.error(
-        "ASSETS ERROR:",
-        error
-      );
-      list.innerHTML = `
-        <div class="empty">
-          Не удалось загрузить список активов
-        </div>
-      `;
-    }
-  }
-  /* RENDER ASSETS */
-  function renderAssets() {
-    const list =
-      document.getElementById("assetList");
-    const query =
-      document.getElementById("assetSearch")
-        .value
-        .trim()
-        .toLowerCase();
-    const filtered =
-      assets.filter(asset => {
-        return (
-          asset.symbol.toLowerCase().includes(query) ||
-          asset.name.toLowerCase().includes(query)
-        );
+  const username =
+    user.username
+      ? "@" + user.username
+      : (user.first_name || "User");
+  document.getElementById("username")
+    .textContent =
+    username;
+  try{
+    const response =
+      await fetch(API_URL,{
+        method:"POST",
+        headers:{
+          "Content-Type":
+            "application/json"
+        },
+        body:JSON.stringify({
+          telegram_id:user.id,
+          username:
+            user.username || null,
+          first_name:
+            user.first_name || null
+        })
       });
-    if (!filtered.length) {
-      list.innerHTML = `
-        <div class="empty">
-          Актив не найден
-        </div>
-      `;
-      return;
+    const text =
+      await response.text();
+    let data;
+    try{
+      data =
+        JSON.parse(text);
+    }catch{
+      throw new Error(
+        "Неверный ответ сервера: " +
+        text
+      );
     }
+    if(!response.ok){
+      throw new Error(
+        data.error ||
+        data.message ||
+        JSON.stringify(data)
+      );
+    }
+    if(!data.success){
+      throw new Error(
+        data.error ||
+        data.message ||
+        JSON.stringify(data)
+      );
+    }
+    if(!data.user){
+      throw new Error(
+        "Сервер не вернул пользователя"
+      );
+    }
+    const balance =
+      document.getElementById("balance");
+    balance.classList
+      .remove("loading");
+    balance.textContent =
+      Number(
+        data.user.balance || 0
+      ).toLocaleString("ru-RU");
+    document.getElementById("status")
+      .textContent =
+      "● VANTA ACCOUNT подключён";
+  }catch(error){
+    console.error(
+      "VANTA API ERROR:",
+      error
+    );
+    document.getElementById("balance")
+      .classList
+      .remove("loading");
+    document.getElementById("balance")
+      .textContent =
+      "—";
+    document.getElementById("status")
+      .textContent =
+      "Ошибка API";
+  }
+}
+/* LOAD ASSETS */
+async function loadAssets(){
+  const list =
+    document.getElementById("assetList");
+  try{
+    const response =
+      await fetch(
+        SUPABASE_URL +
+        "/rest/v1/assets" +
+        "?select=symbol,name,type,decimals" +
+        "&is_active=eq.true" +
+        "&order=type.asc,symbol.asc"
+      );
+    if(!response.ok){
+      throw new Error(
+        "HTTP " +
+        response.status
+      );
+    }
+    assets =
+      await response.json();
+    renderAssets();
+    fillOfferAssets();
+  }catch(error){
+    console.error(
+      "ASSETS ERROR:",
+      error
+    );
     list.innerHTML =
-      filtered.map(asset => {
-        const icon =
-          asset.type === "crypto"
-            ? "₿"
-            : "$";
-        const typeText =
-          asset.type === "crypto"
-            ? "CRYPTO"
-            : "FIAT";
-        return `
-          <div
-            class="asset"
-            onclick="selectAsset('${asset.symbol}')">
-            <div class="asset-left">
-              <div class="asset-icon">
-                ${icon}
-              </div>
-              <div>
-                <div class="asset-symbol">
-                  ${asset.symbol}
-                </div>
-                <div class="asset-name">
-                  ${asset.name}
-                </div>
-              </div>
+      `
+      <div class="empty">
+        Не удалось загрузить активы
+      </div>
+      `;
+  }
+}
+/* RENDER ASSETS */
+function renderAssets(){
+  const list =
+    document.getElementById("assetList");
+  const query =
+    document.getElementById("assetSearch")
+      .value
+      .trim()
+      .toLowerCase();
+  const filtered =
+    assets.filter(asset =>
+      asset.symbol
+        .toLowerCase()
+        .includes(query) ||
+      asset.name
+        .toLowerCase()
+        .includes(query)
+    );
+  if(!filtered.length){
+    list.innerHTML =
+      `
+      <div class="empty">
+        Актив не найден
+      </div>
+      `;
+    return;
+  }
+  list.innerHTML =
+    filtered.map(asset => {
+      const icon =
+        asset.type === "crypto"
+          ? "₿"
+          : "$";
+      const type =
+        asset.type === "crypto"
+          ? "CRYPTO"
+          : "FIAT";
+      return `
+      <div
+        class="asset"
+        onclick="selectAsset('${asset.symbol}')">
+        <div class="asset-left">
+          <div class="asset-icon">
+            ${icon}
+          </div>
+          <div>
+            <div class="asset-symbol">
+              ${asset.symbol}
             </div>
-            <div class="asset-type">
-              ${typeText}
+            <div class="asset-name">
+              ${asset.name}
             </div>
           </div>
-        `;
-      }).join("");
+        </div>
+        <div class="asset-type">
+          ${type}
+        </div>
+      </div>
+      `;
+    }).join("");
+}
+function searchAssets(){
+  renderAssets();
+}
+/* OFFER ASSET SELECT */
+function fillOfferAssets(){
+  const select =
+    document.getElementById("offerAsset");
+  select.innerHTML =
+    `<option value="">
+      Выберите актив
+    </option>`;
+  assets
+    .filter(asset =>
+      asset.type === "crypto"
+    )
+    .forEach(asset => {
+      const option =
+        document.createElement("option");
+      option.value =
+        asset.symbol;
+      option.textContent =
+        asset.symbol +
+        " — " +
+        asset.name;
+      select.appendChild(option);
+    });
+}
+/* NAVIGATION */
+function openSection(section){
+  if(section === "p2p"){
+    showP2P();
+    return;
   }
-  function searchAssets() {
-    renderAssets();
+  alert(
+    section.toUpperCase() +
+    " скоро будет доступен."
+  );
+}
+function showHome(){
+  document.getElementById("homeScreen")
+    .style.display =
+    "block";
+  document.getElementById("p2pScreen")
+    .style.display =
+    "none";
+  document.getElementById("createScreen")
+    .style.display =
+    "none";
+  window.scrollTo(0,0);
+}
+function showP2P(){
+  document.getElementById("homeScreen")
+    .style.display =
+    "none";
+  document.getElementById("p2pScreen")
+    .style.display =
+    "block";
+  document.getElementById("createScreen")
+    .style.display =
+    "none";
+  window.scrollTo(0,0);
+  loadAssets();
+}
+/* P2P MODE */
+function setP2PMode(mode){
+  p2pMode =
+    mode;
+  document
+    .getElementById("buyBtn")
+    .classList
+    .remove("active");
+  document
+    .getElementById("sellBtn")
+    .classList
+    .remove("active");
+  if(mode === "buy"){
+    document
+      .getElementById("buyBtn")
+      .classList
+      .add("active");
+  }else{
+    document
+      .getElementById("sellBtn")
+      .classList
+      .add("active");
   }
-  /* NAVIGATION */
-  function openSection(section) {
-    if (section === "p2p") {
-      document.getElementById("homeScreen")
-        .style.display =
-        "none";
-      document.getElementById("p2pScreen")
-        .style.display =
-        "block";
-      window.scrollTo(0, 0);
-      loadAssets();
-      return;
-    }
-    alert(
-      section.toUpperCase() +
-      " скоро будет доступен."
-    );
+}
+/* CREATE OFFER */
+function openCreateOffer(){
+  document.getElementById("homeScreen")
+    .style.display =
+    "none";
+  document.getElementById("p2pScreen")
+    .style.display =
+    "none";
+  document.getElementById("createScreen")
+    .style.display =
+    "block";
+  const modeLabel =
+    document.getElementById("modeLabel");
+  modeLabel.textContent =
+    p2pMode === "buy"
+      ? "🟢 Покупка"
+      : "🔴 Продажа";
+  window.scrollTo(0,0);
+}
+/* SELECT ASSET FROM P2P */
+function selectAsset(symbol){
+  openCreateOffer();
+  document.getElementById("offerAsset")
+    .value =
+    symbol;
+}
+/* PREVIEW */
+function updatePreview(){
+  const asset =
+    document.getElementById("offerAsset")
+      .value;
+  const fiat =
+    document.getElementById("offerFiat")
+      .value;
+  const amount =
+    document.getElementById("offerAmount")
+      .value;
+  const price =
+    document.getElementById("offerPrice")
+      .value;
+  const min =
+    document.getElementById("offerMin")
+      .value;
+  const max =
+    document.getElementById("offerMax")
+      .value;
+  const preview =
+    document.getElementById("offerPreview");
+  if(!asset || !amount || !price){
+    preview.innerHTML =
+      `Заполните актив, количество и цену.`;
+    return;
   }
-  function showHome() {
-    document.getElementById("p2pScreen")
-      .style.display =
-      "none";
-    document.getElementById("homeScreen")
-      .style.display =
-      "block";
-    window.scrollTo(0, 0);
-  }
-  /* P2P MODE */
-  function setP2PMode(mode) {
-    p2pMode =
-      mode;
-    const buyBtn =
-      document.getElementById("buyBtn");
-    const sellBtn =
-      document.getElementById("sellBtn");
-    buyBtn.classList.remove("active");
-    sellBtn.classList.remove("active");
-    if (mode === "buy") {
-      buyBtn.classList.add("active");
-    } else {
-      sellBtn.classList.add("active");
-    }
-  }
-  /* SELECT ASSET */
-  function selectAsset(symbol) {
-    alert(
-      "Выбран актив: " +
-      symbol +
-      "\nРежим: " +
-      (p2pMode === "buy"
+  const total =
+    Number(amount) *
+    Number(price);
+  preview.innerHTML =
+    `
+    <strong>
+      ${p2pMode === "buy"
         ? "Купить"
-        : "Продать")
+        : "Продать"}
+      ${asset}
+    </strong>
+    <br>
+    Количество: ${amount} ${asset}
+    <br>
+    Цена: ${price} ${fiat}
+    за 1 ${asset}
+    <br>
+    Общая сумма: ${total.toLocaleString("ru-RU")} ${fiat}
+    <br>
+    ${min
+      ? "Минимум: " +
+        Number(min).toLocaleString("ru-RU") +
+        " " + fiat + "<br>"
+      : ""}
+    ${max
+      ? "Максимум: " +
+        Number(max).toLocaleString("ru-RU") +
+        " " + fiat
+      : ""}
+    `;
+}
+/* PUBLISH */
+function publishOffer(){
+  const asset =
+    document.getElementById("offerAsset")
+      .value;
+  const fiat =
+    document.getElementById("offerFiat")
+      .value;
+  const amount =
+    Number(
+      document.getElementById("offerAmount")
+        .value
     );
+  const price =
+    Number(
+      document.getElementById("offerPrice")
+        .value
+    );
+  const min =
+    Number(
+      document.getElementById("offerMin")
+        .value
+    );
+  const max =
+    Number(
+      document.getElementById("offerMax")
+        .value
+    );
+  if(!asset){
+    alert("Выберите актив.");
+    return;
   }
-  /* CREATE OFFER */
-  function createOffer() {
+  if(!amount || amount <= 0){
+    alert("Введите количество актива.");
+    return;
+  }
+  if(!price || price <= 0){
+    alert("Введите цену.");
+    return;
+  }
+  if(min && max && min > max){
     alert(
-      "Создание P2P-объявления подключим следующим этапом."
+      "Минимальная сумма не может быть больше максимальной."
     );
+    return;
   }
-  connectVanta();
+  const total =
+    amount * price;
+  alert(
+    "Объявление подготовлено!\n\n" +
+    (p2pMode === "buy"
+      ? "Купить "
+      : "Продать ") +
+    amount + " " +
+    asset +
+    "\nЦена: " +
+    price + " " +
+    fiat +
+    "\nВсего: " +
+    total + " " +
+    fiat +
+    "\n\nСледующим этапом подключим сохранение в P2P-базу."
+  );
+}
+document.addEventListener(
+  "input",
+  function(event){
+    if(
+      event.target.id === "offerAmount" ||
+      event.target.id === "offerPrice" ||
+      event.target.id === "offerMin" ||
+      event.target.id === "offerMax"
+    ){
+      updatePreview();
+    }
+  }
+);
+document.addEventListener(
+  "change",
+  function(event){
+    if(
+      event.target.id === "offerAsset" ||
+      event.target.id === "offerFiat"
+    ){
+      updatePreview();
+    }
+  }
+);
+connectVanta();
+loadAssets();
 </script>
 </body>
 </html>
