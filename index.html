@@ -168,7 +168,7 @@
     const API_URL =
       "https://nwbzyziszijhqtkdhhog.supabase.co/functions/v1/clever-task";
     async function connectVanta() {
-      const user = tg.initDataUnsafe?.user;
+      const user = tg.initDataUnsafe && tg.initDataUnsafe.user;
       if (!user || !user.id) {
         document.getElementById("username").textContent = "Telegram User";
         document.getElementById("balance").textContent = "—";
@@ -183,29 +183,33 @@
       try {
         const response = await fetch(API_URL, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
           body: JSON.stringify({
             telegram_id: user.id,
             username: user.username || null,
             first_name: user.first_name || null
           })
         });
-        const data = await response.json();
+        const text = await response.text();
+        let data;
+        try {
+          data = JSON.parse(text);
+        } catch {
+          throw new Error("Сервер вернул неверный ответ: " + text);
+        }
         if (!response.ok || !data.success) {
           throw new Error(data.error || "API error");
         }
         const vantaUser = data.user;
         document.getElementById("balance").textContent =
-          Number(vantaUser.balance).toLocaleString("ru-RU");
+          Number(vantaUser.balance || 0).toLocaleString("ru-RU");
         document.getElementById("status").textContent =
           "● VANTA ACCOUNT подключён";
       } catch (error) {
         console.error("VANTA API error:", error);
         document.getElementById("balance").textContent = "—";
         document.getElementById("status").textContent =
-          "Не удалось подключиться к VANTA API";
+          "Ошибка подключения к VANTA API";
+        alert("VANTA API: " + error.message);
       }
     }
     function openSection(section) {
