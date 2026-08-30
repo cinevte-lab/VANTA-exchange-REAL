@@ -29,6 +29,7 @@
       color: #8b8b95;
       margin-top: 6px;
       font-size: 14px;
+      letter-spacing: 1px;
     }
     .user {
       margin-top: 20px;
@@ -49,6 +50,7 @@
     .balance-title {
       color: #8b8b95;
       font-size: 13px;
+      letter-spacing: 1px;
     }
     .balance-value {
       font-size: 30px;
@@ -91,6 +93,15 @@
       font-size: 12px;
       line-height: 1.4;
     }
+    .status {
+      margin-top: 20px;
+      padding: 14px 16px;
+      background: #111114;
+      border-radius: 14px;
+      color: #777780;
+      font-size: 12px;
+      text-align: center;
+    }
     .footer {
       margin-top: 30px;
       text-align: center;
@@ -104,11 +115,11 @@
 <div class="logo">VANTA</div>
 <div class="subtitle">EXCHANGE</div>
 <div class="user">
-  VANTA ID: <span id="username">—</span>
+  VANTA ID: <span id="username">Загрузка...</span>
 </div>
 <div class="balance">
   <div class="balance-title">VANTA ACCOUNT</div>
-  <div class="balance-value" id="balance">0</div>
+  <div class="balance-value" id="balance">—</div>
   <div class="balance-currency">VNT</div>
 </div>
 <div class="menu">
@@ -143,6 +154,9 @@
     <div class="card-text">Basic · Pro · Elite</div>
   </div>
 </div>
+<div class="status" id="status">
+  Подключение к VANTA...
+</div>
 <div class="footer">
   VANTA EXCHANGE © 2026
 </div>
@@ -151,21 +165,53 @@
     const tg = window.Telegram.WebApp;
     tg.ready();
     tg.expand();
-    const user = tg.initDataUnsafe?.user;
-    if (user) {
-      let displayName = "";
-      if (user.username) {
-        displayName = "@" + user.username;
-      } else {
-        displayName = user.first_name || "User";
+    const API_URL =
+      "https://nwbzyziszijhqtkdhhog.supabase.co/functions/v1/clever-task";
+    async function connectVanta() {
+      const user = tg.initDataUnsafe?.user;
+      if (!user || !user.id) {
+        document.getElementById("username").textContent = "Telegram User";
+        document.getElementById("balance").textContent = "—";
+        document.getElementById("status").textContent =
+          "Откройте VANTA через Telegram";
+        return;
       }
-      document.getElementById("username").textContent = displayName;
-    } else {
-      document.getElementById("username").textContent = "Telegram User";
+      const username = user.username
+        ? "@" + user.username
+        : (user.first_name || "User");
+      document.getElementById("username").textContent = username;
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            telegram_id: user.id,
+            username: user.username || null,
+            first_name: user.first_name || null
+          })
+        });
+        const data = await response.json();
+        if (!response.ok || !data.success) {
+          throw new Error(data.error || "API error");
+        }
+        const vantaUser = data.user;
+        document.getElementById("balance").textContent =
+          Number(vantaUser.balance).toLocaleString("ru-RU");
+        document.getElementById("status").textContent =
+          "● VANTA ACCOUNT подключён";
+      } catch (error) {
+        console.error("VANTA API error:", error);
+        document.getElementById("balance").textContent = "—";
+        document.getElementById("status").textContent =
+          "Не удалось подключиться к VANTA API";
+      }
     }
     function openSection(section) {
       alert("Раздел " + section + " скоро будет доступен.");
     }
+    connectVanta();
   </script>
 </body>
 </html>
