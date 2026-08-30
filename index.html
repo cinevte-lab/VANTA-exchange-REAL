@@ -12,54 +12,39 @@
   padding:0;
   -webkit-tap-highlight-color:transparent;
 }
-:root{
-  --bg:#07070a;
-  --card:#101014;
-  --card2:#14141a;
-  --border:rgba(255,255,255,.08);
-  --text:#fff;
-  --muted:#777780;
-  --purple:#8b5cf6;
-  --purple2:#6d28d9;
-}
-html,body{
-  min-height:100%;
-  background:var(--bg);
-}
 body{
-  color:var(--text);
-  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",sans-serif;
+  min-height:100vh;
+  color:#fff;
   background:
-    radial-gradient(circle at 85% 0%,rgba(124,58,237,.18),transparent 30%),
-    radial-gradient(circle at 0% 45%,rgba(109,40,217,.09),transparent 30%),
-    #07070a;
+    radial-gradient(circle at 80% 0%,#24134a 0,transparent 32%),
+    radial-gradient(circle at 0% 40%,#171025 0,transparent 30%),
+    #070709;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 button,input,select{
   font:inherit;
 }
 button{
-  cursor:pointer;
+  border:0;
 }
 .app{
-  width:100%;
   max-width:620px;
   margin:auto;
   padding:22px 16px 45px;
 }
-/* HEADER */
 .header{
   display:flex;
-  justify-content:space-between;
   align-items:flex-start;
+  justify-content:space-between;
 }
 .logo{
-  font-size:30px;
+  font-size:31px;
   font-weight:900;
   letter-spacing:4px;
 }
-.logo-sub{
-  margin-top:4px;
-  color:#66666f;
+.sub{
+  margin-top:3px;
+  color:#66636e;
   font-size:8px;
   letter-spacing:4px;
 }
@@ -68,271 +53,235 @@ button{
   align-items:center;
   gap:6px;
   padding:8px 10px;
-  border:1px solid var(--border);
-  border-radius:99px;
-  color:#777780;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50px;
+  color:#77737f;
   font-size:9px;
-  font-weight:700;
+  font-weight:800;
 }
-.dot{
+.online-dot{
   width:6px;
   height:6px;
   border-radius:50%;
-  background:#9b72ff;
+  background:#9b6cff;
   box-shadow:0 0 12px #8b5cf6;
 }
-/* USER */
-.user{
+.id{
   margin-top:25px;
-  color:#66666f;
+  color:#66636e;
   font-size:11px;
 }
-.user strong{
-  color:#dddde3;
+.id span{
+  color:#ddd;
+  font-weight:700;
 }
-/* BALANCE */
 .balance{
   position:relative;
   overflow:hidden;
-  margin-top:13px;
+  margin-top:12px;
   padding:23px;
-  min-height:143px;
+  min-height:145px;
+  border:1px solid rgba(255,255,255,.08);
   border-radius:25px;
-  border:1px solid var(--border);
-  background:linear-gradient(145deg,rgba(255,255,255,.065),rgba(255,255,255,.015));
+  background:rgba(255,255,255,.045);
   box-shadow:0 20px 60px rgba(0,0,0,.35);
 }
-.balance:after{
-  content:"";
+.balance-glow{
   position:absolute;
   width:190px;
   height:190px;
-  right:-70px;
-  top:-110px;
-  background:rgba(124,58,237,.2);
-  filter:blur(45px);
+  right:-90px;
+  top:-100px;
   border-radius:50%;
+  background:#7c3aed;
+  opacity:.22;
+  filter:blur(55px);
 }
 .balance-label{
   position:relative;
-  z-index:2;
-  color:#777780;
+  color:#77727e;
   font-size:9px;
+  font-weight:800;
   letter-spacing:2px;
-  font-weight:700;
 }
 .balance-value{
   position:relative;
-  z-index:2;
   margin-top:9px;
-  font-size:37px;
+  font-size:38px;
   line-height:1.1;
-  font-weight:850;
-  letter-spacing:-1px;
+  font-weight:900;
 }
 .balance-currency{
   position:relative;
-  z-index:2;
   margin-top:6px;
-  color:#66666f;
+  color:#68636f;
   font-size:10px;
 }
-.loading{
-  animation:pulse 1s infinite;
+.status{
+  margin-top:12px;
+  padding:12px;
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:14px;
+  background:rgba(255,255,255,.025);
+  color:#77727e;
+  text-align:center;
+  font-size:10px;
 }
-@keyframes pulse{
-  0%,100%{opacity:.3}
-  50%{opacity:1}
-}
-/* HOME */
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
   gap:10px;
-  margin-top:16px;
+  margin-top:15px;
 }
 .card{
-  min-height:137px;
+  min-height:140px;
   padding:17px;
+  border:1px solid rgba(255,255,255,.075);
   border-radius:21px;
-  border:1px solid var(--border);
-  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.015));
-  transition:.15s;
+  background:rgba(255,255,255,.04);
 }
 .card:active{
   transform:scale(.97);
-  border-color:rgba(139,92,246,.3);
 }
-.card-icon{
+.icon{
   width:43px;
   height:43px;
   display:flex;
   align-items:center;
   justify-content:center;
   border-radius:14px;
-  background:rgba(139,92,246,.1);
-  color:#c5adff;
+  background:rgba(139,92,246,.12);
+  color:#c6adff;
   font-size:20px;
 }
 .card-title{
   margin-top:13px;
   font-size:13px;
-  font-weight:850;
+  font-weight:900;
 }
 .card-text{
   margin-top:5px;
-  color:#686871;
+  color:#68636f;
   font-size:10px;
   line-height:1.45;
 }
-.status{
-  margin-top:15px;
-  padding:12px;
-  border-radius:14px;
-  border:1px solid var(--border);
-  background:rgba(255,255,255,.025);
-  color:#777780;
-  text-align:center;
-  font-size:10px;
-}
-/* SCREENS */
 .screen{
   display:none;
-  animation:show .2s ease;
-}
-@keyframes show{
-  from{
-    opacity:0;
-    transform:translateY(8px);
-  }
-  to{
-    opacity:1;
-    transform:none;
-  }
 }
 .back{
-  border:0;
+  padding:5px 0;
   background:none;
-  color:#888891;
+  color:#88838f;
   font-size:12px;
-  padding:4px 0;
 }
 .title{
   margin-top:20px;
-  font-size:29px;
-  font-weight:850;
-  letter-spacing:-.7px;
+  font-size:30px;
+  font-weight:900;
 }
 .subtitle{
-  margin-top:6px;
-  color:#6b6b74;
+  margin-top:5px;
+  color:#6d6875;
   font-size:11px;
 }
-/* P2P */
-.switch{
+.tabs{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:6px;
+  gap:5px;
   margin-top:20px;
   padding:5px;
-  background:#0e0e12;
-  border:1px solid var(--border);
+  border:1px solid rgba(255,255,255,.07);
   border-radius:16px;
+  background:#101014;
 }
-.switch button{
+.tabs button{
   padding:12px;
-  border:0;
   border-radius:12px;
   background:transparent;
-  color:#777780;
-  font-size:12px;
+  color:#77727e;
   font-weight:800;
 }
-.switch button.active{
-  color:white;
-  background:linear-gradient(135deg,#9b72ff,#6d28d9);
+.tabs button.active{
+  color:#fff;
+  background:linear-gradient(135deg,#9b6cff,#6724d5);
 }
-.create{
+.create-button{
   width:100%;
   margin-top:10px;
   padding:15px;
-  border:0;
   border-radius:15px;
   background:#fff;
   color:#08080a;
-  font-weight:850;
-  font-size:13px;
-}
-/* SEARCH */
-.search-box{
-  position:relative;
-  margin-top:20px;
-}
-.search-icon{
-  position:absolute;
-  left:14px;
-  top:50%;
-  transform:translateY(-50%);
-  color:#676770;
-  font-size:14px;
-  pointer-events:none;
+  font-weight:900;
 }
 .search{
+  position:relative;
+  margin-top:18px;
+}
+.search input{
   width:100%;
-  padding:15px 15px 15px 40px;
+  height:52px;
+  padding:0 16px 0 45px;
+  border:1px solid rgba(255,255,255,.1);
   outline:none;
-  border-radius:16px;
-  border:1px solid var(--border);
-  background:#101014;
-  color:white;
-  font-size:13px;
+  border-radius:17px;
+  background:#111116;
+  color:#fff;
+  font-size:14px;
 }
-.search::placeholder{
-  color:#55555e;
+.search input::placeholder{
+  color:#57535e;
 }
-.search:focus{
-  border-color:rgba(139,92,246,.4);
-  box-shadow:0 0 0 3px rgba(139,92,246,.05);
+.search input:focus{
+  border-color:rgba(139,92,246,.55);
+  box-shadow:0 0 0 3px rgba(139,92,246,.08);
 }
-/* FILTERS */
+.search-symbol{
+  position:absolute;
+  left:17px;
+  top:50%;
+  transform:translateY(-50%);
+  color:#77727e;
+  font-size:19px;
+  z-index:2;
+}
 .filters{
   display:flex;
   gap:7px;
+  margin-top:10px;
   overflow-x:auto;
-  padding:11px 0 3px;
   scrollbar-width:none;
 }
 .filters::-webkit-scrollbar{
   display:none;
 }
 .filter{
-  flex:0 0 auto;
-  padding:8px 12px;
-  border-radius:99px;
-  border:1px solid var(--border);
+  flex:none;
+  padding:9px 13px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:50px;
   background:#101014;
-  color:#707079;
-  font-size:9px;
+  color:#77727e;
+  font-size:10px;
   font-weight:800;
 }
 .filter.active{
   color:#fff;
   border-color:rgba(139,92,246,.35);
-  background:rgba(139,92,246,.12);
+  background:rgba(139,92,246,.14);
 }
-/* ASSETS */
-.asset-list{
-  margin-top:10px;
+.list{
+  margin-top:12px;
 }
 .asset{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:14px;
   margin-bottom:8px;
-  border-radius:17px;
-  border:1px solid var(--border);
-  background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.015));
+  padding:14px;
+  border:1px solid rgba(255,255,255,.075);
+  border-radius:18px;
+  background:rgba(255,255,255,.035);
 }
 .asset-left{
   display:flex;
@@ -340,32 +289,30 @@ button{
   gap:12px;
 }
 .asset-icon{
-  width:42px;
-  height:42px;
+  width:43px;
+  height:43px;
   display:flex;
   align-items:center;
   justify-content:center;
   border-radius:13px;
-  background:linear-gradient(145deg,#22222a,#111116);
-  color:#c6aaff;
-  font-size:15px;
+  background:linear-gradient(145deg,#292633,#111116);
+  color:#c5aaff;
   font-weight:900;
 }
-.asset-symbol{
+.symbol{
   font-size:13px;
-  font-weight:850;
+  font-weight:900;
 }
-.asset-name{
+.name{
   margin-top:3px;
-  color:#686871;
+  color:#696470;
   font-size:10px;
 }
-.asset-type{
-  color:#55555e;
+.type{
+  color:#5d5864;
   font-size:8px;
   letter-spacing:1px;
 }
-/* FORM */
 .form{
   margin-top:20px;
 }
@@ -377,96 +324,59 @@ button{
 }
 .label{
   margin-bottom:7px;
-  color:#777780;
+  color:#77727e;
   font-size:9px;
-  font-weight:700;
-  letter-spacing:1.5px;
+  font-weight:800;
+  letter-spacing:1.4px;
 }
 .input,
 .select{
   width:100%;
   padding:15px;
-  border-radius:15px;
-  border:1px solid var(--border);
+  border:1px solid rgba(255,255,255,.08);
   outline:none;
-  background:#101014;
+  border-radius:15px;
+  background:#111116;
   color:#fff;
-  font-size:13px;
-}
-.input::placeholder{
-  color:#55555e;
 }
 .input:focus,
 .select:focus{
-  border-color:rgba(139,92,246,.45);
+  border-color:rgba(139,92,246,.5);
 }
 .info{
-  margin-top:17px;
+  margin-top:16px;
   padding:13px;
+  border:1px solid rgba(139,92,246,.18);
   border-radius:15px;
-  border:1px solid rgba(139,92,246,.14);
-  background:rgba(139,92,246,.07);
-  color:#b69aff;
+  background:rgba(139,92,246,.08);
+  color:#b99cff;
   text-align:center;
   font-size:10px;
-  font-weight:700;
-}
-.preview{
-  margin-top:15px;
-  padding:16px;
-  border-radius:16px;
-  background:#101014;
-  border:1px solid var(--border);
-  color:#777780;
-  font-size:10px;
-  line-height:1.8;
-}
-.preview strong{
-  color:#fff;
-  font-size:13px;
+  font-weight:800;
 }
 .publish{
   width:100%;
-  margin-top:12px;
+  margin-top:13px;
   padding:16px;
-  border:0;
   border-radius:16px;
-  background:linear-gradient(135deg,#9b72ff,#6d28d9);
+  background:linear-gradient(135deg,#9b6cff,#6724d5);
   color:#fff;
-  font-weight:850;
+  font-weight:900;
 }
 .cancel{
   width:100%;
   margin-top:8px;
   padding:15px;
-  border:1px solid var(--border);
+  border:1px solid rgba(255,255,255,.08);
   border-radius:16px;
-  background:#101014;
-  color:#777780;
+  background:#111116;
+  color:#77727e;
 }
-/* TOAST */
-.toast{
-  position:fixed;
-  left:17px;
-  right:17px;
-  bottom:20px;
-  z-index:100;
-  padding:14px;
-  border-radius:15px;
-  background:rgba(20,20,25,.96);
-  border:1px solid var(--border);
-  box-shadow:0 15px 50px rgba(0,0,0,.5);
-  color:#fff;
+.empty{
+  padding:25px 10px;
+  color:#625d68;
   text-align:center;
   font-size:11px;
-  opacity:0;
-  transform:translateY(15px);
-  pointer-events:none;
-  transition:.2s;
-}
-.toast.show{
-  opacity:1;
-  transform:none;
 }
 </style>
 </head>
@@ -477,69 +387,90 @@ button{
   <div class="header">
     <div>
       <div class="logo">VANTA</div>
-      <div class="logo-sub">EXCHANGE</div>
+      <div class="sub">EXCHANGE</div>
     </div>
     <div class="online">
-      <span class="dot"></span>
+      <span class="online-dot"></span>
       ONLINE
     </div>
   </div>
-  <div class="user">
+  <div class="id">
     VANTA ID:
-    <strong id="username">Загрузка...</strong>
+    <span id="userId">подключение...</span>
   </div>
   <div class="balance">
+    <div class="balance-glow"></div>
     <div class="balance-label">
       TOTAL BALANCE
     </div>
     <div
       id="balance"
-      class="balance-value loading">
-      •••
+      class="balance-value">
+      —
     </div>
     <div class="balance-currency">
       USD
     </div>
   </div>
-  <div class="grid">
-    <div class="card" id="openP2P">
-      <div class="card-icon">⇄</div>
-      <div class="card-title">P2P MARKET</div>
-      <div class="card-text">
-        Покупка и продажа активов между пользователями
-      </div>
-    </div>
-    <div class="card" onclick="soon('CONVERT')">
-      <div class="card-icon">↻</div>
-      <div class="card-title">CONVERT</div>
-      <div class="card-text">
-        Быстрая конвертация активов
-      </div>
-    </div>
-    <div class="card" onclick="soon('MARKETS')">
-      <div class="card-icon">⌁</div>
-      <div class="card-title">MARKETS</div>
-      <div class="card-text">
-        Курсы и движение рынка
-      </div>
-    </div>
-    <div class="card" onclick="soon('MY DEALS')">
-      <div class="card-icon">◫</div>
-      <div class="card-title">MY DEALS</div>
-      <div class="card-text">
-        Ваши сделки
-      </div>
-    </div>
+  <div
+    id="status"
+    class="status">
+    Подключение...
   </div>
-  <div id="status" class="status">
-    Подключение к VANTA...
+  <div class="grid">
+    <button
+      class="card"
+      id="p2pButton">
+      <div class="icon">⇄</div>
+      <div class="card-title">
+        P2P MARKET
+      </div>
+      <div class="card-text">
+        Покупка и продажа активов
+      </div>
+    </button>
+    <button
+      class="card"
+      onclick="alert('Раздел скоро будет доступен')">
+      <div class="icon">↻</div>
+      <div class="card-title">
+        CONVERT
+      </div>
+      <div class="card-text">
+        Конвертация активов
+      </div>
+    </button>
+    <button
+      class="card"
+      onclick="alert('Раздел скоро будет доступен')">
+      <div class="icon">⌁</div>
+      <div class="card-title">
+        MARKETS
+      </div>
+      <div class="card-text">
+        Курсы активов
+      </div>
+    </button>
+    <button
+      class="card"
+      onclick="alert('Раздел скоро будет доступен')">
+      <div class="icon">◫</div>
+      <div class="card-title">
+        MY DEALS
+      </div>
+      <div class="card-text">
+        История сделок
+      </div>
+    </button>
   </div>
 </section>
 <!-- P2P -->
-<section id="p2p" class="screen">
+<section
+  id="p2p"
+  class="screen">
   <button
     class="back"
-    id="p2pBack">
+    id="backP2P">
     ← Назад
   </button>
   <div class="title">
@@ -548,80 +479,78 @@ button{
   <div class="subtitle">
     Обмен активами между пользователями
   </div>
-  <div class="switch">
+  <div class="tabs">
     <button
-      id="buy"
+      id="buyTab"
       class="active">
       Купить
     </button>
-    <button id="sell">
+    <button
+      id="sellTab">
       Продать
     </button>
   </div>
   <button
-    class="create"
-    id="createOffer">
+    class="create-button"
+    id="createButton">
     ＋ Создать объявление
   </button>
-  <div class="search-box">
-    <span class="search-icon">
+  <div class="search">
+    <span class="search-symbol">
       ⌕
     </span>
     <input
-      id="search"
-      class="search"
-      placeholder="Поиск актива или объявления..."
+      id="searchInput"
+      type="search"
+      placeholder="Поиск BTC, USDT, USD..."
       autocomplete="off">
   </div>
   <div class="filters">
-    <button class="filter active" data-filter="all">
+    <button
+      class="filter active"
+      data-type="all">
       Все
     </button>
-    <button class="filter" data-filter="crypto">
+    <button
+      class="filter"
+      data-type="crypto">
       Crypto
     </button>
-    <button class="filter" data-filter="stablecoin">
+    <button
+      class="filter"
+      data-type="stablecoin">
       Stablecoin
     </button>
-    <button class="filter" data-filter="fiat">
+    <button
+      class="filter"
+      data-type="fiat">
       Fiat
     </button>
   </div>
   <div
-    id="assets"
-    class="asset-list">
-    <div class="asset">
-      <div class="asset-left">
-        <div class="asset-icon">⋯</div>
-        <div>
-          <div class="asset-symbol">
-            Загрузка
-          </div>
-          <div class="asset-name">
-            Получение активов
-          </div>
-        </div>
-      </div>
-    </div>
+    id="assetList"
+    class="list">
   </div>
 </section>
 <!-- CREATE -->
-<section id="create" class="screen">
+<section
+  id="create"
+  class="screen">
   <button
     class="back"
-    id="createBack">
+    id="backCreate">
     ← P2P MARKET
   </button>
   <div class="title">
     Создать объявление
   </div>
   <div class="subtitle">
-    Разместите своё предложение
+    Ваше предложение на P2P рынке
   </div>
   <div
     id="modeInfo"
     class="info">
-    🟣 Вы создаёте объявление на покупку
+    Вы создаёте объявление на покупку
   </div>
   <div class="form">
     <div class="field">
@@ -629,7 +558,7 @@ button{
         АКТИВ
       </div>
       <select
-        id="offerAsset"
+        id="assetSelect"
         class="select">
         <option value="">
           Выберите актив
@@ -641,31 +570,31 @@ button{
         ВАЛЮТА РАСЧЁТА
       </div>
       <select
-        id="fiat"
+        id="currencySelect"
         class="select">
         <option value="USD">
-          🇺🇸 USD — Доллар США
+          USD — Доллар США
         </option>
         <option value="EUR">
-          🇪🇺 EUR — Евро
+          EUR — Евро
         </option>
         <option value="KZT">
-          🇰🇿 KZT — Тенге
+          KZT — Тенге
         </option>
         <option value="RUB">
-          🇷🇺 RUB — Рубль
+          RUB — Рубль
         </option>
         <option value="GBP">
-          🇬🇧 GBP — Фунт
-        </option>
-        <option value="AED">
-          🇦🇪 AED — Дирхам
+          GBP — Фунт
         </option>
         <option value="CNY">
-          🇨🇳 CNY — Юань
+          CNY — Юань
+        </option>
+        <option value="AED">
+          AED — Дирхам
         </option>
         <option value="TRY">
-          🇹🇷 TRY — Лира
+          TRY — Лира
         </option>
       </select>
     </div>
@@ -679,7 +608,7 @@ button{
         type="number"
         min="0"
         step="any"
-        placeholder="Например 100">
+        placeholder="100">
     </div>
     <div class="field">
       <div class="label">
@@ -691,62 +620,27 @@ button{
         type="number"
         min="0"
         step="any"
-        placeholder="Например 500">
-    </div>
-    <div class="field">
-      <div class="label">
-        МИНИМАЛЬНАЯ СУММА
-      </div>
-      <input
-        id="min"
-        class="input"
-        type="number"
-        min="0"
-        step="any"
-        placeholder="Необязательно">
-    </div>
-    <div class="field">
-      <div class="label">
-        МАКСИМАЛЬНАЯ СУММА
-      </div>
-      <input
-        id="max"
-        class="input"
-        type="number"
-        min="0"
-        step="any"
-        placeholder="Необязательно">
-    </div>
-    <div
-      id="preview"
-      class="preview">
-      Заполните данные объявления.
+        placeholder="500">
     </div>
     <button
-      id="publish"
-      class="publish">
+      class="publish"
+      id="publishButton">
       Опубликовать
     </button>
     <button
-      id="cancel"
-      class="cancel">
+      class="cancel"
+      id="cancelButton">
       Отмена
     </button>
   </div>
 </section>
 </div>
-<div
-  id="toast"
-  class="toast">
-</div>
 <script>
 /* =========================
-   VANTA CONFIG
+   VANTA API
 ========================= */
-const API_URL =
+const VANTA_API =
 "https://nwbzyziszijhqtkdhhog.supabase.co/functions/v1/vanta-api";
-const SUPABASE_URL =
-"https://nwbzyziszijhqtkdhhog.supabase.co";
 /* =========================
    TELEGRAM
 ========================= */
@@ -762,85 +656,93 @@ if(tg){
 /* =========================
    STATE
 ========================= */
-let assets = [];
-let mode = "buy";
-let activeFilter = "all";
+let currentMode = "buy";
+let currentFilter = "all";
+let assets = [
+  {
+    symbol:"BTC",
+    name:"Bitcoin",
+    type:"crypto"
+  },
+  {
+    symbol:"ETH",
+    name:"Ethereum",
+    type:"crypto"
+  },
+  {
+    symbol:"USDT",
+    name:"Tether",
+    type:"stablecoin"
+  },
+  {
+    symbol:"USDC",
+    name:"USD Coin",
+    type:"stablecoin"
+  },
+  {
+    symbol:"USD",
+    name:"US Dollar",
+    type:"fiat"
+  },
+  {
+    symbol:"EUR",
+    name:"Euro",
+    type:"fiat"
+  },
+  {
+    symbol:"KZT",
+    name:"Kazakhstani Tenge",
+    type:"fiat"
+  },
+  {
+    symbol:"GBP",
+    name:"British Pound",
+    type:"fiat"
+  }
+];
 /* =========================
    HELPERS
 ========================= */
-function $(id){
-  return document.getElementById(id);
+function id(name){
+  return document.getElementById(name);
 }
-function showScreen(name){
-  $("home").style.display = "none";
-  $("p2p").style.display = "none";
-  $("create").style.display = "none";
-  $(name).style.display = "block";
+function screen(name){
+  id("home").style.display = "none";
+  id("p2p").style.display = "none";
+  id("create").style.display = "none";
+  id(name).style.display = "block";
   window.scrollTo(0,0);
 }
-function toast(message){
-  const t = $("toast");
-  t.textContent = message;
-  t.classList.add("show");
-  setTimeout(
-    () => t.classList.remove("show"),
-    2800
-  );
-}
-function escapeHtml(value){
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
-function soon(name){
-  toast(
-    name + " скоро будет доступен"
-  );
-}
 /* =========================
-   VANTA API
+   CONNECT VANTA
 ========================= */
 async function connectVanta(){
-  const telegramUser =
+  const user =
     tg &&
     tg.initDataUnsafe &&
     tg.initDataUnsafe.user;
-  if(
-    !telegramUser ||
-    !telegramUser.id
-  ){
-    $("username").textContent =
-      "Telegram User";
-    $("balance").classList.remove(
-      "loading"
-    );
-    $("balance").textContent =
-      "—";
-    $("status").textContent =
-      "Откройте приложение через Telegram";
+  if(!user){
+    id("userId").textContent =
+      "Telegram";
+    id("status").textContent =
+      "Открой приложение через Telegram";
     return;
   }
-  $("username").textContent =
-    telegramUser.username
-      ? "@" + telegramUser.username
-      : (
-          telegramUser.first_name ||
-          "User"
-        );
+  id("userId").textContent =
+    user.username
+      ? "@" + user.username
+      : user.first_name || "User";
   const controller =
     new AbortController();
-  const timer =
+  const timeout =
     setTimeout(
       () => controller.abort(),
-      7000
+      5000
     );
   try{
     const response =
       await fetch(
-        API_URL,
+        VANTA_API,
         {
           method:"POST",
           headers:{
@@ -849,147 +751,64 @@ async function connectVanta(){
           },
           body:JSON.stringify({
             telegram_id:
-              telegramUser.id,
+              user.id,
             username:
-              telegramUser.username ||
-              null,
+              user.username || null,
             first_name:
-              telegramUser.first_name ||
-              null
+              user.first_name || null
           }),
           signal:
             controller.signal
         }
       );
-    clearTimeout(timer);
+    clearTimeout(timeout);
     const text =
       await response.text();
     console.log(
-      "VANTA API:",
+      "VANTA RESPONSE:",
       text
     );
-    let data = {};
+    let data;
     try{
       data =
-        JSON.parse(text || "{}");
+        JSON.parse(text);
     }catch{
       throw new Error(
-        "API returned invalid JSON"
+        "Ответ API не является JSON"
       );
     }
     if(!response.ok){
       throw new Error(
         data.error ||
-        data.message ||
         "HTTP " +
         response.status
       );
     }
-    const user =
-      data.user ||
-      data.data?.user ||
-      data.data ||
-      data;
+    const userData =
+      data.user || data;
     const balance =
       Number(
-        user.balance ??
-        data.balance ??
-        0
+        userData.balance ?? 0
       );
-    $("balance")
-      .classList
-      .remove("loading");
-    $("balance").textContent =
+    id("balance").textContent =
       balance.toLocaleString(
         "ru-RU",
         {
           maximumFractionDigits:8
         }
       );
-    $("status").textContent =
+    id("status").textContent =
       "● VANTA ACCOUNT подключён";
   }catch(error){
-    clearTimeout(timer);
+    clearTimeout(timeout);
     console.error(
       "VANTA ERROR:",
       error
     );
-    $("balance")
-      .classList
-      .remove("loading");
-    $("balance").textContent =
-      "—";
-    $("status").textContent =
-      "VANTA подключение не удалось";
-  }
-}
-/* =========================
-   LOAD ASSETS
-========================= */
-async function loadAssets(){
-  try{
-    const response =
-      await fetch(
-        SUPABASE_URL +
-        "/rest/v1/assets" +
-        "?select=*" +
-        "&is_active=eq.true" +
-        "&order=symbol.asc"
-      );
-    if(!response.ok){
-      throw new Error(
-        "Assets HTTP " +
-        response.status
-      );
-    }
-    assets =
-      await response.json();
-    renderAssets();
-    fillOfferAssets();
-  }catch(error){
-    console.error(
-      "ASSETS ERROR:",
-      error
-    );
-    /*
-      Если таблицы assets пока нет,
-      показываем тестовые активы,
-      чтобы интерфейс не был пустым.
-    */
-    assets = [
-      {
-        symbol:"BTC",
-        name:"Bitcoin",
-        type:"crypto"
-      },
-      {
-        symbol:"ETH",
-        name:"Ethereum",
-        type:"crypto"
-      },
-      {
-        symbol:"USDT",
-        name:"Tether",
-        type:"stablecoin"
-      },
-      {
-        symbol:"USDC",
-        name:"USD Coin",
-        type:"stablecoin"
-      },
-      {
-        symbol:"USD",
-        name:"US Dollar",
-        type:"fiat"
-      },
-      {
-        symbol:"EUR",
-        name:"Euro",
-        type:"fiat"
-      }
-    ];
-    renderAssets();
-    fillOfferAssets();
+    id("balance").textContent =
+      "0";
+    id("status").textContent =
+      "VANTA API недоступен";
   }
 }
 /* =========================
@@ -997,120 +816,87 @@ async function loadAssets(){
 ========================= */
 function renderAssets(){
   const query =
-    $("search").value
+    id("searchInput")
+      .value
       .trim()
       .toLowerCase();
   const filtered =
     assets.filter(asset => {
       const symbol =
-        String(
-          asset.symbol || ""
-        ).toLowerCase();
+        asset.symbol
+          .toLowerCase();
       const name =
-        String(
-          asset.name || ""
-        ).toLowerCase();
+        asset.name
+          .toLowerCase();
       const type =
-        String(
-          asset.type || ""
-        ).toLowerCase();
-      const searchMatch =
+        asset.type
+          .toLowerCase();
+      const searchOk =
         !query ||
         symbol.includes(query) ||
         name.includes(query);
-      const filterMatch =
-        activeFilter === "all" ||
-        type === activeFilter;
-      return (
-        searchMatch &&
-        filterMatch
-      );
+      const filterOk =
+        currentFilter === "all" ||
+        type === currentFilter;
+      return searchOk && filterOk;
     });
   if(!filtered.length){
-    $("assets").innerHTML =
+    id("assetList").innerHTML =
       `
-      <div class="asset">
-        <div>
-          <div class="asset-symbol">
-            Ничего не найдено
-          </div>
-          <div class="asset-name">
-            Попробуйте другой запрос
-          </div>
-        </div>
+      <div class="empty">
+        Ничего не найдено
       </div>
       `;
     return;
   }
-  $("assets").innerHTML =
+  id("assetList").innerHTML =
     filtered.map(asset => {
-      const type =
-        String(
-          asset.type || "crypto"
-        ).toLowerCase();
-      const icon =
-        type === "crypto"
-          ? "₿"
-          : type === "stablecoin"
-            ? "$"
-            : "¤";
+      let icon = "¤";
+      if(asset.type === "crypto")
+        icon = "₿";
+      if(asset.type === "stablecoin")
+        icon = "$";
       return `
         <div
           class="asset"
-          data-symbol="${escapeHtml(
-            asset.symbol
-          )}">
+          data-symbol="${asset.symbol}">
           <div class="asset-left">
             <div class="asset-icon">
               ${icon}
             </div>
             <div>
-              <div class="asset-symbol">
-                ${escapeHtml(
-                  asset.symbol
-                )}
+              <div class="symbol">
+                ${asset.symbol}
               </div>
-              <div class="asset-name">
-                ${escapeHtml(
-                  asset.name || ""
-                )}
+              <div class="name">
+                ${asset.name}
               </div>
             </div>
           </div>
-          <div class="asset-type">
-            ${escapeHtml(
-              type.toUpperCase()
-            )}
+          <div class="type">
+            ${asset.type.toUpperCase()}
           </div>
         </div>
       `;
     }).join("");
   document
     .querySelectorAll(".asset")
-    .forEach(element => {
-      element.addEventListener(
-        "click",
-        () => {
-          $("offerAsset").value =
-            element.dataset.symbol;
-          showScreen("create");
-          updatePreview();
-        }
-      );
+    .forEach(item => {
+      item.onclick = () => {
+        id("assetSelect").value =
+          item.dataset.symbol;
+        screen("create");
+      };
     });
 }
 /* =========================
-   OFFER ASSETS
+   SELECT ASSETS
 ========================= */
-function fillOfferAssets(){
-  const select =
-    $("offerAsset");
-  select.innerHTML =
-    `
-    <option value="">
+function fillSelect(){
+  id("assetSelect").innerHTML =
+    `<option value="">
       Выберите актив
-    </option>
-    `;
+    </option>`;
   assets.forEach(asset => {
     const option =
       document.createElement(
@@ -1122,133 +908,51 @@ function fillOfferAssets(){
       asset.symbol +
       " — " +
       asset.name;
-    select.appendChild(
-      option
-    );
+    id("assetSelect")
+      .appendChild(option);
   });
-}
-/* =========================
-   MODE
-========================= */
-function setMode(value){
-  mode = value;
-  $("buy")
-    .classList
-    .toggle(
-      "active",
-      mode === "buy"
-    );
-  $("sell")
-    .classList
-    .toggle(
-      "active",
-      mode === "sell"
-    );
-  $("modeInfo").textContent =
-    mode === "buy"
-      ? "🟣 Вы создаёте объявление на покупку"
-      : "🟣 Вы создаёте объявление на продажу";
-}
-/* =========================
-   PREVIEW
-========================= */
-function updatePreview(){
-  const asset =
-    $("offerAsset").value;
-  const fiat =
-    $("fiat").value;
-  const amount =
-    Number(
-      $("amount").value
-    );
-  const price =
-    Number(
-      $("price").value
-    );
-  const min =
-    Number(
-      $("min").value
-    );
-  const max =
-    Number(
-      $("max").value
-    );
-  if(
-    !asset ||
-    !amount ||
-    !price
-  ){
-    $("preview").textContent =
-      "Заполните актив, количество и цену.";
-    return;
-  }
-  const total =
-    amount * price;
-  $("preview").innerHTML =
-    `
-    <strong>
-      ${mode === "buy" ? "Купить" : "Продать"}
-      ${escapeHtml(asset)}
-    </strong>
-    <br>
-    Количество:
-    ${amount.toLocaleString("ru-RU")}
-    ${escapeHtml(asset)}
-    <br>
-    Цена:
-    ${price.toLocaleString("ru-RU")}
-    ${escapeHtml(fiat)}
-    за 1 ${escapeHtml(asset)}
-    <br>
-    Общая сумма:
-    ${total.toLocaleString("ru-RU")}
-    ${escapeHtml(fiat)}
-    ${
-      min
-        ? `<br>Минимум: ${min.toLocaleString("ru-RU")} ${escapeHtml(fiat)}`
-        : ""
-    }
-    ${
-      max
-        ? `<br>Максимум: ${max.toLocaleString("ru-RU")} ${escapeHtml(fiat)}`
-        : ""
-    }
-    `;
 }
 /* =========================
    EVENTS
 ========================= */
-$("openP2P")
-  .onclick = () => {
-    showScreen("p2p");
-    loadAssets();
+id("p2pButton").onclick =
+  () => {
+    screen("p2p");
+    renderAssets();
   };
-$("p2pBack")
-  .onclick = () => {
-    showScreen("home");
+id("backP2P").onclick =
+  () => screen("home");
+id("createButton").onclick =
+  () => screen("create");
+id("backCreate").onclick =
+  () => screen("p2p");
+id("cancelButton").onclick =
+  () => screen("p2p");
+id("buyTab").onclick =
+  () => {
+    currentMode = "buy";
+    id("buyTab")
+      .classList
+      .add("active");
+    id("sellTab")
+      .classList
+      .remove("active");
+    id("modeInfo").textContent =
+      "Вы создаёте объявление на покупку";
   };
-$("createOffer")
-  .onclick = () => {
-    showScreen("create");
-    updatePreview();
+id("sellTab").onclick =
+  () => {
+    currentMode = "sell";
+    id("sellTab")
+      .classList
+      .add("active");
+    id("buyTab")
+      .classList
+      .remove("active");
+    id("modeInfo").textContent =
+      "Вы создаёте объявление на продажу";
   };
-$("createBack")
-  .onclick = () => {
-    showScreen("p2p");
-  };
-$("cancel")
-  .onclick = () => {
-    showScreen("p2p");
-  };
-$("buy")
-  .onclick = () => {
-    setMode("buy");
-  };
-$("sell")
-  .onclick = () => {
-    setMode("sell");
-  };
-$("search")
+id("searchInput")
   .addEventListener(
     "input",
     renderAssets
@@ -1256,83 +960,58 @@ $("search")
 document
   .querySelectorAll(".filter")
   .forEach(button => {
-    button.addEventListener(
-      "click",
-      () => {
-        document
-          .querySelectorAll(".filter")
-          .forEach(x =>
-            x.classList.remove("active")
-          );
-        button.classList.add("active");
-        activeFilter =
-          button.dataset.filter;
-        renderAssets();
-      }
-    );
+    button.onclick = () => {
+      document
+        .querySelectorAll(".filter")
+        .forEach(x =>
+          x.classList.remove("active")
+        );
+      button.classList.add("active");
+      currentFilter =
+        button.dataset.type;
+      renderAssets();
+    };
   });
-[
-  "offerAsset",
-  "fiat",
-  "amount",
-  "price",
-  "min",
-  "max"
-].forEach(id => {
-  $(id).addEventListener(
-    "input",
-    updatePreview
-  );
-  $(id).addEventListener(
-    "change",
-    updatePreview
-  );
-});
-$("publish")
-  .onclick = () => {
+id("publishButton").onclick =
+  () => {
     const asset =
-      $("offerAsset").value;
+      id("assetSelect").value;
     const amount =
       Number(
-        $("amount").value
+        id("amount").value
       );
     const price =
       Number(
-        $("price").value
+        id("price").value
       );
     if(!asset){
-      toast(
+      alert(
         "Выберите актив"
       );
       return;
     }
-    if(
-      !amount ||
-      amount <= 0
-    ){
-      toast(
+    if(!amount || amount <= 0){
+      alert(
         "Введите количество"
       );
       return;
     }
-    if(
-      !price ||
-      price <= 0
-    ){
-      toast(
+    if(!price || price <= 0){
+      alert(
         "Введите цену"
       );
       return;
     }
-    toast(
-      "Форма заполнена. Подключение публикации следующим этапом."
+    alert(
+      "Объявление будет опубликовано после подключения P2P-сделок"
     );
   };
 /* =========================
    START
 ========================= */
+fillSelect();
+renderAssets();
 connectVanta();
-loadAssets();
 </script>
 </body>
 </html>
